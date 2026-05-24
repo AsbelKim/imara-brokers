@@ -147,7 +147,8 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .acc-deposit span{font-size:2.2rem;font-weight:800;color:var(--text);}
 .acc-label{color:var(--muted);font-size:0.78rem;margin-bottom:1.4rem;}
 .acc-list{display:flex;flex-direction:column;gap:0.45rem;margin-bottom:1.6rem;}
-.acc-list li{color:var(--muted);font-size:0.88rem;}
+.acc-list li{color:var(--muted);font-size:0.88rem;display:flex;align-items:center;gap:0.5rem;}
+.acc-list li::before{content:"✓";color:var(--green);font-weight:700;font-size:0.8rem;flex-shrink:0;}
 .btn-acc{display:block;text-align:center;background:var(--panel2);border:1px solid var(--border);color:var(--text);font-weight:600;padding:0.65rem;border-radius:9px;transition:background 0.2s;}
 .btn-acc:hover{background:var(--accent-dim);color:var(--accent);}
 .btn-acc-featured{display:block;text-align:center;background:var(--accent);color:#fff;font-weight:700;padding:0.65rem;border-radius:9px;transition:opacity 0.2s;}
