@@ -38,23 +38,11 @@ if(nc)nc.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nc.cla
 
 // Scroll reveal
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
-document.querySelectorAll('.market-card,.mt5-feat,.acc-card,.dep-card,.ci-item').forEach(el=>{el.classList.add('reveal');ro.observe(el);});
-
-// Currency toggle — default USD on load
-document.addEventListener('DOMContentLoaded', () => setCurrency('USD'));
-
-function setCurrency(cur){
-  document.getElementById('cur-kes').classList.toggle('active', cur==='KES');
-  document.getElementById('cur-usd').classList.toggle('active', cur==='USD');
-  document.querySelectorAll('.cur-sym').forEach(el=>el.textContent=cur);
-  document.querySelectorAll('.cur-val').forEach(el=>{
-    el.textContent=cur==='KES'?(el.dataset.kes||el.textContent):(el.dataset.usd||el.textContent);
-  });
-}
+document.querySelectorAll('.market-card,.mt5-feat,.acc-card,.dep-card,.ci-item,.step-card,.rule-card').forEach(el=>{el.classList.add('reveal');ro.observe(el);});
 
 // Form submit
 function submitForm(e){
   e.preventDefault();
-  alert('✅ Application received!\n\nOur team will contact you within 1 business hour to complete your account setup.\n\nWelcome to Imara Logic Brokers.');
+  alert('✅ Challenge application received!\n\nOur team will contact you within 1 business hour with your MT5 evaluation credentials.\n\nWelcome to Imara Logic Funded.');
   e.target.reset();
 }

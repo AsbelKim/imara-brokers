@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Client Portal | Imara Logic Brokers</title>
+  <title>Trader Portal | Imara Logic Funded</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="dashboard.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,24 +15,24 @@
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <div class="brand-icon">IL</div>
-      <span>Imara <b>Brokers</b></span>
+      <span>Imara <b>Funded</b></span>
     </div>
     <nav class="sidebar-nav">
       <a href="#" class="side-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/><path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/></svg>
         Overview
       </a>
-      <a href="#mt5-terminal" class="side-link active" onclick="showTab('terminal')">
+      <a href="#mt5-terminal" class="side-link active">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm-6.354-.354a.5.5 0 1 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2a.5.5 0 1 0-.708.708L4.793 6.5 3.146 8.146z"/></svg>
         MT5 Terminal
       </a>
       <a href="#" class="side-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/></svg>
-        Deposit
-      </a>
-      <a href="#" class="side-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/></svg>
         Trade History
+      </a>
+      <a href="#" class="side-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/></svg>
+        Request Payout
       </a>
       <a href="#" class="side-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>
@@ -40,7 +40,7 @@
       </a>
       <a href="#" class="side-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/></svg>
-        Documents
+        Documents / KYC
       </a>
     </nav>
     <a href="index.html" class="side-back">← Back to site</a>
@@ -52,45 +52,69 @@
       <div class="topbar-left">
         <button class="dash-hamburger" id="dash-hamburger"><span></span><span></span><span></span></button>
         <div>
-          <h2>Client Portal</h2>
-          <p class="topbar-sub">Imara Logic Brokers &bull; Nairobi, Kenya</p>
+          <h2>Trader Portal</h2>
+          <p class="topbar-sub">Imara Logic Funded &bull; Nairobi, Kenya</p>
         </div>
       </div>
       <div class="topbar-right">
-        <!-- Currency Toggle -->
-        <div class="currency-toggle">
-          <button class="cur-btn" id="cur-kes" onclick="setCurrency('KES')">KES</button>
-          <button class="cur-btn active" id="cur-usd" onclick="setCurrency('USD')">USD</button>
-        </div>
         <div class="balance-chip">
-          <span>USD Balance</span>
-          <strong id="val-balance" data-kes="245800" data-usd="1902.33">USD 1,902.33</strong>
+          <span>Account Balance</span>
+          <strong id="val-balance">USD 50,000.00</strong>
         </div>
-        <button class="deposit-btn" onclick="showMpesa()">+ M-Pesa Deposit</button>
+        <button class="deposit-btn" onclick="showPayoutModal()">+ Request Payout</button>
+      </div>
+    </div>
+
+    <!-- Evaluation progress bar -->
+    <div class="eval-banner">
+      <div class="eval-info">
+        <span class="eval-phase">Phase 1 — Evaluation</span>
+        <span class="eval-account">$50,000 Advanced Challenge</span>
+      </div>
+      <div class="eval-targets">
+        <div class="eval-item">
+          <span>Profit Target</span>
+          <div class="eval-bar"><div class="eval-fill" style="width:46%"></div></div>
+          <span class="eval-pct green-text">+$2,300 / $4,000 <small>(46%)</small></span>
+        </div>
+        <div class="eval-item">
+          <span>Daily Loss Limit</span>
+          <div class="eval-bar eval-bar-red"><div class="eval-fill red-fill" style="width:12%"></div></div>
+          <span class="eval-pct">$600 used of $2,500 <small>(12%)</small></span>
+        </div>
+        <div class="eval-item">
+          <span>Max Drawdown</span>
+          <div class="eval-bar eval-bar-red"><div class="eval-fill red-fill" style="width:8%"></div></div>
+          <span class="eval-pct">$400 used of $5,000 <small>(8%)</small></span>
+        </div>
+      </div>
+      <div class="eval-days">
+        <span class="eval-days-n">7</span>
+        <span>trading days</span>
       </div>
     </div>
 
     <!-- Overview cards -->
     <div class="dash-stats">
       <div class="dstat green">
-        <p class="dstat-label">Equity</p>
-        <p class="dstat-value" id="val-equity" data-kes="251340" data-usd="1943.22">USD 1,943.22</p>
-        <p class="dstat-change">▲ +2.26% today</p>
+        <p class="dstat-label">Profit (Phase 1)</p>
+        <p class="dstat-value green-text">+$2,300.00</p>
+        <p class="dstat-change">▲ +4.60% of target</p>
       </div>
       <div class="dstat">
         <p class="dstat-label">Open P&amp;L</p>
-        <p class="dstat-value green-text" id="val-pnl" data-kes="5540" data-usd="42.84" data-prefix="+">+USD 42.84</p>
+        <p class="dstat-value green-text" id="val-pnl">+$42.84</p>
         <p class="dstat-change">3 open positions</p>
       </div>
       <div class="dstat">
         <p class="dstat-label">Free Margin</p>
-        <p class="dstat-value" id="val-margin" data-kes="233600" data-usd="1806.22">USD 1,806.22</p>
-        <p class="dstat-change" id="val-margin-used">Used: USD 94.28</p>
+        <p class="dstat-value" id="val-margin">$48,200.00</p>
+        <p class="dstat-change">Used: $1,800.00</p>
       </div>
       <div class="dstat">
         <p class="dstat-label">MT5 Login</p>
         <p class="dstat-value">100XXX</p>
-        <p class="dstat-change">Server: trade.imarabrokers</p>
+        <p class="dstat-change">Server: eval.imaralogic</p>
       </div>
     </div>
 
@@ -99,7 +123,7 @@
       <div class="terminal-header">
         <h3>MT5 Web Terminal</h3>
         <span class="terminal-badge">Live</span>
-        <span class="terminal-note">Powered by MetaTrader 5 &bull; Server: trade.imarabrokers.co.ke</span>
+        <span class="terminal-note">Powered by MetaTrader 5 &bull; Server: eval.imaralogic.co.ke</span>
       </div>
       <div class="terminal-body">
         <iframe
@@ -109,22 +133,22 @@
           allow="clipboard-read; clipboard-write">
         </iframe>
       </div>
-      <p class="terminal-tip">💡 To connect your Imara Logic account: in the terminal, click <strong>File → Open Account</strong> → search <strong>"Imara Logic"</strong> → enter your MT5 login credentials.</p>
+      <p class="terminal-tip">💡 To connect your Imara Logic account: in the terminal, click <strong>File → Open Account</strong> → search <strong>"Imara Logic"</strong> → enter your MT5 credentials from your welcome email.</p>
     </div>
 
-    <!-- M-Pesa deposit modal -->
-    <div class="mpesa-modal" id="mpesa-modal" style="display:none">
+    <!-- Payout request modal -->
+    <div class="mpesa-modal" id="payout-modal" style="display:none">
       <div class="modal-card">
-        <h3>Deposit via M-Pesa</h3>
+        <h3>Request Profit Payout</h3>
         <div class="mpesa-steps">
-          <div class="ms"><span>1</span><p>Go to <strong>M-Pesa</strong> on your phone</p></div>
-          <div class="ms"><span>2</span><p>Select <strong>Lipa na M-Pesa → Paybill</strong></p></div>
-          <div class="ms"><span>3</span><p>Business No: <strong class="accent-text">XXXXXXX</strong></p></div>
-          <div class="ms"><span>4</span><p>Account No: <strong class="accent-text">Your MT5 Login</strong> (e.g. 100XXX)</p></div>
-          <div class="ms"><span>5</span><p>Enter amount (min <strong>USD 2 / KES 260</strong>) and M-Pesa PIN</p></div>
-          <div class="ms"><span>6</span><p>Funds reflect in MT5 within <strong>5 minutes</strong></p></div>
+          <div class="ms"><span>1</span><p>Minimum payout: <strong>$10 via M-Pesa</strong> / <strong>$50 via Bank</strong></p></div>
+          <div class="ms"><span>2</span><p>First payout available after <strong>14 days</strong> of funded trading</p></div>
+          <div class="ms"><span>3</span><p>Your profit split: <strong class="accent-text">85%</strong> to you</p></div>
+          <div class="ms"><span>4</span><p>Payout methods: <strong>M-Pesa</strong> or <strong>Bank Transfer</strong></p></div>
+          <div class="ms"><span>5</span><p>Processing time: <strong>Instant (M-Pesa)</strong> / <strong>1–2 days (Bank)</strong></p></div>
+          <div class="ms"><span>6</span><p>Contact <strong class="accent-text">+254 701 940 964</strong> to initiate your payout</p></div>
         </div>
-        <button class="btn-close-modal" onclick="document.getElementById('mpesa-modal').style.display='none'">Close</button>
+        <button class="btn-close-modal" onclick="document.getElementById('payout-modal').style.display='none'">Close</button>
       </div>
     </div>
 

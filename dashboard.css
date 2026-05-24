@@ -34,6 +34,24 @@
 .terminal-tip{padding:0.75rem 1.25rem;background:var(--panel2);font-size:0.82rem;color:var(--muted);border-top:1px solid var(--border);}
 .terminal-tip strong{color:var(--text);}
 
+/* EVALUATION BANNER */
+.eval-banner{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:grid;grid-template-columns:auto 1fr auto;gap:1.5rem;align-items:center;}
+.eval-info{display:flex;flex-direction:column;gap:0.3rem;}
+.eval-phase{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent);}
+.eval-account{font-size:0.95rem;font-weight:700;color:var(--text);}
+.eval-targets{display:flex;flex-direction:column;gap:0.75rem;}
+.eval-item{display:grid;grid-template-columns:120px 1fr auto;align-items:center;gap:0.75rem;}
+.eval-item>span:first-child{font-size:0.78rem;color:var(--muted);font-weight:500;}
+.eval-bar{height:6px;background:rgba(14,165,233,0.12);border-radius:999px;overflow:hidden;}
+.eval-bar-red{background:rgba(239,68,68,0.12);}
+.eval-fill{height:100%;background:var(--accent);border-radius:999px;transition:width 0.4s;}
+.red-fill{background:#ef4444;}
+.eval-pct{font-size:0.78rem;font-weight:600;color:var(--muted);white-space:nowrap;}
+.eval-pct small{font-weight:400;}
+.eval-days{display:flex;flex-direction:column;align-items:center;gap:0.2rem;background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:0.75rem 1.1rem;}
+.eval-days-n{font-size:2rem;font-weight:800;color:var(--accent);line-height:1;}
+.eval-days span:last-child{font-size:0.7rem;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.08em;}
+
 /* M-Pesa Modal */
 .mpesa-modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;}
 .modal-card{background:var(--panel);border:1px solid rgba(34,197,94,0.3);border-radius:var(--radius);padding:2rem;max-width:480px;width:100%;}
@@ -83,6 +101,11 @@
 
   .terminal-header{flex-direction:column;align-items:flex-start;gap:0.4rem;}
   .terminal-note{margin-left:0;}
+
+  .eval-banner{grid-template-columns:1fr;gap:1rem;}
+  .eval-days{flex-direction:row;justify-content:center;gap:0.5rem;padding:0.6rem 1rem;}
+  .eval-days-n{font-size:1.4rem;}
+  .eval-item{grid-template-columns:100px 1fr auto;}
 }
 
 /* SMALL PHONES */
