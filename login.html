@@ -62,6 +62,22 @@
 
   </div>
 
+  <!-- Forgot Password Modal -->
+  <div class="forgot-overlay" id="forgot-overlay" style="display:none;" onclick="closeForgot(event)">
+    <div class="forgot-modal">
+      <h3>Reset your password</h3>
+      <p>Enter the email address linked to your account and we'll send you a reset link.</p>
+      <form onsubmit="submitForgot(event)">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="forgot-email" placeholder="you@email.com" required />
+        </div>
+        <button type="submit" class="btn-submit">Send Reset Link</button>
+      </form>
+      <button class="forgot-cancel" onclick="closeForgot()">Cancel</button>
+    </div>
+  </div>
+
   <div class="toast" id="toast"></div>
 
   <script>
@@ -80,7 +96,24 @@
 
     function forgotPass(e) {
       e.preventDefault();
-      showToast('Password reset link sent to your email address.', 'success');
+      // Pre-fill with whatever email was already typed in the login field
+      const loginEmail = document.getElementById('login-email').value;
+      if (loginEmail) document.getElementById('forgot-email').value = loginEmail;
+      document.getElementById('forgot-overlay').style.display = 'flex';
+      document.getElementById('forgot-email').focus();
+    }
+
+    function submitForgot(e) {
+      e.preventDefault();
+      const email = document.getElementById('forgot-email').value;
+      closeForgot();
+      showToast('Reset link sent to ' + email + '. Check your inbox.', 'success');
+    }
+
+    function closeForgot(e) {
+      if (e && e.target !== document.getElementById('forgot-overlay')) return;
+      document.getElementById('forgot-overlay').style.display = 'none';
+      document.getElementById('forgot-email').value = '';
     }
 
     function showToast(msg, type) {
