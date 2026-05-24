@@ -31,8 +31,10 @@ if(nb)window.addEventListener('scroll',()=>{nb.style.background=window.scrollY>4
 
 // Hamburger
 const ham=document.getElementById('hamburger');
-const nl=document.getElementById('nav-links');
-if(ham&&nl)ham.addEventListener('click',()=>{nl.classList.toggle('open');});
+const nc=document.getElementById('nav-collapse');
+if(ham&&nc)ham.addEventListener('click',()=>{nc.classList.toggle('open');ham.classList.toggle('open');});
+// Close nav when a link is clicked on mobile
+if(nc)nc.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nc.classList.remove('open');ham&&ham.classList.remove('open');}));
 
 // Scroll reveal
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});

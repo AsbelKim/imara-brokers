@@ -11,7 +11,8 @@
 </head>
 <body class="dash-body">
 
-  <aside class="sidebar">
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+  <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <div class="brand-icon">IL</div>
       <span>Imara <b>Brokers</b></span>
@@ -48,9 +49,12 @@
   <main class="dash-main">
 
     <div class="topbar">
-      <div>
-        <h2>Client Portal</h2>
-        <p class="topbar-sub">Imara Logic Brokers &bull; Nairobi, Kenya</p>
+      <div class="topbar-left">
+        <button class="dash-hamburger" id="dash-hamburger"><span></span><span></span><span></span></button>
+        <div>
+          <h2>Client Portal</h2>
+          <p class="topbar-sub">Imara Logic Brokers &bull; Nairobi, Kenya</p>
+        </div>
       </div>
       <div class="topbar-right">
         <!-- Currency Toggle -->

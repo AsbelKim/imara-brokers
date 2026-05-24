@@ -45,4 +45,51 @@
 .ms p strong{color:var(--text);}
 .btn-close-modal{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:0.65rem;border-radius:9px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
 
-@media(max-width:768px){.sidebar{width:100%;position:relative;height:auto;}.dash-main{margin-left:0;}}
+/* Dashboard hamburger — hidden on desktop */
+.dash-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;flex-shrink:0;}
+.dash-hamburger span{display:block;width:21px;height:2px;background:var(--text);border-radius:2px;transition:transform 0.25s,opacity 0.2s;}
+.dash-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.dash-hamburger.open span:nth-child(2){opacity:0;}
+.dash-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.topbar-left{display:flex;align-items:center;gap:0.75rem;}
+
+/* Sidebar overlay */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:49;}
+.sidebar-overlay.open{display:block;}
+
+/* TABLET */
+@media(max-width:1024px){
+  .sidebar{width:190px;}
+  .dash-main{margin-left:190px;}
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .dash-hamburger{display:flex;}
+
+  .sidebar{transform:translateX(-100%);transition:transform 0.3s ease;width:230px;position:fixed;z-index:50;}
+  .sidebar.open{transform:translateX(0);}
+  .dash-main{margin-left:0;padding:1rem;}
+
+  .topbar{flex-direction:column;align-items:flex-start;gap:0.75rem;}
+  .topbar-right{flex-wrap:wrap;gap:0.6rem;width:100%;}
+  .balance-chip{flex:1;min-width:130px;}
+  .deposit-btn{flex:1;}
+
+  .dash-stats{grid-template-columns:1fr 1fr;}
+
+  .terminal-body iframe{height:420px !important;}
+
+  .terminal-header{flex-direction:column;align-items:flex-start;gap:0.4rem;}
+  .terminal-note{margin-left:0;}
+}
+
+/* SMALL PHONES */
+@media(max-width:480px){
+  .dash-stats{grid-template-columns:1fr;}
+  .topbar-right{flex-direction:column;}
+  .balance-chip,.deposit-btn{width:100%;}
+  .terminal-body iframe{height:320px !important;}
+  .dash-main{padding:0.75rem;}
+}

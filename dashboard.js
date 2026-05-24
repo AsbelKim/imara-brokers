@@ -2,7 +2,32 @@ function showMpesa(){
   document.getElementById('mpesa-modal').style.display='flex';
 }
 
-document.addEventListener('DOMContentLoaded', () => setCurrency('USD'));
+document.addEventListener('DOMContentLoaded', () => {
+  setCurrency('USD');
+
+  // Mobile sidebar toggle
+  const dh = document.getElementById('dash-hamburger');
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sidebar-overlay');
+  if(dh && sb && ov){
+    dh.addEventListener('click', () => {
+      sb.classList.toggle('open');
+      ov.classList.toggle('open');
+      dh.classList.toggle('open');
+    });
+    ov.addEventListener('click', () => {
+      sb.classList.remove('open');
+      ov.classList.remove('open');
+      dh.classList.remove('open');
+    });
+    // Close sidebar when a nav link is clicked on mobile
+    sb.querySelectorAll('.side-link').forEach(l => l.addEventListener('click', () => {
+      sb.classList.remove('open');
+      ov.classList.remove('open');
+      dh.classList.remove('open');
+    }));
+  }
+});
 
 function setCurrency(cur){
   document.getElementById('cur-kes').classList.toggle('active', cur==='KES');
