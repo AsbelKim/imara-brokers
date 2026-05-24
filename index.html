@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imara Logic Brokers | Kenya's MT5 Trading Platform</title>
+  <meta name="description" content="Regulated Kenyan broker. Trade Forex, Stocks & Commodities on MetaTrader 5. Fund via M-Pesa. CMA Kenya licensed." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-icon">IL</div>
+        <span>Imara Logic <span class="brand-accent">Brokers</span></span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#markets">Markets</a></li>
+        <li><a href="#mt5">MT5 Platform</a></li>
+        <li><a href="#accounts">Accounts</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#deposit">Deposit</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <div class="currency-toggle">
+          <button class="cur-btn" id="cur-kes" onclick="setCurrency('KES')">KES</button>
+          <button class="cur-btn active" id="cur-usd" onclick="setCurrency('USD')">USD</button>
+        </div>
+        <a href="dashboard.html" class="btn-ghost">Log In</a>
+        <a href="#accounts" class="btn-cta">Open Account</a>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <canvas id="bg-canvas"></canvas>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        CMA Kenya &mdash; Regulated Broker
+      </div>
+      <h1>Kenya's Premier<br /><span class="gradient-text">MT5 Broker</span></h1>
+      <p class="hero-sub">
+        Trade Forex, Stocks &amp; Commodities on MetaTrader 5.
+        Fund instantly via <strong>M-Pesa</strong>. Regulated by the
+        <strong>Capital Markets Authority, Kenya</strong>.
+      </p>
+      <div class="hero-cta">
+        <a href="#accounts" class="btn-primary-lg">Open Free Account</a>
+        <a href="dashboard.html" class="btn-outline-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/></svg>
+          View Live Platform
+        </a>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524z"/></svg>
+          CMA Regulated
+        </div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/></svg>
+          M-Pesa Deposits
+        </div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5z"/></svg>
+          Segregated Funds
+        </div>
+        <div class="trust-item">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>
+          24/5 Live Support
+        </div>
+      </div>
+    </div>
+    <div class="ticker-bar">
+      <div class="ticker-track">
+        <span class="tick up">EUR/USD <b>1.0842</b> ▲ 0.12%</span>
+        <span class="tick down">GBP/USD <b>1.2641</b> ▼ 0.08%</span>
+        <span class="tick up">XAU/USD <b>2,318.5</b> ▲ 0.45%</span>
+        <span class="tick down">USD/KES <b>129.45</b> ▼ 0.15%</span>
+        <span class="tick up">USD/JPY <b>154.82</b> ▲ 0.21%</span>
+        <span class="tick down">GBP/KES <b>163.72</b> ▼ 0.09%</span>
+        <span class="tick up">EUR/KES <b>140.21</b> ▲ 0.18%</span>
+        <span class="tick up">WTI Oil <b>82.14</b> ▲ 0.31%</span>
+        <span class="tick up">EUR/USD <b>1.0842</b> ▲ 0.12%</span>
+        <span class="tick down">GBP/USD <b>1.2641</b> ▼ 0.08%</span>
+        <span class="tick up">XAU/USD <b>2,318.5</b> ▲ 0.45%</span>
+        <span class="tick down">USD/KES <b>129.45</b> ▼ 0.15%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-inner about-row">
+      <div class="about-text">
+        <p class="section-label">Who We Are</p>
+        <h2>Built for Kenyan Traders</h2>
+        <p>Imara Logic Brokers is a Nairobi-based, CMA-regulated trading firm giving Kenyan retail and institutional traders direct access to global financial markets through the industry-standard <strong>MetaTrader 5 (MT5)</strong> platform.</p>
+        <p>We combine local payment infrastructure — <strong>M-Pesa, Equity Bank, KCB</strong> — with world-class trading technology, so you can fund, trade, and withdraw in Kenyan Shillings without friction.</p>
+        <div class="about-stats">
+          <div class="astat"><span class="astat-n">KES 1K</span><span>Min. deposit</span></div>
+          <div class="astat"><span class="astat-n">0.0</span><span>Pip spreads</span></div>
+          <div class="astat"><span class="astat-n">1:2000</span><span>Max leverage</span></div>
+          <div class="astat"><span class="astat-n">24/5</span><span>Support</span></div>
+        </div>
+      </div>
+      <div class="about-visual">
+        <div class="cma-badge">
+          <div class="cma-logo">CMA</div>
+          <div>
+            <strong>Capital Markets Authority</strong>
+            <p>Kenya — Regulated Broker</p>
+          </div>
+        </div>
+        <div class="mpesa-badge">
+          <div class="mpesa-logo">M</div>
+          <div>
+            <strong>M-Pesa Integrated</strong>
+            <p>Instant KES deposits &amp; withdrawals</p>
+          </div>
+        </div>
+        <div class="mt5-badge">
+          <div class="mt5-logo">MT5</div>
+          <div>
+            <strong>MetaTrader 5</strong>
+            <p>Industry-standard trading platform</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARKETS -->
+  <section class="section section-alt" id="markets">
+    <div class="section-inner">
+      <p class="section-label center">What You Can Trade</p>
+      <h2 class="center">Available Markets</h2>
+      <p class="section-sub center">All instruments traded through your MT5 account via our servers.</p>
+      <div class="markets-grid">
+        <div class="market-card">
+          <div class="market-icon forex">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4z"/></svg>
+          </div>
+          <h3>Forex</h3>
+          <p>Major, minor and exotic pairs including <strong>USD/KES, EUR/KES, GBP/KES</strong> alongside all global majors.</p>
+          <div class="pair-list">
+            <span>EUR/USD</span><span>GBP/USD</span><span>USD/KES</span><span>EUR/KES</span><span>GBP/KES</span><span>+55 more</span>
+          </div>
+        </div>
+        <div class="market-card">
+          <div class="market-icon gold">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
+          </div>
+          <h3>Commodities</h3>
+          <p>Gold, Silver, Crude Oil and Natural Gas — popular safe-haven and energy instruments.</p>
+          <div class="pair-list">
+            <span>XAU/USD</span><span>XAG/USD</span><span>WTI Oil</span><span>Brent</span><span>Nat Gas</span>
+          </div>
+        </div>
+        <div class="market-card">
+          <div class="market-icon indices">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/></svg>
+          </div>
+          <h3>Global Indices</h3>
+          <p>Trade the world's major stock indices as CFDs — NSE 20, S&amp;P 500, FTSE 100, DAX 40 and more.</p>
+          <div class="pair-list">
+            <span>NSE 20</span><span>S&amp;P 500</span><span>FTSE 100</span><span>DAX 40</span><span>+10 more</span>
+          </div>
+        </div>
+        <div class="market-card coming-soon">
+          <div class="market-icon crypto">
+            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M5.5 13v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.5v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.084c1.992 0 3.416-1.033 3.416-2.82 0-1.502-.826-2.171-2.044-2.363v-.055c.898-.207 1.628-.875 1.628-2.121C11.334 3.914 10.083 3 8.129 3H8V1.75a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25V3h-.5V1.75a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25V3H3.5a.5.5 0 0 0 0 1h.325C4.051 4 4.5 4.448 4.5 5v6c0 .552-.449 1-1.175 1H3a.5.5 0 0 0 0 1h2.5z"/></svg>
+          </div>
+          <div class="cs-tag">Coming Soon</div>
+          <h3>Crypto CFDs</h3>
+          <p>Bitcoin, Ethereum and top crypto assets as CFDs — pending CMA approval. Register interest now.</p>
+          <div class="pair-list muted">
+            <span>BTC/USD</span><span>ETH/USD</span><span>BNB/USD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MT5 SECTION -->
+  <section class="section" id="mt5">
+    <div class="section-inner mt5-row">
+      <div class="mt5-text">
+        <p class="section-label">The Platform</p>
+        <h2>Trade on MetaTrader 5</h2>
+        <p>MT5 is the world's most powerful retail trading platform. Your Imara Logic account connects directly to our MT5 server — giving you access to professional tools, automated trading (Expert Advisors), and lightning-fast execution.</p>
+        <div class="mt5-features">
+          <div class="mt5-feat">
+            <div class="mt5-icon">📊</div>
+            <div><strong>Advanced Charting</strong><p>21 timeframes, 80+ indicators, built-in strategy tester</p></div>
+          </div>
+          <div class="mt5-feat">
+            <div class="mt5-icon">🤖</div>
+            <div><strong>Expert Advisors (EAs)</strong><p>Automate your strategy with MT5's built-in MQL5 scripting</p></div>
+          </div>
+          <div class="mt5-feat">
+            <div class="mt5-icon">📱</div>
+            <div><strong>Mobile &amp; Desktop</strong><p>Trade from Windows, Mac, iOS and Android</p></div>
+          </div>
+          <div class="mt5-feat">
+            <div class="mt5-icon">⚡</div>
+            <div><strong>Direct Server Link</strong><p>Connect to our Nairobi MT5 server: <code>trade.imarabrokers.co.ke:443</code></p></div>
+          </div>
+        </div>
+        <div class="mt5-downloads">
+          <a href="#" class="dl-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+            Download MT5 — Windows
+          </a>
+          <a href="#" class="dl-btn dl-btn-ghost">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+            Download MT5 — Mobile
+          </a>
+        </div>
+      </div>
+      <div class="mt5-visual">
+        <div class="mt5-card">
+          <div class="mt5-card-header">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green-dot"></span>
+            <span class="mt5-card-title">Imara Brokers — MT5 Server</span>
+          </div>
+          <div class="server-info">
+            <div class="srow"><span>Server</span><code>trade.imarabrokers.co.ke:443</code></div>
+            <div class="srow"><span>Demo Server</span><code>demo.imarabrokers.co.ke:443</code></div>
+            <div class="srow"><span>Platform</span><code>MetaTrader 5 (Build 3000+)</code></div>
+            <div class="srow"><span>Execution</span><code>Market Execution (NDD)</code></div>
+            <div class="srow"><span>Leverage</span><code>Up to 1:2000</code></div>
+            <div class="srow"><span>Min Lot</span><code>0.01 lots</code></div>
+            <div class="srow"><span>Currency</span><code>KES / USD</code></div>
+          </div>
+          <div class="mt5-steps-mini">
+            <p class="mini-title">How to connect:</p>
+            <ol>
+              <li>Download &amp; install MT5</li>
+              <li>File → Open Account → Search <strong>"Imara Logic"</strong></li>
+              <li>Enter your login &amp; password from your welcome email</li>
+              <li>Start trading ✓</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCOUNTS -->
+  <section class="section section-alt" id="accounts">
+    <div class="section-inner">
+      <p class="section-label center">Get Started</p>
+      <h2 class="center">Account Types</h2>
+      <p class="section-sub center">All accounts connect to MT5. Fund via M-Pesa, Equity Bank or KCB.</p>
+      <div class="accounts-grid">
+        <div class="acc-card">
+          <p class="acc-type">Standard</p>
+          <p class="acc-deposit"><span class="cur-sym">USD</span> <span class="cur-val" data-kes="1,000" data-usd="7.73">7.73</span></p>
+          <p class="acc-label">Minimum deposit</p>
+          <ul class="acc-list">
+            <li>MT5 desktop &amp; mobile</li>
+            <li>Spreads from 1.2 pips</li>
+            <li>Leverage up to 1:400</li>
+            <li>M-Pesa deposits</li>
+            <li>Email support</li>
+          </ul>
+          <a href="#contact" class="btn-acc">Open Standard</a>
+        </div>
+        <div class="acc-card acc-featured">
+          <div class="acc-badge">Most Popular</div>
+          <p class="acc-type">Pro</p>
+          <p class="acc-deposit"><span class="cur-sym">USD</span> <span class="cur-val" data-kes="10,000" data-usd="77.32">77.32</span></p>
+          <p class="acc-label">Minimum deposit</p>
+          <ul class="acc-list">
+            <li>MT5 + Expert Advisors</li>
+            <li>Raw spreads from 0.0 pips</li>
+            <li>Leverage up to 1:1000</li>
+            <li>M-Pesa + bank transfers</li>
+            <li>Live chat support</li>
+            <li>Daily market analysis</li>
+          </ul>
+          <a href="#contact" class="btn-acc-featured">Open Pro Account</a>
+        </div>
+        <div class="acc-card">
+          <p class="acc-type">VIP</p>
+          <p class="acc-deposit"><span class="cur-sym">USD</span> <span class="cur-val" data-kes="100,000" data-usd="773.20">773.20</span></p>
+          <p class="acc-label">Minimum deposit</p>
+          <ul class="acc-list">
+            <li>All Pro features</li>
+            <li>Zero commission</li>
+            <li>Leverage up to 1:2000</li>
+            <li>Dedicated account manager</li>
+            <li>Priority phone support</li>
+            <li>Custom EA support</li>
+          </ul>
+          <a href="#contact" class="btn-acc">Open VIP</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO ACCOUNTS -->
+  <section class="section section-alt" id="demo">
+    <div class="section-inner">
+      <p class="section-label center">Practice First</p>
+      <h2 class="center">Demo Accounts</h2>
+      <p class="section-sub center">Trade with virtual funds on a real MT5 server. No risk, full market conditions. Choose your starting balance.</p>
+      <div class="demo-grid">
+        <div class="demo-card">
+          <div class="demo-amount">USD 1,000</div>
+          <p class="demo-label">Starter Demo</p>
+          <ul class="demo-list">
+            <li>Full MT5 access</li>
+            <li>Real market prices</li>
+            <li>Leverage up to 1:2000</li>
+          </ul>
+          <a href="#contact" class="btn-demo">Open Demo</a>
+        </div>
+        <div class="demo-card demo-featured">
+          <div class="demo-badge">Most Popular</div>
+          <div class="demo-amount">USD 5,000</div>
+          <p class="demo-label">Standard Demo</p>
+          <ul class="demo-list">
+            <li>Full MT5 access</li>
+            <li>Real market prices</li>
+            <li>Leverage up to 1:2000</li>
+            <li>EA &amp; indicator testing</li>
+          </ul>
+          <a href="#contact" class="btn-demo-featured">Open Demo</a>
+        </div>
+        <div class="demo-card">
+          <div class="demo-amount">USD 10,000</div>
+          <p class="demo-label">Pro Demo</p>
+          <ul class="demo-list">
+            <li>Full MT5 access</li>
+            <li>Real market prices</li>
+            <li>Leverage up to 1:2000</li>
+            <li>EA &amp; indicator testing</li>
+          </ul>
+          <a href="#contact" class="btn-demo">Open Demo</a>
+        </div>
+        <div class="demo-card">
+          <div class="demo-amount">USD 100,000</div>
+          <p class="demo-label">Institutional Demo</p>
+          <ul class="demo-list">
+            <li>Full MT5 access</li>
+            <li>Real market prices</li>
+            <li>Leverage up to 1:2000</li>
+            <li>Full strategy backtesting</li>
+          </ul>
+          <a href="#contact" class="btn-demo">Open Demo</a>
+        </div>
+      </div>
+      <p class="demo-note">Demo accounts expire after <strong>30 days</strong> of inactivity. Reset anytime from your client portal.</p>
+    </div>
+  </section>
+
+  <!-- DEPOSIT -->
+  <section class="section" id="deposit">
+    <div class="section-inner">
+      <p class="section-label center">Funding</p>
+      <h2 class="center">Deposit &amp; Withdrawal</h2>
+      <p class="section-sub center">All deposits go directly into your MT5 account balance. Withdrawals processed within 24 hours.</p>
+      <div class="deposit-grid">
+        <div class="dep-card dep-featured">
+          <div class="dep-icon mpesa-icon">M</div>
+          <h3>M-Pesa</h3>
+          <p>Instant STK Push directly to your MT5 account. No bank visit needed.</p>
+          <div class="dep-meta">
+            <span>Min: <strong><span class="cur-sym">USD</span> <span class="cur-val" data-kes="1,000" data-usd="7.73">7.73</span></strong></span>
+            <span>Fee: <strong>Free</strong></span>
+            <span>Speed: <strong>Instant</strong></span>
+          </div>
+          <p class="dep-paybill">Paybill: <strong>XXXXXXX</strong> &bull; Account: Your MT5 Login</p>
+        </div>
+        <div class="dep-card">
+          <div class="dep-icon bank-icon">🏦</div>
+          <h3>Bank Transfer</h3>
+          <p>Equity Bank, KCB, Co-operative Bank and all Kenyan banks via RTGS or EFT.</p>
+          <div class="dep-meta">
+            <span>Min: <strong><span class="cur-sym">USD</span> <span class="cur-val" data-kes="5,000" data-usd="38.66">38.66</span></strong></span>
+            <span>Fee: <strong>Bank charges</strong></span>
+            <span>Speed: <strong>Same day</strong></span>
+          </div>
+        </div>
+        <div class="dep-card">
+          <div class="dep-icon card-icon">💳</div>
+          <h3>Visa / Mastercard</h3>
+          <p>Debit and credit cards accepted. Funds reflect within minutes.</p>
+          <div class="dep-meta">
+            <span>Min: <strong><span class="cur-sym">USD</span> <span class="cur-val" data-kes="2,000" data-usd="15.46">15.46</span></strong></span>
+            <span>Fee: <strong>1.5%</strong></span>
+            <span>Speed: <strong>Minutes</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section-alt" id="contact">
+    <div class="section-inner">
+      <p class="section-label center">Get In Touch</p>
+      <h2 class="center">Open Your Account</h2>
+      <p class="section-sub center">Fill in this form and our team will contact you within 1 business hour.</p>
+      <div class="contact-row">
+        <form class="contact-form" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="John Kamau" required />
+            </div>
+            <div class="form-group">
+              <label>Phone (M-Pesa)</label>
+              <input type="tel" placeholder="+254 7XX XXX XXX" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="you@email.com" required />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Account Type</label>
+              <select>
+                <option>Standard — KES 1,000</option>
+                <option>Pro — KES 10,000</option>
+                <option>VIP — KES 100,000</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Trading Experience</label>
+              <select>
+                <option>Beginner (0–1 years)</option>
+                <option>Intermediate (1–3 years)</option>
+                <option>Advanced (3+ years)</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit">Submit Application</button>
+          <p class="form-note">By submitting you agree to our Terms &amp; Risk Disclosure. Trading involves significant risk of loss.</p>
+        </form>
+        <div class="contact-info">
+          <div class="ci-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/></svg>
+            <div><strong>Email</strong><p>info@imaralogic.co.ke</p></div>
+          </div>
+          <div class="ci-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
+            <div><strong>Phone / WhatsApp</strong><p>+254 713 558 761</p></div>
+          </div>
+          <div class="ci-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
+            <div><strong>Office</strong><p>Nairobi, Kenya</p></div>
+          </div>
+          <div class="ci-item">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>
+            <div><strong>Support Hours</strong><p>Mon–Fri, 08:00–22:00 EAT</p></div>
+          </div>
+          <div class="reg-box">
+            <p class="reg-title">Regulatory Information</p>
+            <p>Imara Logic Brokers is licensed and regulated by the <strong>Capital Markets Authority of Kenya (CMA)</strong>. License No: XXXXXX.</p>
+            <p>Trading in financial instruments involves significant risk. You may lose more than your initial investment.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-icon">IL</div>
+          <div>
+            <span class="footer-name">Imara Logic Brokers</span>
+            <span class="footer-tag">Endure. Rise. Lead.</span>
+          </div>
+        </div>
+        <div class="footer-links">
+          <a href="#markets">Markets</a>
+          <a href="#mt5">MT5 Platform</a>
+          <a href="#accounts">Accounts</a>
+          <a href="#deposit">Deposit</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Imara Logic Brokers Ltd. Regulated by CMA Kenya. All rights reserved.</p>
+        <p class="risk-warning">Risk Warning: Trading CFDs and Forex involves significant risk of loss and may not be suitable for all investors. Please ensure you fully understand the risks involved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

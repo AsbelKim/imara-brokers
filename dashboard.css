@@ -1,0 +1,48 @@
+.dash-body{display:flex;min-height:100vh;background:var(--bg);}
+.dash-body::before{display:none;}
+.sidebar{width:215px;flex-shrink:0;background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:1.25rem 0.85rem;position:fixed;top:0;bottom:0;left:0;z-index:50;}
+.sidebar-brand{display:flex;align-items:center;gap:0.6rem;font-weight:700;font-size:0.92rem;color:var(--text);margin-bottom:1.75rem;padding:0 0.4rem;}
+.sidebar-nav{display:flex;flex-direction:column;gap:0.2rem;flex:1;}
+.side-link{display:flex;align-items:center;gap:0.7rem;padding:0.6rem 0.85rem;border-radius:9px;color:var(--muted);font-size:0.85rem;font-weight:500;transition:background 0.2s,color 0.2s;}
+.side-link:hover{background:var(--panel2);color:var(--text);}
+.side-link.active{background:var(--accent-dim);color:var(--accent);font-weight:600;}
+.side-back{color:var(--muted);font-size:0.78rem;padding:0.5rem;margin-top:auto;}
+.side-back:hover{color:var(--text);}
+.dash-main{margin-left:215px;flex:1;padding:1.5rem;min-height:100vh;}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;}
+.topbar h2{font-size:1.25rem;font-weight:700;}
+.accent-text{color:var(--accent);}
+.topbar-sub{color:var(--muted);font-size:0.8rem;margin-top:0.15rem;}
+.topbar-right{display:flex;align-items:center;gap:0.85rem;}
+.balance-chip{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:0.45rem 0.9rem;}
+.balance-chip span{display:block;font-size:0.7rem;color:var(--muted);margin-bottom:0.1rem;}
+.balance-chip strong{font-size:0.95rem;font-weight:700;}
+.deposit-btn{background:var(--green);color:#fff;border:none;padding:0.5rem 1.1rem;border-radius:8px;font-weight:700;font-size:0.85rem;cursor:pointer;transition:opacity 0.2s;}
+.deposit-btn:hover{opacity:0.85;}
+.dash-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;margin-bottom:1.5rem;}
+.dstat{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem 1.25rem;}
+.dstat.green{border-color:rgba(34,197,94,0.28);}
+.dstat-label{font-size:0.72rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.25rem;}
+.dstat-value{font-size:1.4rem;font-weight:800;margin-bottom:0.2rem;}
+.dstat-change{font-size:0.78rem;color:var(--muted);}
+.green-text{color:var(--green);}
+.terminal-panel{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:1.5rem;}
+.terminal-header{display:flex;align-items:center;gap:0.75rem;padding:0.85rem 1.25rem;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+.terminal-header h3{font-size:0.95rem;font-weight:700;margin:0;}
+.terminal-badge{background:var(--green-dim);color:var(--green);font-size:0.7rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:999px;border:1px solid rgba(34,197,94,0.3);}
+.terminal-note{color:var(--muted);font-size:0.78rem;margin-left:auto;}
+.terminal-tip{padding:0.75rem 1.25rem;background:var(--panel2);font-size:0.82rem;color:var(--muted);border-top:1px solid var(--border);}
+.terminal-tip strong{color:var(--text);}
+
+/* M-Pesa Modal */
+.mpesa-modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:1rem;}
+.modal-card{background:var(--panel);border:1px solid rgba(34,197,94,0.3);border-radius:var(--radius);padding:2rem;max-width:480px;width:100%;}
+.modal-card h3{font-size:1.1rem;font-weight:700;margin-bottom:1.5rem;color:var(--green);}
+.mpesa-steps{display:flex;flex-direction:column;gap:0.85rem;margin-bottom:1.5rem;}
+.ms{display:flex;align-items:flex-start;gap:0.85rem;}
+.ms span{width:26px;height:26px;border-radius:50%;background:var(--green-dim);color:var(--green);font-weight:700;font-size:0.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ms p{font-size:0.9rem;color:var(--muted);}
+.ms p strong{color:var(--text);}
+.btn-close-modal{width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:0.65rem;border-radius:9px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;}
+
+@media(max-width:768px){.sidebar{width:100%;position:relative;height:auto;}.dash-main{margin-left:0;}}
