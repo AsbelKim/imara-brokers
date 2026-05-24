@@ -22,6 +22,10 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5V6a.5.5 0 0 1-1 0V4.5A.5.5 0 0 1 8 4zM3.732 5.732a.5.5 0 0 1 .707 0l.915.914a.5.5 0 1 1-.708.708l-.914-.915a.5.5 0 0 1 0-.707zM2 10a.5.5 0 0 1 .5-.5h1.586a.5.5 0 0 1 0 1H2.5A.5.5 0 0 1 2 10zm9.5 0a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H12a.5.5 0 0 1-.5-.5zm.754-4.246a.389.389 0 0 0-.527-.02L7.547 9.31a.91.91 0 1 0 1.302 1.258l3.434-4.297a.389.389 0 0 0-.029-.518z"/><path fill-rule="evenodd" d="M0 10a8 8 0 1 1 15.547 2.661c-.442 1.253-1.845 1.602-2.932 1.25C11.309 13.488 9.475 13 8 13c-1.474 0-3.31.488-4.615.911-1.087.352-2.49.003-2.932-1.25A7.988 7.988 0 0 1 0 10zm8-7a7 7 0 0 0-6.603 9.329c.203.575.923.876 1.68.63C4.397 12.533 6.358 12 8 12s3.604.532 4.923.96c.757.245 1.477-.056 1.68-.631A7 7 0 0 0 8 3z"/></svg>
         Overview
       </a>
+      <a href="#" class="side-link" data-tab="tab-challenges">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935z"/></svg>
+        My Challenges
+      </a>
       <a href="#" class="side-link active" data-tab="tab-terminal">
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" viewBox="0 0 16 16"><path d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm-6.354-.354a.5.5 0 1 0 .708.708l2-2a.5.5 0 0 0 0-.708l-2-2a.5.5 0 1 0-.708.708L4.793 6.5 3.146 8.146z"/></svg>
         MT5 Terminal
@@ -136,6 +140,144 @@
             <tr><td>8</td><td><strong>GBP/USD</strong></td><td><span class="type-badge type-buy">BUY</span></td><td>0.25</td><td class="green-text">+$27.50</td><td>May 24</td><td><span class="status-open">Open</span></td></tr>
           </tbody>
         </table>
+      </div>
+
+    </div>
+
+    <!-- TAB: MY CHALLENGES -->
+    <div class="tab-section" id="tab-challenges">
+
+      <!-- Active challenge header -->
+      <div class="ch-active-card">
+        <div class="ch-active-left">
+          <div class="ch-badge-row">
+            <span class="ch-phase-badge">Phase 1 — Evaluation</span>
+            <span class="ch-status-badge">🟢 Active</span>
+          </div>
+          <h2 class="ch-title">Advanced Challenge — $50,000</h2>
+          <p class="ch-sub">Started May 17, 2026 &bull; 7 of 30 days elapsed &bull; Fee paid: <strong>$299</strong> (refunded on first payout)</p>
+          <div class="ch-progress-row">
+            <div class="ch-prog-item">
+              <div class="ch-prog-label">
+                <span>Profit Target</span>
+                <span class="green-text">$2,300 / $4,000</span>
+              </div>
+              <div class="eval-bar" style="height:8px;"><div class="eval-fill" style="width:46%;"></div></div>
+              <span class="ch-prog-pct green-text">46% complete</span>
+            </div>
+            <div class="ch-prog-item">
+              <div class="ch-prog-label">
+                <span>Daily Loss Used</span>
+                <span>$600 / $2,500</span>
+              </div>
+              <div class="eval-bar eval-bar-red" style="height:8px;"><div class="eval-fill red-fill" style="width:12%;"></div></div>
+              <span class="ch-prog-pct">12% of limit</span>
+            </div>
+            <div class="ch-prog-item">
+              <div class="ch-prog-label">
+                <span>Max Drawdown Used</span>
+                <span>$400 / $5,000</span>
+              </div>
+              <div class="eval-bar eval-bar-red" style="height:8px;"><div class="eval-fill red-fill" style="width:8%;"></div></div>
+              <span class="ch-prog-pct">8% of limit</span>
+            </div>
+          </div>
+        </div>
+        <div class="ch-active-right">
+          <div class="ch-stat-box">
+            <span class="ch-stat-n green-text">+$2,300</span>
+            <span class="ch-stat-l">Current Profit</span>
+          </div>
+          <div class="ch-stat-box">
+            <span class="ch-stat-n">23</span>
+            <span class="ch-stat-l">Days Left</span>
+          </div>
+          <div class="ch-stat-box">
+            <span class="ch-stat-n">85%</span>
+            <span class="ch-stat-l">Profit Split</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase rules reference -->
+      <div class="ch-rules-row">
+
+        <div class="ch-rule-card ch-rule-active">
+          <div class="ch-rule-label">📋 Phase 1 — In Progress</div>
+          <div class="ch-rule-grid">
+            <div class="ch-rule-item"><span>Profit Target</span><strong class="green-text">8% ($4,000)</strong></div>
+            <div class="ch-rule-item"><span>Max Daily Loss</span><strong style="color:#ef4444;">5% ($2,500)</strong></div>
+            <div class="ch-rule-item"><span>Max Drawdown</span><strong style="color:#ef4444;">10% ($5,000)</strong></div>
+            <div class="ch-rule-item"><span>Min Trading Days</span><strong>5 days</strong></div>
+            <div class="ch-rule-item"><span>Max Duration</span><strong>30 days</strong></div>
+            <div class="ch-rule-item"><span>Leverage</span><strong>1:200</strong></div>
+          </div>
+        </div>
+
+        <div class="ch-rule-card">
+          <div class="ch-rule-label">🔒 Phase 2 — Locked</div>
+          <div class="ch-rule-grid">
+            <div class="ch-rule-item"><span>Profit Target</span><strong class="green-text">5% ($2,500)</strong></div>
+            <div class="ch-rule-item"><span>Max Daily Loss</span><strong style="color:#ef4444;">5% ($2,500)</strong></div>
+            <div class="ch-rule-item"><span>Max Drawdown</span><strong style="color:#ef4444;">10% ($5,000)</strong></div>
+            <div class="ch-rule-item"><span>Min Trading Days</span><strong>5 days</strong></div>
+            <div class="ch-rule-item"><span>Max Duration</span><strong>60 days</strong></div>
+            <div class="ch-rule-item"><span>Leverage</span><strong>1:200</strong></div>
+          </div>
+        </div>
+
+        <div class="ch-rule-card ch-rule-funded">
+          <div class="ch-rule-label">🏆 Funded Account — Upon Passing</div>
+          <div class="ch-rule-grid">
+            <div class="ch-rule-item"><span>Profit Target</span><strong class="green-text">None</strong></div>
+            <div class="ch-rule-item"><span>Max Daily Loss</span><strong style="color:#ef4444;">5%</strong></div>
+            <div class="ch-rule-item"><span>Max Drawdown</span><strong style="color:#ef4444;">10%</strong></div>
+            <div class="ch-rule-item"><span>Payout Cycle</span><strong class="green-text">Bi-weekly</strong></div>
+            <div class="ch-rule-item"><span>Profit Split</span><strong class="green-text">85%</strong></div>
+            <div class="ch-rule-item"><span>Leverage</span><strong>1:100</strong></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Allowed strategies -->
+      <div class="ch-allowed-box">
+        <p class="ch-allowed-title">Allowed on this account</p>
+        <div class="allowed-tags">
+          <span>✓ Expert Advisors (EAs)</span>
+          <span>✓ News Trading</span>
+          <span>✓ Hedging</span>
+          <span>✓ Swing Trading</span>
+          <span>✓ Scalping</span>
+          <span>✓ Copy Trading</span>
+        </div>
+      </div>
+
+      <!-- Challenge history + new challenge CTA -->
+      <div class="ch-bottom-row">
+        <div class="ch-history-card">
+          <h3>Challenge History</h3>
+          <table class="trade-table">
+            <thead>
+              <tr><th>Plan</th><th>Account</th><th>Fee</th><th>Started</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Advanced</strong></td>
+                <td>$50,000</td>
+                <td>$299</td>
+                <td>May 17, 2026</td>
+                <td><span class="status-open">Active</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ch-new-card">
+          <div class="ch-new-icon">🚀</div>
+          <h3>Start Another Challenge</h3>
+          <p>Scale up your trading. Start a second evaluation at a different account size and run them in parallel.</p>
+          <a href="index.html#challenges" class="btn-acc-featured" style="text-decoration:none;margin-top:0.5rem;">View Challenge Plans</a>
+        </div>
       </div>
 
     </div>

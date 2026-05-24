@@ -49,6 +49,30 @@ document.querySelectorAll('.faq-q').forEach(btn=>{
   });
 });
 
+// Password toggle (used in signup form on index.html)
+function toggleRegPass(inputId, iconId) {
+  const p = document.getElementById(inputId);
+  if (p) p.type = p.type === 'password' ? 'text' : 'password';
+}
+
+// Password match indicator on confirm field
+const regPass = document.getElementById('reg-pass');
+const regConfirm = document.getElementById('reg-pass-confirm');
+const matchMsg = document.getElementById('pass-match-msg');
+if (regConfirm && regPass && matchMsg) {
+  regConfirm.addEventListener('input', () => {
+    if (!regConfirm.value) { matchMsg.style.display = 'none'; return; }
+    if (regPass.value === regConfirm.value) {
+      matchMsg.textContent = '✓ Passwords match';
+      matchMsg.style.color = 'var(--green)';
+    } else {
+      matchMsg.textContent = '✗ Passwords do not match';
+      matchMsg.style.color = '#ef4444';
+    }
+    matchMsg.style.display = 'block';
+  });
+}
+
 // Toast
 function showToast(msg,type='success'){
   const t=document.getElementById('toast');
@@ -61,6 +85,13 @@ function showToast(msg,type='success'){
 // Form submit
 function submitForm(e){
   e.preventDefault();
-  showToast('Challenge application received! Our team will contact you within 1 business hour.','success');
+  const p1 = document.getElementById('reg-pass');
+  const p2 = document.getElementById('reg-pass-confirm');
+  if (p1 && p2 && p1.value !== p2.value) {
+    showToast('Passwords do not match — please try again.', 'error');
+    return;
+  }
+  showToast('Account created! Our team will contact you within 1 business hour with your MT5 credentials.', 'success');
   e.target.reset();
+  if (document.getElementById('pass-match-msg')) document.getElementById('pass-match-msg').style.display = 'none';
 }

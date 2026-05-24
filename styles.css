@@ -207,6 +207,10 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .form-group select option{background:var(--panel2);}
 .btn-submit{width:100%;background:var(--accent);color:#fff;border:none;padding:0.8rem;border-radius:9px;font-weight:700;font-size:0.97rem;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity 0.2s;margin-top:0.25rem;}
 .btn-submit:hover{opacity:0.88;}
+.pass-wrap{position:relative;}
+.pass-wrap input{padding-right:2.75rem;}
+.pass-toggle{position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--muted);cursor:pointer;padding:0.25rem;display:flex;align-items:center;transition:color 0.2s;}
+.pass-toggle:hover{color:var(--text);}
 .form-note{color:var(--muted);font-size:0.76rem;margin-top:0.75rem;text-align:center;}
 .contact-info{display:flex;flex-direction:column;gap:1rem;}
 .ci-item{display:flex;align-items:flex-start;gap:0.85rem;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem 1.25rem;}
