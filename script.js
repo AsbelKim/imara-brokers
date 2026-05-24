@@ -25,7 +25,7 @@
   init();draw();
 })();
 
-// Navbar
+// Navbar scroll
 const nb=document.getElementById('navbar');
 if(nb)window.addEventListener('scroll',()=>{nb.style.background=window.scrollY>40?'rgba(2,11,24,0.98)':'rgba(2,11,24,0.9)';});
 
@@ -33,16 +33,34 @@ if(nb)window.addEventListener('scroll',()=>{nb.style.background=window.scrollY>4
 const ham=document.getElementById('hamburger');
 const nc=document.getElementById('nav-collapse');
 if(ham&&nc)ham.addEventListener('click',()=>{nc.classList.toggle('open');ham.classList.toggle('open');});
-// Close nav when a link is clicked on mobile
 if(nc)nc.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nc.classList.remove('open');ham&&ham.classList.remove('open');}));
 
 // Scroll reveal
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
-document.querySelectorAll('.market-card,.mt5-feat,.acc-card,.dep-card,.ci-item,.step-card,.rule-card').forEach(el=>{el.classList.add('reveal');ro.observe(el);});
+document.querySelectorAll('.market-card,.mt5-feat,.acc-card,.dep-card,.ci-item,.step-card,.rule-card,.tcard').forEach(el=>{el.classList.add('reveal');ro.observe(el);});
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.closest('.faq-item');
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+    if(!isOpen)item.classList.add('open');
+  });
+});
+
+// Toast
+function showToast(msg,type='success'){
+  const t=document.getElementById('toast');
+  if(!t)return;
+  t.textContent=msg;
+  t.className='toast toast-'+type+' show';
+  setTimeout(()=>t.className='toast',4500);
+}
 
 // Form submit
 function submitForm(e){
   e.preventDefault();
-  alert('✅ Challenge application received!\n\nOur team will contact you within 1 business hour with your MT5 evaluation credentials.\n\nWelcome to Imara Logic Funded.');
+  showToast('Challenge application received! Our team will contact you within 1 business hour.','success');
   e.target.reset();
 }

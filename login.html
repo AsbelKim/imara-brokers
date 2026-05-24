@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In | Imara Logic Funded</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="login.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+<body class="login-body">
+
+  <div class="login-wrap">
+
+    <div class="login-brand">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-icon">IL</div>
+        <span>Imara Logic <span class="brand-accent">Funded</span></span>
+      </a>
+    </div>
+
+    <div class="login-card">
+      <h2>Welcome back</h2>
+      <p class="login-sub">Log in to your Trader Portal</p>
+
+      <form class="login-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="login-email" placeholder="you@email.com" required />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <div class="pass-wrap">
+            <input type="password" id="login-pass" placeholder="••••••••" required />
+            <button type="button" class="pass-toggle" onclick="togglePass()" aria-label="Show password">
+              <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="login-extras">
+          <label class="remember-label">
+            <input type="checkbox" /> Remember me
+          </label>
+          <a href="#" class="forgot-link" onclick="forgotPass(event)">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn-submit">Log In to Portal</button>
+      </form>
+
+      <p class="login-signup" style="margin-top:1.25rem;">
+        Don't have an account? <a href="index.html#challenges">Get Funded &rarr;</a>
+      </p>
+    </div>
+
+    <p class="login-footer-note">
+      By logging in you agree to our <a href="terms.html">Terms &amp; Conditions</a>.<br />
+      Trading involves significant risk of loss.
+    </p>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function handleLogin(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type=submit]');
+      btn.textContent = 'Logging in…';
+      btn.disabled = true;
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
+    }
+
+    function togglePass() {
+      const p = document.getElementById('login-pass');
+      p.type = p.type === 'password' ? 'text' : 'password';
+    }
+
+    function forgotPass(e) {
+      e.preventDefault();
+      showToast('Password reset link sent to your email address.', 'success');
+    }
+
+    function showToast(msg, type) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = 'toast toast-' + type + ' show';
+      setTimeout(() => t.className = 'toast', 4500);
+    }
+  </script>
+
+</body>
+</html>
