@@ -2,6 +2,8 @@ function showMpesa(){
   document.getElementById('mpesa-modal').style.display='flex';
 }
 
+document.addEventListener('DOMContentLoaded', () => setCurrency('USD'));
+
 function setCurrency(cur){
   document.getElementById('cur-kes').classList.toggle('active', cur==='KES');
   document.getElementById('cur-usd').classList.toggle('active', cur==='USD');

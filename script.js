@@ -38,7 +38,9 @@ if(ham&&nl)ham.addEventListener('click',()=>{nl.classList.toggle('open');});
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
 document.querySelectorAll('.market-card,.mt5-feat,.acc-card,.dep-card,.ci-item').forEach(el=>{el.classList.add('reveal');ro.observe(el);});
 
-// Currency toggle
+// Currency toggle — default USD on load
+document.addEventListener('DOMContentLoaded', () => setCurrency('USD'));
+
 function setCurrency(cur){
   document.getElementById('cur-kes').classList.toggle('active', cur==='KES');
   document.getElementById('cur-usd').classList.toggle('active', cur==='USD');
