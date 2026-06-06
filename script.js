@@ -82,8 +82,7 @@ function showToast(msg,type='success'){
   setTimeout(()=>t.className='toast',4500);
 }
 
-// API base — change to your deployed backend URL in production
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = '/api';
 
 // Form submit — signup
 async function submitForm(e) {
