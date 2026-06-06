@@ -82,8 +82,11 @@ function showToast(msg,type='success'){
   setTimeout(()=>t.className='toast',4500);
 }
 
-// Form submit
-function submitForm(e){
+// API base — change to your deployed backend URL in production
+const API_BASE = 'http://localhost:3000/api';
+
+// Form submit — signup
+async function submitForm(e) {
   e.preventDefault();
   const p1 = document.getElementById('reg-pass');
   const p2 = document.getElementById('reg-pass-confirm');
@@ -91,7 +94,45 @@ function submitForm(e){
     showToast('Passwords do not match — please try again.', 'error');
     return;
   }
-  showToast('Account created! Our team will contact you within 1 business hour with your MT5 credentials.', 'success');
-  e.target.reset();
-  if (document.getElementById('pass-match-msg')) document.getElementById('pass-match-msg').style.display = 'none';
+
+  const form = e.target;
+  const btn = form.querySelector('button[type=submit]');
+  const originalText = btn.textContent;
+  btn.textContent = 'Creating account…';
+  btn.disabled = true;
+
+  const inputs = form.querySelectorAll('input, select');
+  const [fullName, phone, email, plan, experience, country, password] = [
+    inputs[0].value.trim(),
+    inputs[1].value.trim(),
+    inputs[2].value.trim(),
+    inputs[3].value,
+    inputs[4].value,
+    inputs[5].value,
+    p1.value,
+  ];
+
+  try {
+    const res = await fetch(`${API_BASE}/auth/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ full_name: fullName, email, phone, country, plan, experience, password }),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      showToast(data.error || 'Signup failed — please try again.', 'error');
+      return;
+    }
+
+    localStorage.setItem('ilf_token', data.token);
+    localStorage.setItem('ilf_trader', JSON.stringify(data.trader));
+    showToast('Account created! Redirecting to your portal…', 'success');
+    setTimeout(() => { window.location.href = 'dashboard.html'; }, 1800);
+  } catch {
+    showToast('Could not reach the server. Please try again later.', 'error');
+  } finally {
+    btn.textContent = originalText;
+    btn.disabled = false;
+  }
 }

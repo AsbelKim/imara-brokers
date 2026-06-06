@@ -82,12 +82,39 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    function handleLogin(e) {
+    const API_BASE = 'http://localhost:3000/api';
+
+    async function handleLogin(e) {
       e.preventDefault();
       const btn = e.target.querySelector('button[type=submit]');
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-pass').value;
+
       btn.textContent = 'Logging in…';
       btn.disabled = true;
-      setTimeout(() => { window.location.href = 'dashboard.html'; }, 900);
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          showToast(data.error || 'Login failed — please try again.', 'error');
+          return;
+        }
+
+        localStorage.setItem('ilf_token', data.token);
+        localStorage.setItem('ilf_trader', JSON.stringify(data.trader));
+        window.location.href = 'dashboard.html';
+      } catch {
+        showToast('Could not reach the server. Please try again later.', 'error');
+      } finally {
+        btn.textContent = 'Log In to Portal';
+        btn.disabled = false;
+      }
     }
 
     function togglePass() {
@@ -97,18 +124,31 @@
 
     function forgotPass(e) {
       e.preventDefault();
-      // Pre-fill with whatever email was already typed in the login field
       const loginEmail = document.getElementById('login-email').value;
       if (loginEmail) document.getElementById('forgot-email').value = loginEmail;
       document.getElementById('forgot-overlay').style.display = 'flex';
       document.getElementById('forgot-email').focus();
     }
 
-    function submitForgot(e) {
+    async function submitForgot(e) {
       e.preventDefault();
-      const email = document.getElementById('forgot-email').value;
+      const email = document.getElementById('forgot-email').value.trim();
+      const btn = e.target.querySelector('button[type=submit]');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      try {
+        await fetch(`${API_BASE}/auth/forgot-password`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+      } catch { /* network error — still show success to avoid enumeration */ }
+
       closeForgot();
-      showToast('Reset link sent to ' + email + '. Check your inbox.', 'success');
+      btn.textContent = 'Send Reset Link';
+      btn.disabled = false;
+      showToast('If that email is registered, a reset link has been sent.', 'success');
     }
 
     function closeForgot(e) {
