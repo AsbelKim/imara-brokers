@@ -27,7 +27,7 @@
 
 // Navbar scroll
 const nb=document.getElementById('navbar');
-if(nb)window.addEventListener('scroll',()=>{nb.style.background=window.scrollY>40?'rgba(2,11,24,0.98)':'rgba(2,11,24,0.9)';});
+if(nb)window.addEventListener('scroll',()=>{nb.style.background=window.scrollY>40?'rgba(6,9,15,0.98)':'rgba(6,9,15,0.88)';});
 
 // Hamburger
 const ham=document.getElementById('hamburger');
@@ -37,7 +37,7 @@ if(nc)nc.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nc.cla
 
 // Scroll reveal
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
-document.querySelectorAll('.market-card,.mt5-feat,.acc-card,.dep-card,.ci-item,.step-card,.rule-card,.tcard').forEach(el=>{el.classList.add('reveal');ro.observe(el);});
+document.querySelectorAll('.market-card,.mt5-feat,.acc-card,.dep-card,.ci-item,.step-card,.rule-card,.tcard,.why-card,.trader-card,.payout-card,.pf-item,.plan-card,.step,.reveal').forEach(el=>{if(!el.classList.contains('reveal'))el.classList.add('reveal');ro.observe(el);});
 
 // FAQ accordion
 document.querySelectorAll('.faq-q').forEach(btn=>{

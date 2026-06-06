@@ -3,746 +3,857 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Imara Logic Funded | Africa's Prop Trading Firm</title>
-  <meta name="description" content="Get funded up to $200,000. Pass our 2-phase MT5 evaluation, trade our capital across Forex, Gold & Indices, and keep up to 90% of your profits. Africa's leading prop trading firm." />
+  <title>Imara Challenge | Africa's Premier Prop Trading Firm</title>
+  <meta name="description" content="Get funded up to $200,000. Pass the Imara 2-phase challenge on MT5, trade our capital across Forex, Gold & Indices, and keep up to 90% of your profits. Africa's leading prop trading firm." />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-brand">
-        <div class="brand-icon">IL</div>
-        <span>Imara Logic <span class="brand-accent">Funded</span></span>
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="brand-icon">I</div>
+      <span>Imara <strong>Challenge</strong></span>
+    </a>
+    <div id="nav-collapse" class="nav-menu">
+      <ul class="nav-links">
+        <li><a href="#challenge">Challenge</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#traders">Traders</a></li>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="login.html" class="btn-nav-ghost">Log In</a>
+        <a href="#challenge" class="btn-nav-cta">Get Started</a>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <canvas id="bg-canvas"></canvas>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Modern Prop Trading &mdash; Africa&rsquo;s Pioneer Since 2024
+    </div>
+    <h1>Grow &amp; Monetize<br><span class="hero-grad">Your Trading Skills</span></h1>
+    <p class="hero-sub">
+      We fund talented traders with up to <strong>$200,000</strong> in simulated capital.
+      Pass the Imara Challenge on MT5, trade Forex, Gold &amp; Indices,
+      and keep up to <strong>90% of your profits</strong> &mdash; paid via M-Pesa or bank transfer.
+    </p>
+    <div class="hero-btns">
+      <a href="#challenge" class="btn-primary">Imara Challenge</a>
+      <a href="#challenge" class="btn-outline">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Free Trial
       </a>
-      <div id="nav-collapse">
-        <ul class="nav-links">
-          <li><a href="#how-it-works">How It Works</a></li>
-          <li><a href="#markets">Markets</a></li>
-          <li><a href="#mt5">MT5 Platform</a></li>
-          <li><a href="#challenges">Challenges</a></li>
-          <li><a href="#rules">Trading Rules</a></li>
-          <li><a href="#payouts">Payouts</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#contact">Contact</a></li>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-pill">
+        <span class="stars">★★★★★</span>
+        <span><strong>4.9/5</strong> Trader Rating</span>
+      </div>
+      <div class="trust-div"></div>
+      <div class="trust-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <span><strong>5,000+</strong> Traders Registered</span>
+      </div>
+      <div class="trust-div"></div>
+      <div class="trust-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        <span><strong>$200K+</strong> Paid to Traders</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-bar">
+  <div class="ticker-track">
+    <span class="tick up">EUR/USD <b>1.0842</b> ▲ 0.12%</span>
+    <span class="tick down">GBP/USD <b>1.2641</b> ▼ 0.08%</span>
+    <span class="tick up">XAU/USD <b>2,318.5</b> ▲ 0.45%</span>
+    <span class="tick down">USD/KES <b>129.45</b> ▼ 0.15%</span>
+    <span class="tick up">USD/JPY <b>154.82</b> ▲ 0.21%</span>
+    <span class="tick up">XAG/USD <b>27.42</b> ▲ 0.33%</span>
+    <span class="tick up">WTI Oil <b>82.14</b> ▲ 0.31%</span>
+    <span class="tick down">US30 <b>38,420</b> ▼ 0.14%</span>
+    <span class="tick up">NAS100 <b>17,840</b> ▲ 0.22%</span>
+    <span class="tick up">EUR/USD <b>1.0842</b> ▲ 0.12%</span>
+    <span class="tick down">GBP/USD <b>1.2641</b> ▼ 0.08%</span>
+    <span class="tick up">XAU/USD <b>2,318.5</b> ▲ 0.45%</span>
+    <span class="tick down">USD/KES <b>129.45</b> ▼ 0.15%</span>
+    <span class="tick up">USD/JPY <b>154.82</b> ▲ 0.21%</span>
+  </div>
+</div>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-n">$200K+</span>
+      <span class="stat-l">Paid to Traders</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <span class="stat-n">5,000+</span>
+      <span class="stat-l">Traders Registered</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <span class="stat-n">35+</span>
+      <span class="stat-l">African Countries</span>
+    </div>
+    <div class="stat-sep"></div>
+    <div class="stat-item">
+      <span class="stat-n">90%</span>
+      <span class="stat-l">Max Profit Split</span>
+    </div>
+  </div>
+</div>
+
+<!-- WHY IMARA -->
+<section class="section light-section" id="why">
+  <div class="section-inner">
+    <p class="section-label">Why Imara</p>
+    <h2 class="section-h2 center">The Smarter Way to Trade</h2>
+    <p class="section-sub center">We provide everything you need to trade professionally &mdash; capital, tools, and dedicated Africa-focused support.</p>
+    <div class="why-grid">
+
+      <div class="why-card reveal">
+        <div class="why-icon blue-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
+        <h3>Up to $200K Capital</h3>
+        <p>Trade with up to $200,000 in simulated capital and scale to $2M with our growth programme.</p>
+      </div>
+
+      <div class="why-card reveal">
+        <div class="why-icon green-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+        </div>
+        <h3>Fast Reward Withdrawals</h3>
+        <p>First payout in 14 days, bi-weekly thereafter. Instant via M-Pesa or bank across Africa.</p>
+      </div>
+
+      <div class="why-card reveal">
+        <div class="why-icon gold-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </div>
+        <h3>Dedicated Africa Support</h3>
+        <p>24/6 support team that understands African markets, local banks, and M-Pesa payments.</p>
+      </div>
+
+      <div class="why-card reveal">
+        <div class="why-icon purple-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <h3>Complete Trading Freedom</h3>
+        <p>EAs, scalping, hedging, news trading &mdash; all fully allowed on evaluation and funded accounts.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="dark-section how-section" id="how">
+  <div class="section-inner">
+    <p class="section-label light-label">The Process</p>
+    <h2 class="section-h2 center white-text">3 Steps to a Funded Account</h2>
+    <p class="section-sub center muted-text">Transparent evaluation. No hidden rules. No time pressure.</p>
+    <div class="steps-row">
+
+      <div class="step reveal">
+        <div class="step-num-ring">1</div>
+        <div class="step-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        </div>
+        <h3>Buy a Challenge</h3>
+        <p>Select $10K–$200K account size. Pay a one-time fee from <strong>$99</strong> and receive MT5 credentials instantly.</p>
+      </div>
+
+      <div class="step-connector grad-green"></div>
+
+      <div class="step reveal">
+        <div class="step-num-ring">2</div>
+        <div class="step-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline><polyline points="16 7 22 7 22 13"></polyline></svg>
+        </div>
+        <h3>Prove Your Skills</h3>
+        <p>Complete our 2-phase MT5 evaluation. Hit profit targets (8% then 5%) while staying within drawdown limits.</p>
+      </div>
+
+      <div class="step-connector grad-orange"></div>
+
+      <div class="step reveal">
+        <div class="step-num-ring">3</div>
+        <div class="step-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+        <h3>Earn Rewards</h3>
+        <p>Get a funded account with our capital. Collect up to <strong>90%</strong> of profits &mdash; paid via M-Pesa or bank every 2 weeks.</p>
+      </div>
+
+    </div>
+    <div class="how-cta">
+      <a href="#challenge" class="btn-primary">Start Your Challenge</a>
+      <a href="#challenge" class="btn-outline-light">Free Trial</a>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDED TRADERS -->
+<section class="section light-section" id="traders">
+  <div class="section-inner">
+    <p class="section-label">Our Funded Traders</p>
+    <h2 class="section-h2 center">Trusted Across Africa</h2>
+    <p class="section-sub center">Real traders. Real rewards. Paid via M-Pesa and bank transfer.</p>
+    <div class="traders-grid">
+
+      <div class="trader-card reveal">
+        <div class="trader-top">
+          <div class="trader-av av-1">JM</div>
+          <div class="trader-meta">
+            <div class="trader-name">James Mwangi</div>
+            <div class="trader-loc">🇰🇪 Nairobi, Kenya</div>
+          </div>
+          <div class="trader-tag">Day Trader</div>
+        </div>
+        <div class="trader-reward">
+          <div class="reward-lbl">Received Reward</div>
+          <div class="reward-amt">$4,250</div>
+        </div>
+        <div class="trader-plan">Advanced &middot; $50K &middot; 85% Split</div>
+        <p class="trader-quote">"Passed Phase 1 in 18 days trading XAU/USD. First M-Pesa payout hit in seconds."</p>
+      </div>
+
+      <div class="trader-card reveal">
+        <div class="trader-top">
+          <div class="trader-av av-2">AD</div>
+          <div class="trader-meta">
+            <div class="trader-name">Amara Diallo</div>
+            <div class="trader-loc">🇳🇬 Lagos, Nigeria</div>
+          </div>
+          <div class="trader-tag">Swing Trader</div>
+        </div>
+        <div class="trader-reward">
+          <div class="reward-lbl">Received Reward</div>
+          <div class="reward-amt">$2,100</div>
+        </div>
+        <div class="trader-plan">Standard &middot; $25K &middot; 80% Split</div>
+        <p class="trader-quote">"Bank transfer worked flawlessly to my Nigerian account. The 80% split is among the best I've seen."</p>
+      </div>
+
+      <div class="trader-card reveal">
+        <div class="trader-top">
+          <div class="trader-av av-3">GM</div>
+          <div class="trader-meta">
+            <div class="trader-name">Grace Muthoni</div>
+            <div class="trader-loc">🇹🇿 Dar es Salaam, Tanzania</div>
+          </div>
+          <div class="trader-tag">EA Trader</div>
+        </div>
+        <div class="trader-reward">
+          <div class="reward-lbl">Received Reward</div>
+          <div class="reward-amt">$9,500</div>
+        </div>
+        <div class="trader-plan">Elite &middot; $100K &middot; 85% Split</div>
+        <p class="trader-quote">"Running a $100K funded account. The scaling plan is what keeps me here long-term."</p>
+      </div>
+
+      <div class="trader-card reveal">
+        <div class="trader-top">
+          <div class="trader-av av-4">KO</div>
+          <div class="trader-meta">
+            <div class="trader-name">Kofi Owusu</div>
+            <div class="trader-loc">🇬🇭 Accra, Ghana</div>
+          </div>
+          <div class="trader-tag">Scalper</div>
+        </div>
+        <div class="trader-reward">
+          <div class="reward-lbl">Received Reward</div>
+          <div class="reward-amt">$1,980</div>
+        </div>
+        <div class="trader-plan">Standard &middot; $25K &middot; 80% Split</div>
+        <p class="trader-quote">"Support team responded in minutes. Passed both phases on my second attempt."</p>
+      </div>
+
+      <div class="trader-card reveal">
+        <div class="trader-top">
+          <div class="trader-av av-5">TN</div>
+          <div class="trader-meta">
+            <div class="trader-name">Thabo Nkosi</div>
+            <div class="trader-loc">🇿🇦 Johannesburg, South Africa</div>
+          </div>
+          <div class="trader-tag">Day Trader</div>
+        </div>
+        <div class="trader-reward">
+          <div class="reward-lbl">Received Reward</div>
+          <div class="reward-amt">$4,750</div>
+        </div>
+        <div class="trader-plan">Advanced &middot; $50K &middot; 85% Split</div>
+        <p class="trader-quote">"Bank transfer into my Standard Bank account within one business day. Absolutely no issues."</p>
+      </div>
+
+      <div class="trader-card reveal">
+        <div class="trader-top">
+          <div class="trader-av av-6">FA</div>
+          <div class="trader-meta">
+            <div class="trader-name">Fatima Abdi</div>
+            <div class="trader-loc">🇪🇹 Addis Ababa, Ethiopia</div>
+          </div>
+          <div class="trader-tag">Index Trader</div>
+        </div>
+        <div class="trader-reward">
+          <div class="reward-lbl">Received Reward</div>
+          <div class="reward-amt">$2,250</div>
+        </div>
+        <div class="trader-plan">Standard &middot; $25K &middot; 80% Split</div>
+        <p class="trader-quote">"Scaled from $10K to $25K in just two payout cycles. The scaling plan is genuinely generous."</p>
+      </div>
+
+    </div>
+    <div class="section-cta">
+      <a href="#challenge" class="btn-outline-dark">Start Your Journey &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- CHALLENGE PLANS -->
+<section class="dark-section plans-section" id="challenge">
+  <div class="section-inner">
+    <p class="section-label light-label">Get Funded</p>
+    <h2 class="section-h2 center white-text">Choose Your Imara Challenge</h2>
+    <p class="section-sub center muted-text">One-time fee. 2-phase evaluation. Trade our capital and keep up to 90% of profits.</p>
+    <div class="plans-grid">
+
+      <div class="plan-card acc-card reveal">
+        <div class="plan-name">Starter</div>
+        <div class="plan-size">$10,000</div>
+        <div class="plan-fee-row">
+          <span class="fee-lbl">One-time fee</span>
+          <span class="fee-val">$99</span>
+        </div>
+        <ul class="plan-list">
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Phase 1 target: 8%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Phase 2 target: 5%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Max daily loss: 5%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Max drawdown: 10%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Profit split: 80%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>EAs allowed</li>
         </ul>
-        <div class="nav-actions">
-          <a href="login.html" class="btn-ghost">Log In</a>
-          <a href="#challenges" class="btn-cta">Get Funded</a>
+        <a href="#contact" class="btn-plan">Start Challenge</a>
+      </div>
+
+      <div class="plan-card acc-card reveal">
+        <div class="plan-name">Standard</div>
+        <div class="plan-size">$25,000</div>
+        <div class="plan-fee-row">
+          <span class="fee-lbl">One-time fee</span>
+          <span class="fee-val">$199</span>
+        </div>
+        <ul class="plan-list">
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Phase 1 target: 8%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Phase 2 target: 5%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Max daily loss: 5%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Max drawdown: 10%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Profit split: 80%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>EAs allowed</li>
+        </ul>
+        <a href="#contact" class="btn-plan">Start Challenge</a>
+      </div>
+
+      <div class="plan-card plan-featured acc-card reveal">
+        <div class="plan-badge">Most Popular</div>
+        <div class="plan-name">Advanced</div>
+        <div class="plan-size">$50,000</div>
+        <div class="plan-fee-row">
+          <span class="fee-lbl">One-time fee</span>
+          <span class="fee-val">$299</span>
+        </div>
+        <ul class="plan-list">
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Phase 1 target: 8%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Phase 2 target: 5%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Max daily loss: 5%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Max drawdown: 10%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Profit split: <strong>85%</strong></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>EAs allowed</li>
+        </ul>
+        <a href="#contact" class="btn-plan-featured">Start Challenge</a>
+      </div>
+
+      <div class="plan-card acc-card reveal">
+        <div class="plan-name">Elite</div>
+        <div class="plan-size">$100,000</div>
+        <div class="plan-fee-row">
+          <span class="fee-lbl">One-time fee</span>
+          <span class="fee-val">$499</span>
+        </div>
+        <ul class="plan-list">
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Phase 1 target: 8%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Phase 2 target: 5%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Max daily loss: 5%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Max drawdown: 10%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Profit split: <strong>85%</strong></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>EAs allowed</li>
+        </ul>
+        <a href="#contact" class="btn-plan">Start Challenge</a>
+      </div>
+
+      <div class="plan-card acc-card reveal">
+        <div class="plan-name">Pro</div>
+        <div class="plan-size">$200,000</div>
+        <div class="plan-fee-row">
+          <span class="fee-lbl">One-time fee</span>
+          <span class="fee-val">$799</span>
+        </div>
+        <ul class="plan-list">
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Phase 1 target: 8%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Phase 2 target: 5%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Max daily loss: 5%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Max drawdown: 10%</li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>Profit split: <strong>90%</strong></li>
+          <li><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>EAs allowed</li>
+        </ul>
+        <a href="#contact" class="btn-plan">Start Challenge</a>
+      </div>
+
+    </div>
+    <p class="plans-note">Challenge fee refunded on your first funded payout. No hidden charges.</p>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section class="section light-section" id="platform">
+  <div class="section-inner platform-row">
+    <div class="platform-text">
+      <p class="section-label">The Platform</p>
+      <h2 class="section-h2">Trade on MetaTrader 5</h2>
+      <p class="platform-desc">All Imara evaluations and funded accounts run on MetaTrader 5 &mdash; the world's most powerful trading platform. Download free, connect to our server, and start today.</p>
+      <div class="platform-feats">
+        <div class="pf-item mt5-feat reveal">
+          <div class="pf-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="9" x2="9" y2="21"/></svg>
+          </div>
+          <div><strong>Advanced Charting</strong><p>21 timeframes, 80+ indicators, built-in strategy tester</p></div>
+        </div>
+        <div class="pf-item mt5-feat reveal">
+          <div class="pf-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+          </div>
+          <div><strong>Expert Advisors (EAs)</strong><p>Automated trading fully allowed on all accounts</p></div>
+        </div>
+        <div class="pf-item mt5-feat reveal">
+          <div class="pf-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <div><strong>Mobile &amp; Desktop</strong><p>Trade from Windows, Mac, iOS and Android</p></div>
+        </div>
+        <div class="pf-item mt5-feat reveal">
+          <div class="pf-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div><strong>Direct Server Link</strong><p>Server: <code>trade.imaralogic.co.ke:443</code></p></div>
         </div>
       </div>
-      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero" id="home">
-    <canvas id="bg-canvas"></canvas>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="hero-inner">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        Africa's Premier Proprietary Trading Firm
-      </div>
-      <h1>Trade Our Capital.<br /><span class="gradient-text">Keep the Profits.</span></h1>
-      <p class="hero-sub">
-        Get funded up to <strong>$200,000</strong>. Pass our 2-phase evaluation on MT5,
-        trade our capital across Forex, Gold &amp; Indices, and keep up to
-        <strong>90% of your profits</strong> — paid via M-Pesa or bank transfer.
-      </p>
-      <div class="hero-cta">
-        <a href="#challenges" class="btn-primary-lg">Start Your Challenge — from $99</a>
-        <a href="login.html" class="btn-outline-lg">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/></svg>
-          Trader Portal
+      <div class="platform-dls">
+        <a href="https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe" download class="btn-dl">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download — Windows
+        </a>
+        <a href="https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5" target="_blank" rel="noopener" class="btn-dl btn-dl-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/></svg>
+          Download — Android
         </a>
       </div>
-      <div class="trust-row">
-        <div class="trust-item">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4z"/></svg>
-          Funded up to $200K
+    </div>
+    <div class="platform-visual">
+      <div class="server-card">
+        <div class="server-header">
+          <div class="server-dots">
+            <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+          </div>
+          <span class="server-title">Imara Logic — MT5 Server</span>
         </div>
-        <div class="trust-item">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/></svg>
-          Up to 90% Profit Split
+        <div class="server-body">
+          <div class="srv-row"><span>Live Server</span><code>trade.imaralogic.co.ke:443</code></div>
+          <div class="srv-row"><span>Eval Server</span><code>eval.imaralogic.co.ke:443</code></div>
+          <div class="srv-row"><span>Platform</span><code>MetaTrader 5 (Build 3000+)</code></div>
+          <div class="srv-row"><span>Execution</span><code>Market Execution (NDD)</code></div>
+          <div class="srv-row"><span>Leverage</span><code>1:100 Funded / 1:200 Eval</code></div>
+          <div class="srv-row"><span>Min Lot</span><code>0.01 lots</code></div>
+          <div class="srv-row"><span>Currency</span><code>USD</code></div>
         </div>
-        <div class="trust-item">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/></svg>
-          M-Pesa &amp; Bank Payouts
-        </div>
-        <div class="trust-item">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>
-          24/6 Live Support
+        <div class="server-steps">
+          <p><strong>How to connect:</strong></p>
+          <ol>
+            <li>Download &amp; install MT5</li>
+            <li>File &rarr; Open Account &rarr; Search <strong>"Imara Logic"</strong></li>
+            <li>Enter credentials from your welcome email</li>
+            <li>Start your evaluation ✓</li>
+          </ol>
         </div>
       </div>
     </div>
-    <div class="ticker-bar">
-      <div class="ticker-track">
-        <span class="tick up">EUR/USD <b>1.0842</b> ▲ 0.12%</span>
-        <span class="tick down">GBP/USD <b>1.2641</b> ▼ 0.08%</span>
-        <span class="tick up">XAU/USD <b>2,318.5</b> ▲ 0.45%</span>
-        <span class="tick down">USD/KES <b>129.45</b> ▼ 0.15%</span>
-        <span class="tick up">USD/JPY <b>154.82</b> ▲ 0.21%</span>
-        <span class="tick up">XAG/USD <b>27.42</b> ▲ 0.33%</span>
-        <span class="tick up">WTI Oil <b>82.14</b> ▲ 0.31%</span>
-        <span class="tick down">US30 <b>38,420</b> ▼ 0.14%</span>
-        <span class="tick up">EUR/USD <b>1.0842</b> ▲ 0.12%</span>
-        <span class="tick down">GBP/USD <b>1.2641</b> ▼ 0.08%</span>
-        <span class="tick up">XAU/USD <b>2,318.5</b> ▲ 0.45%</span>
-        <span class="tick up">NAS100 <b>17,840</b> ▲ 0.22%</span>
+  </div>
+</section>
+
+<!-- TRADING RULES -->
+<section class="dark-section rules-section" id="rules">
+  <div class="section-inner">
+    <p class="section-label light-label">The Objectives</p>
+    <h2 class="section-h2 center white-text">Clear, Transparent Trading Rules</h2>
+    <p class="section-sub center muted-text">Simple, consistent rules across all challenge sizes.</p>
+    <div class="rules-grid">
+
+      <div class="rule-card reveal">
+        <div class="rule-head">
+          <span class="phase-tag green-tag">Phase 1</span>
+          <h3>Evaluation</h3>
+        </div>
+        <div class="rule-rows">
+          <div class="rule-row"><span>Profit Target</span><span class="rv-green">8%</span></div>
+          <div class="rule-row"><span>Max Daily Loss</span><span class="rv-red">5%</span></div>
+          <div class="rule-row"><span>Max Drawdown</span><span class="rv-red">10%</span></div>
+          <div class="rule-row"><span>Min Trading Days</span><span>5 days</span></div>
+          <div class="rule-row"><span>Max Duration</span><span>30 days</span></div>
+          <div class="rule-row"><span>Leverage</span><span>1:200</span></div>
+        </div>
+      </div>
+
+      <div class="rule-card reveal">
+        <div class="rule-head">
+          <span class="phase-tag blue-tag">Phase 2</span>
+          <h3>Verification</h3>
+        </div>
+        <div class="rule-rows">
+          <div class="rule-row"><span>Profit Target</span><span class="rv-green">5%</span></div>
+          <div class="rule-row"><span>Max Daily Loss</span><span class="rv-red">5%</span></div>
+          <div class="rule-row"><span>Max Drawdown</span><span class="rv-red">10%</span></div>
+          <div class="rule-row"><span>Min Trading Days</span><span>5 days</span></div>
+          <div class="rule-row"><span>Max Duration</span><span>60 days</span></div>
+          <div class="rule-row"><span>Leverage</span><span>1:200</span></div>
+        </div>
+      </div>
+
+      <div class="rule-card rule-funded reveal">
+        <div class="rule-head">
+          <span class="phase-tag gold-tag">Funded</span>
+          <h3>Funded Account</h3>
+        </div>
+        <div class="rule-rows">
+          <div class="rule-row"><span>Profit Target</span><span class="rv-green">None</span></div>
+          <div class="rule-row"><span>Max Daily Loss</span><span class="rv-red">5%</span></div>
+          <div class="rule-row"><span>Max Drawdown</span><span class="rv-red">10%</span></div>
+          <div class="rule-row"><span>Min Trading Days</span><span>5 days</span></div>
+          <div class="rule-row"><span>Payout Cycle</span><span class="rv-green">Bi-weekly</span></div>
+          <div class="rule-row"><span>Leverage</span><span>1:100</span></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="allowed-row">
+      <p class="allowed-title">Allowed on all accounts:</p>
+      <div class="allowed-tags">
+        <span>✓ Expert Advisors</span>
+        <span>✓ News Trading</span>
+        <span>✓ Hedging</span>
+        <span>✓ Swing Trading</span>
+        <span>✓ Scalping</span>
+        <span>✓ Copy Trading</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- HOW IT WORKS -->
-  <section class="section" id="how-it-works">
-    <div class="section-inner">
-      <p class="section-label center">The Process</p>
-      <h2 class="center">3 Steps to a Funded Account</h2>
-      <p class="section-sub center">No experience requirement. Traders from all across Africa are welcome.</p>
-      <div class="steps-grid">
-        <div class="step-card">
-          <div class="step-num">01</div>
-          <div class="step-icon">🎯</div>
-          <h3>Buy a Challenge</h3>
-          <p>Choose your account size from $10K to $200K. Pay a one-time fee starting at <strong>$99</strong> and receive your MT5 evaluation credentials instantly.</p>
-        </div>
-        <div class="step-card step-featured">
-          <div class="step-num">02</div>
-          <div class="step-icon">📈</div>
-          <h3>Pass the Evaluation</h3>
-          <p>Trade through our <strong>2-phase evaluation</strong> on your MT5 account. Hit the profit target while staying within the drawdown rules. No time pressure.</p>
-        </div>
-        <div class="step-card">
-          <div class="step-num">03</div>
-          <div class="step-icon">💸</div>
-          <h3>Get Funded &amp; Paid</h3>
-          <p>Receive a funded MT5 account with our capital. Trade freely and collect your profit share — up to <strong>90%</strong> — paid to M-Pesa or bank every 2 weeks.</p>
+<!-- PAYOUTS -->
+<section class="section light-section" id="payouts">
+  <div class="section-inner">
+    <p class="section-label">Get Paid</p>
+    <h2 class="section-h2 center">Profit Payouts</h2>
+    <p class="section-sub center">Your profits, your money. First payout after <strong>14 days</strong> of funded trading.</p>
+    <div class="payouts-grid">
+
+      <div class="payout-card dep-card payout-featured reveal">
+        <div class="pout-icon mpesa-bg">M</div>
+        <h3>M-Pesa</h3>
+        <p>Instant payout to your M-Pesa number across Kenya, Tanzania, Uganda, Rwanda and Mozambique.</p>
+        <div class="pout-meta">
+          <div><span>Min.</span><strong>$10</strong></div>
+          <div><span>Fee</span><strong>Free</strong></div>
+          <div><span>Speed</span><strong>Instant</strong></div>
         </div>
       </div>
-      <div class="about-stats" style="justify-content:center;margin-top:3rem;">
-        <div class="astat"><span class="astat-n">$200K</span><span>Max funding</span></div>
-        <div class="astat"><span class="astat-n">90%</span><span>Profit split</span></div>
-        <div class="astat"><span class="astat-n">14 days</span><span>First payout</span></div>
-        <div class="astat"><span class="astat-n">24/6</span><span>Support</span></div>
+
+      <div class="payout-card dep-card reveal">
+        <div class="pout-icon bank-bg">🏦</div>
+        <h3>Bank Transfer</h3>
+        <p>Payout to any African bank — Equity, KCB, Absa, Standard Bank, FNB and all local banks.</p>
+        <div class="pout-meta">
+          <div><span>Min.</span><strong>$50</strong></div>
+          <div><span>Fee</span><strong>Bank charges</strong></div>
+          <div><span>Speed</span><strong>1–2 days</strong></div>
+        </div>
       </div>
+
+      <div class="payout-card dep-card reveal">
+        <div class="pout-icon scale-bg">📈</div>
+        <h3>Scaling Plan</h3>
+        <p>Every 10% profit grows your funded account by 25%. Start at $10K and scale up to $2,000,000.</p>
+        <div class="pout-meta">
+          <div><span>Start</span><strong>$10K</strong></div>
+          <div><span>Max</span><strong>$2M</strong></div>
+          <div><span>Split</span><strong>Up to 90%</strong></div>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- MARKETS -->
-  <section class="section section-alt" id="markets">
-    <div class="section-inner">
-      <p class="section-label center">What You'll Trade</p>
-      <h2 class="center">Available Instruments</h2>
-      <p class="section-sub center">All instruments available on your funded MT5 account. Trade what you know best.</p>
-      <div class="markets-grid">
-        <div class="market-card">
-          <div class="market-icon forex">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4z"/></svg>
-          </div>
-          <h3>Forex</h3>
-          <p>All major, minor and exotic pairs including African currency pairs. The deepest liquidity market in the world.</p>
-          <div class="pair-list">
-            <span>EUR/USD</span><span>GBP/USD</span><span>USD/JPY</span><span>USD/KES</span><span>EUR/KES</span><span>+55 more</span>
-          </div>
-        </div>
-        <div class="market-card">
-          <div class="market-icon gold">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/></svg>
-          </div>
-          <h3>Gold &amp; Commodities</h3>
-          <p>Gold (XAU/USD) is the most popular instrument for African traders. Also trade Silver, Oil and Natural Gas.</p>
-          <div class="pair-list">
-            <span>XAU/USD</span><span>XAG/USD</span><span>WTI Oil</span><span>Brent</span><span>Nat Gas</span>
-          </div>
-        </div>
-        <div class="market-card">
-          <div class="market-icon indices">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/></svg>
-          </div>
-          <h3>Global Indices</h3>
-          <p>Trade the world's most liquid indices as CFDs — US30, NAS100, S&amp;P 500, FTSE 100 and more.</p>
-          <div class="pair-list">
-            <span>US30</span><span>NAS100</span><span>S&amp;P 500</span><span>FTSE 100</span><span>DAX 40</span><span>+10 more</span>
-          </div>
-        </div>
-        <div class="market-card coming-soon">
-          <div class="market-icon crypto">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M5.5 13v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.5v1.25c0 .138.112.25.25.25h1a.25.25 0 0 0 .25-.25V13h.084c1.992 0 3.416-1.033 3.416-2.82 0-1.502-.826-2.171-2.044-2.363v-.055c.898-.207 1.628-.875 1.628-2.121C11.334 3.914 10.083 3 8.129 3H8V1.75a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25V3h-.5V1.75a.25.25 0 0 0-.25-.25h-1a.25.25 0 0 0-.25.25V3H3.5a.5.5 0 0 0 0 1h.325C4.051 4 4.5 4.448 4.5 5v6c0 .552-.449 1-1.175 1H3a.5.5 0 0 0 0 1h2.5z"/></svg>
-          </div>
-          <div class="cs-tag">Coming Soon</div>
-          <h3>Crypto CFDs</h3>
-          <p>BTC/USD, ETH/USD and top crypto assets — coming soon to funded accounts.</p>
-          <div class="pair-list muted">
-            <span>BTC/USD</span><span>ETH/USD</span><span>BNB/USD</span>
-          </div>
-        </div>
+<!-- FAQ -->
+<section class="dark-section faq-wrap" id="faq">
+  <div class="section-inner">
+    <p class="section-label light-label">Questions</p>
+    <h2 class="section-h2 center white-text">Frequently Asked Questions</h2>
+    <p class="section-sub center muted-text">Everything you need to know before starting your challenge.</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q">Is the challenge fee refundable?
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Yes. The challenge fee is <strong>fully refunded on your first funded account payout</strong>. If you do not pass, you may re-attempt at a <strong>20% discount</strong>.</p></div></div>
       </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Can I use Expert Advisors (EAs)?
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p><strong>Yes, fully allowed.</strong> EAs, copy trading, and all automated trading are permitted on both evaluation and funded accounts.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">How long do I have to pass the evaluation?
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Phase 1 allows up to <strong>30 calendar days</strong> and Phase 2 up to <strong>60 calendar days</strong>. Minimum of <strong>5 trading days</strong> required &mdash; no daily trading requirement.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Which African countries are supported?
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p><strong>All African countries</strong> are supported. M-Pesa payouts are available in Kenya, Tanzania, Uganda, Rwanda and Mozambique. Bank transfer is available to all African bank accounts.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">When can I request my first payout?
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Your first payout is available after <strong>14 calendar days</strong> of funded trading. After that, payouts are available every <strong>2 weeks (bi-weekly)</strong>.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">What happens if I breach a drawdown rule?
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Exceeding the <strong>5% daily loss</strong> or <strong>10% max drawdown</strong> closes the evaluation account. Re-attempt the same challenge at a <strong>20% discount</strong>.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Is news trading allowed?
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p><strong>Yes, news trading is fully allowed</strong> on all accounts &mdash; evaluation and funded. No restrictions on NFP, FOMC, CPI or any high-impact events.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">How does the scaling plan work?
+          <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><p>Every time your funded account achieves <strong>10% cumulative profit</strong>, your account size increases by <strong>25%</strong>. Starting from $10K, you can scale all the way to <strong>$2,000,000</strong>.</p></div></div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- MT5 SECTION -->
-  <section class="section" id="mt5">
-    <div class="section-inner mt5-row">
-      <div class="mt5-text">
-        <p class="section-label">The Platform</p>
-        <h2>Trade on MetaTrader 5</h2>
-        <p>All Imara Logic Funded evaluations and funded accounts run on MetaTrader 5 — the world's most powerful retail trading platform. Download it free, connect to our server, and start your challenge today.</p>
-        <div class="mt5-features">
-          <div class="mt5-feat">
-            <div class="mt5-icon">📊</div>
-            <div><strong>Advanced Charting</strong><p>21 timeframes, 80+ indicators, built-in strategy tester</p></div>
-          </div>
-          <div class="mt5-feat">
-            <div class="mt5-icon">🤖</div>
-            <div><strong>Expert Advisors (EAs)</strong><p>Automated trading fully allowed on all challenge and funded accounts</p></div>
-          </div>
-          <div class="mt5-feat">
-            <div class="mt5-icon">📱</div>
-            <div><strong>Mobile &amp; Desktop</strong><p>Trade from Windows, Mac, iOS and Android</p></div>
-          </div>
-          <div class="mt5-feat">
-            <div class="mt5-icon">⚡</div>
-            <div><strong>Direct Server Link</strong><p>Connect to our server: <code>trade.imaralogic.co.ke:443</code></p></div>
-          </div>
-        </div>
-        <div class="mt5-downloads">
-          <a href="https://download.mql5.com/cdn/web/metaquotes.software.corp/mt5/mt5setup.exe" download class="dl-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
-            Download MT5 — Windows
-          </a>
-          <a href="https://play.google.com/store/apps/details?id=net.metaquotes.metatrader5" target="_blank" rel="noopener" class="dl-btn dl-btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 0 12.5v-10zm9.954 6.946.048-.005 3.024-1.744a.5.5 0 0 0 0-.866L9.954 5.058l-.048-.004-3.006 3.452 3.054-.96zM3.357 8l3.055.96-3.055.96V8zM6.396 11.5l3.006-3.452-3.054.96v2.492z"/></svg>
-            Download MT5 — Android
-          </a>
-        </div>
-      </div>
-      <div class="mt5-visual">
-        <div class="mt5-card">
-          <div class="mt5-card-header">
-            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green-dot"></span>
-            <span class="mt5-card-title">Imara Logic — MT5 Server</span>
-          </div>
-          <div class="server-info">
-            <div class="srow"><span>Live Server</span><code>trade.imaralogic.co.ke:443</code></div>
-            <div class="srow"><span>Eval Server</span><code>eval.imaralogic.co.ke:443</code></div>
-            <div class="srow"><span>Platform</span><code>MetaTrader 5 (Build 3000+)</code></div>
-            <div class="srow"><span>Execution</span><code>Market Execution (NDD)</code></div>
-            <div class="srow"><span>Leverage</span><code>1:100 (Funded) / 1:200 (Eval)</code></div>
-            <div class="srow"><span>Min Lot</span><code>0.01 lots</code></div>
-            <div class="srow"><span>Currency</span><code>USD</code></div>
-          </div>
-          <div class="mt5-steps-mini">
-            <p class="mini-title">How to connect:</p>
-            <ol>
-              <li>Download &amp; install MT5</li>
-              <li>File → Open Account → Search <strong>"Imara Logic"</strong></li>
-              <li>Enter credentials from your challenge welcome email</li>
-              <li>Start your evaluation ✓</li>
-            </ol>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CHALLENGE PLANS -->
-  <section class="section section-alt" id="challenges">
-    <div class="section-inner">
-      <p class="section-label center">Get Funded</p>
-      <h2 class="center">Challenge Plans</h2>
-      <p class="section-sub center">One-time fee. Pass the 2-phase evaluation. Trade our capital and keep up to 90% of profits.</p>
-      <div class="accounts-grid" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr));">
-
-        <div class="acc-card">
-          <p class="acc-type">Starter</p>
-          <p class="acc-deposit" style="font-size:0.9rem;color:var(--muted);">Account Size</p>
-          <p style="font-size:2rem;font-weight:800;color:var(--text);margin-bottom:0.15rem;">$10,000</p>
-          <p class="acc-label">One-time fee: <strong style="color:var(--accent);">$99</strong></p>
-          <ul class="acc-list">
-            <li>Phase 1 target: 8%</li>
-            <li>Phase 2 target: 5%</li>
-            <li>Max daily loss: 5%</li>
-            <li>Max drawdown: 10%</li>
-            <li>Profit split: 80%</li>
-            <li>EA trading: allowed</li>
-          </ul>
-          <a href="#contact" class="btn-acc">Start $10K Challenge</a>
-        </div>
-
-        <div class="acc-card">
-          <p class="acc-type">Standard</p>
-          <p class="acc-deposit" style="font-size:0.9rem;color:var(--muted);">Account Size</p>
-          <p style="font-size:2rem;font-weight:800;color:var(--text);margin-bottom:0.15rem;">$25,000</p>
-          <p class="acc-label">One-time fee: <strong style="color:var(--accent);">$199</strong></p>
-          <ul class="acc-list">
-            <li>Phase 1 target: 8%</li>
-            <li>Phase 2 target: 5%</li>
-            <li>Max daily loss: 5%</li>
-            <li>Max drawdown: 10%</li>
-            <li>Profit split: 80%</li>
-            <li>EA trading: allowed</li>
-          </ul>
-          <a href="#contact" class="btn-acc">Start $25K Challenge</a>
-        </div>
-
-        <div class="acc-card acc-featured">
-          <div class="acc-badge">Most Popular</div>
-          <p class="acc-type">Advanced</p>
-          <p class="acc-deposit" style="font-size:0.9rem;color:var(--muted);">Account Size</p>
-          <p style="font-size:2rem;font-weight:800;color:var(--text);margin-bottom:0.15rem;">$50,000</p>
-          <p class="acc-label">One-time fee: <strong style="color:var(--accent);">$299</strong></p>
-          <ul class="acc-list">
-            <li>Phase 1 target: 8%</li>
-            <li>Phase 2 target: 5%</li>
-            <li>Max daily loss: 5%</li>
-            <li>Max drawdown: 10%</li>
-            <li>Profit split: 85%</li>
-            <li>EA trading: allowed</li>
-          </ul>
-          <a href="#contact" class="btn-acc-featured">Start $50K Challenge</a>
-        </div>
-
-        <div class="acc-card">
-          <p class="acc-type">Elite</p>
-          <p class="acc-deposit" style="font-size:0.9rem;color:var(--muted);">Account Size</p>
-          <p style="font-size:2rem;font-weight:800;color:var(--text);margin-bottom:0.15rem;">$100,000</p>
-          <p class="acc-label">One-time fee: <strong style="color:var(--accent);">$499</strong></p>
-          <ul class="acc-list">
-            <li>Phase 1 target: 8%</li>
-            <li>Phase 2 target: 5%</li>
-            <li>Max daily loss: 5%</li>
-            <li>Max drawdown: 10%</li>
-            <li>Profit split: 85%</li>
-            <li>EA trading: allowed</li>
-          </ul>
-          <a href="#contact" class="btn-acc">Start $100K Challenge</a>
-        </div>
-
-        <div class="acc-card">
-          <p class="acc-type">Pro</p>
-          <p class="acc-deposit" style="font-size:0.9rem;color:var(--muted);">Account Size</p>
-          <p style="font-size:2rem;font-weight:800;color:var(--text);margin-bottom:0.15rem;">$200,000</p>
-          <p class="acc-label">One-time fee: <strong style="color:var(--accent);">$799</strong></p>
-          <ul class="acc-list">
-            <li>Phase 1 target: 8%</li>
-            <li>Phase 2 target: 5%</li>
-            <li>Max daily loss: 5%</li>
-            <li>Max drawdown: 10%</li>
-            <li>Profit split: 90%</li>
-            <li>EA trading: allowed</li>
-          </ul>
-          <a href="#contact" class="btn-acc">Start $200K Challenge</a>
-        </div>
-
-      </div>
-      <p style="text-align:center;color:var(--muted);font-size:0.82rem;margin-top:1.5rem;">Challenge fee is refunded on your first funded payout. No hidden charges.</p>
-    </div>
-  </section>
-
-  <!-- TRADING RULES -->
-  <section class="section" id="rules">
-    <div class="section-inner">
-      <p class="section-label center">The Objectives</p>
-      <h2 class="center">Trading Rules</h2>
-      <p class="section-sub center">Simple, transparent rules. The same across all challenge sizes.</p>
-      <div class="rules-grid">
-        <div class="rule-card">
-          <div class="rule-phase">Phase 1 — Evaluation</div>
-          <ul class="rule-list">
-            <li><span class="rule-key">Profit Target</span><span class="rule-val green">8%</span></li>
-            <li><span class="rule-key">Max Daily Loss</span><span class="rule-val red">5%</span></li>
-            <li><span class="rule-key">Max Drawdown</span><span class="rule-val red">10%</span></li>
-            <li><span class="rule-key">Min Trading Days</span><span class="rule-val">5 days</span></li>
-            <li><span class="rule-key">Max Duration</span><span class="rule-val">30 days</span></li>
-            <li><span class="rule-key">Leverage</span><span class="rule-val">1:200</span></li>
-          </ul>
-        </div>
-        <div class="rule-card">
-          <div class="rule-phase">Phase 2 — Verification</div>
-          <ul class="rule-list">
-            <li><span class="rule-key">Profit Target</span><span class="rule-val green">5%</span></li>
-            <li><span class="rule-key">Max Daily Loss</span><span class="rule-val red">5%</span></li>
-            <li><span class="rule-key">Max Drawdown</span><span class="rule-val red">10%</span></li>
-            <li><span class="rule-key">Min Trading Days</span><span class="rule-val">5 days</span></li>
-            <li><span class="rule-key">Max Duration</span><span class="rule-val">60 days</span></li>
-            <li><span class="rule-key">Leverage</span><span class="rule-val">1:200</span></li>
-          </ul>
-        </div>
-        <div class="rule-card rule-funded">
-          <div class="rule-phase">Funded Account</div>
-          <ul class="rule-list">
-            <li><span class="rule-key">Profit Target</span><span class="rule-val green">None</span></li>
-            <li><span class="rule-key">Max Daily Loss</span><span class="rule-val red">5%</span></li>
-            <li><span class="rule-key">Max Drawdown</span><span class="rule-val red">10%</span></li>
-            <li><span class="rule-key">Min Trading Days</span><span class="rule-val">5 days</span></li>
-            <li><span class="rule-key">Payout Cycle</span><span class="rule-val green">Bi-weekly</span></li>
-            <li><span class="rule-key">Leverage</span><span class="rule-val">1:100</span></li>
-          </ul>
-        </div>
-      </div>
-      <div class="rules-allowed">
-        <p class="rules-allowed-title">Allowed on all accounts</p>
-        <div class="allowed-tags">
-          <span>✓ Expert Advisors (EAs)</span>
-          <span>✓ News Trading</span>
-          <span>✓ Hedging</span>
-          <span>✓ Swing Trading</span>
-          <span>✓ Scalping</span>
-          <span>✓ Copy Trading</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PAYOUTS -->
-  <section class="section section-alt" id="payouts">
-    <div class="section-inner">
-      <p class="section-label center">Get Paid</p>
-      <h2 class="center">Profit Payouts</h2>
-      <p class="section-sub center">Your profits, your money. First payout available after <strong>14 days</strong> of funded trading. Paid every 2 weeks thereafter.</p>
-      <div class="deposit-grid">
-        <div class="dep-card dep-featured">
-          <div class="dep-icon mpesa-icon">M</div>
-          <h3>M-Pesa</h3>
-          <p>Instant payout to your M-Pesa number. Available across Kenya, Tanzania, Uganda, Rwanda and Mozambique.</p>
-          <div class="dep-meta">
-            <span>Min: <strong>$10</strong></span>
-            <span>Fee: <strong>Free</strong></span>
-            <span>Speed: <strong>Instant</strong></span>
-          </div>
-        </div>
-        <div class="dep-card">
-          <div class="dep-icon bank-icon">🏦</div>
-          <h3>Bank Transfer</h3>
-          <p>Payout to any African bank account — Equity, KCB, Absa, Standard Bank, FNB and all local banks.</p>
-          <div class="dep-meta">
-            <span>Min: <strong>$50</strong></span>
-            <span>Fee: <strong>Bank charges</strong></span>
-            <span>Speed: <strong>1–2 days</strong></span>
-          </div>
-        </div>
-        <div class="dep-card">
-          <div class="dep-icon card-icon">💳</div>
-          <h3>Scaling Plan</h3>
-          <p>Grow your funded account up to <strong>$2,000,000</strong>. Every 10% profit increases your account by 25%.</p>
-          <div class="dep-meta">
-            <span>Start: <strong>$10K</strong></span>
-            <span>Max: <strong>$2M</strong></span>
-            <span>Split: <strong>Up to 90%</strong></span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="section" id="testimonials">
-    <div class="section-inner">
-      <p class="section-label center">Trader Stories</p>
-      <h2 class="center">Funded Traders Across Africa</h2>
-      <p class="section-sub center">Real traders. Real results. Paid via M-Pesa and bank transfer.</p>
-      <div class="tcard-grid">
-
-        <div class="tcard">
-          <div class="tcard-stars">★★★★★</div>
-          <p class="tcard-quote">I passed Phase 1 in 18 days trading XAU/USD. The rules are straightforward and the eval server had zero issues. Got my MT5 funded account the same day I passed Phase 2. First M-Pesa payout hit in seconds.</p>
-          <div class="tcard-footer">
-            <div class="tcard-avatar tcard-av1">JM</div>
-            <div>
-              <div class="tcard-name">James Mwangi</div>
-              <div class="tcard-meta">Nairobi, Kenya</div>
-            </div>
-            <span class="tcard-badge">$50K Funded</span>
-          </div>
-        </div>
-
-        <div class="tcard">
-          <div class="tcard-stars">★★★★★</div>
-          <p class="tcard-quote">I was skeptical at first — most prop firms don't serve Nigeria. But Imara Logic funded me with a $25K account, bank transfer worked flawlessly. The 80% profit split is among the best I've seen anywhere.</p>
-          <div class="tcard-footer">
-            <div class="tcard-avatar tcard-av2">AD</div>
-            <div>
-              <div class="tcard-name">Amara Diallo</div>
-              <div class="tcard-meta">Lagos, Nigeria</div>
-            </div>
-            <span class="tcard-badge">$25K Funded</span>
-          </div>
-        </div>
-
-        <div class="tcard">
-          <div class="tcard-stars">★★★★★</div>
-          <p class="tcard-quote">Trading on MetaTrader 5 with their eval server was seamless. I use an EA and it performed perfectly throughout both phases. Now running a $100K funded account. The scaling plan is what keeps me here long-term.</p>
-          <div class="tcard-footer">
-            <div class="tcard-avatar tcard-av3">GM</div>
-            <div>
-              <div class="tcard-name">Grace Muthoni</div>
-              <div class="tcard-meta">Dar es Salaam, Tanzania</div>
-            </div>
-            <span class="tcard-badge">$100K Funded</span>
-          </div>
-        </div>
-
-        <div class="tcard">
-          <div class="tcard-stars">★★★★★</div>
-          <p class="tcard-quote">I failed Phase 1 on my first attempt — hit the drawdown limit on a bad news day. The 20% retry discount made it easy to go again. Passed both phases on my second try and got funded within a week. Support team responded in minutes every time.</p>
-          <div class="tcard-footer">
-            <div class="tcard-avatar tcard-av2">KO</div>
-            <div>
-              <div class="tcard-name">Kofi Owusu</div>
-              <div class="tcard-meta">Accra, Ghana</div>
-            </div>
-            <span class="tcard-badge">$25K Funded</span>
-          </div>
-        </div>
-
-        <div class="tcard">
-          <div class="tcard-stars">★★★★★</div>
-          <p class="tcard-quote">As a South African trader I wasn't sure a Kenyan firm would work well for me. The bank transfer payout was in my Standard Bank account within one business day. Absolutely no issues — this is the real deal for African traders.</p>
-          <div class="tcard-footer">
-            <div class="tcard-avatar tcard-av1">TN</div>
-            <div>
-              <div class="tcard-name">Thabo Nkosi</div>
-              <div class="tcard-meta">Johannesburg, South Africa</div>
-            </div>
-            <span class="tcard-badge">$50K Funded</span>
-          </div>
-        </div>
-
-        <div class="tcard">
-          <div class="tcard-stars">★★★★★</div>
-          <p class="tcard-quote">I trade indices — US30 and NAS100 mostly. The leverage on the eval account is comfortable and there are zero restrictions on my style. I scaled from $10K to $25K in just two payout cycles. The scaling plan is genuinely generous.</p>
-          <div class="tcard-footer">
-            <div class="tcard-avatar tcard-av3">FA</div>
-            <div>
-              <div class="tcard-name">Fatima Abdi</div>
-              <div class="tcard-meta">Addis Ababa, Ethiopia</div>
-            </div>
-            <span class="tcard-badge">$25K Funded</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section class="section section-alt" id="faq">
-    <div class="section-inner">
-      <p class="section-label center">Common Questions</p>
-      <h2 class="center">Frequently Asked Questions</h2>
-      <p class="section-sub center">Everything you need to know before starting your challenge.</p>
-      <div class="faq-list">
-
-        <div class="faq-item">
-          <button class="faq-q">
-            Is the challenge fee refundable?
-            <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>Yes. The challenge fee is <strong>fully refunded on your first funded account payout</strong>. If you do not pass the evaluation, the fee is not refunded — however, you may re-attempt at a <strong>20% discount</strong>.</p></div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            Can I use Expert Advisors (EAs) and automated trading?
-            <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><p><strong>Yes, fully allowed.</strong> EAs, copy trading, and all forms of automated trading are permitted on both evaluation and funded accounts. You may also hedge positions.</p></div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            How long do I have to pass the evaluation?
-            <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>Phase 1 allows up to <strong>30 calendar days</strong> and Phase 2 allows up to <strong>60 calendar days</strong>. You only need to reach the minimum of <strong>5 trading days</strong> — there is no daily trading requirement.</p></div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            Which African countries are supported?
-            <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><p><strong>All African countries</strong> are supported. M-Pesa payouts are available in Kenya, Tanzania, Uganda, Rwanda and Mozambique. Bank transfer is available to all African bank accounts including Equity, KCB, ABSA, Standard Bank and FNB.</p></div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            When can I request my first payout?
-            <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>Your first payout is available after <strong>14 calendar days</strong> of trading on your funded account. After that, you can request payouts every <strong>2 weeks (bi-weekly)</strong>. Minimum is $10 via M-Pesa and $50 via bank.</p></div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            What happens if I breach a drawdown rule?
-            <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>If you exceed the <strong>5% daily loss limit</strong> or the <strong>10% maximum drawdown</strong>, your evaluation account is automatically closed. You may re-attempt the same challenge at a <strong>20% discount</strong>. On funded accounts, the account is reset pending review.</p></div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            Can I trade during news events?
-            <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><p><strong>Yes, news trading is fully allowed</strong> on all accounts — evaluation and funded. There are no restrictions on NFP, FOMC, CPI or any other high-impact events.</p></div></div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-q">
-            How does the scaling plan work?
-            <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <div class="faq-a"><div class="faq-a-inner"><p>Every time your funded account achieves <strong>10% cumulative profit</strong>, your account size is increased by <strong>25%</strong>. Starting from $10K, you can scale all the way to <strong>$2,000,000</strong>. Your profit split also increases as you scale.</p></div></div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="section" id="contact">
-    <div class="section-inner">
-      <p class="section-label center">Get In Touch</p>
-      <h2 class="center">Start Your Challenge</h2>
-      <p class="section-sub center">Fill in this form and our team will contact you within 1 business hour to complete your challenge setup.</p>
-      <div class="contact-row">
-        <form class="contact-form" onsubmit="submitForm(event)">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Full Name</label>
-              <input type="text" placeholder="John Kamau" required />
-            </div>
-            <div class="form-group">
-              <label>Phone / WhatsApp</label>
-              <input type="tel" placeholder="+254 7XX XXX XXX" required />
-            </div>
+<!-- CONTACT / SIGNUP -->
+<section class="section light-section" id="contact">
+  <div class="section-inner">
+    <p class="section-label center">Get Started</p>
+    <h2 class="section-h2 center">Create Your Account</h2>
+    <p class="section-sub center">Fill in this form and our team will contact you within 1 business hour to complete your challenge setup.</p>
+    <div class="contact-row">
+      <form class="signup-form" onsubmit="submitForm(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="John Kamau" required />
           </div>
           <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" placeholder="you@email.com" required />
+            <label>Phone / WhatsApp</label>
+            <input type="tel" placeholder="+254 7XX XXX XXX" required />
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Challenge Plan</label>
-              <select>
-                <option>Starter — $10,000 account ($99 fee)</option>
-                <option>Standard — $25,000 account ($199 fee)</option>
-                <option selected>Advanced — $50,000 account ($299 fee)</option>
-                <option>Elite — $100,000 account ($499 fee)</option>
-                <option>Pro — $200,000 account ($799 fee)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Trading Experience</label>
-              <select>
-                <option>Beginner (0–1 years)</option>
-                <option>Intermediate (1–3 years)</option>
-                <option>Advanced (3+ years)</option>
-              </select>
-            </div>
-          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="you@email.com" required />
+        </div>
+        <div class="form-row">
           <div class="form-group">
-            <label>Country</label>
+            <label>Challenge Plan</label>
             <select>
-              <option>Kenya</option>
-              <option>Tanzania</option>
-              <option>Uganda</option>
-              <option>Rwanda</option>
-              <option>Ethiopia</option>
-              <option>Nigeria</option>
-              <option>Ghana</option>
-              <option>South Africa</option>
-              <option>Other Africa</option>
+              <option>Starter — $10,000 account ($99 fee)</option>
+              <option>Standard — $25,000 account ($199 fee)</option>
+              <option selected>Advanced — $50,000 account ($299 fee)</option>
+              <option>Elite — $100,000 account ($499 fee)</option>
+              <option>Pro — $200,000 account ($799 fee)</option>
             </select>
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Create Password</label>
-              <div class="pass-wrap">
-                <input type="password" id="reg-pass" placeholder="Min. 8 characters" minlength="8" required />
-                <button type="button" class="pass-toggle" onclick="toggleRegPass('reg-pass','reg-eye')" aria-label="Show password">
-                  <svg id="reg-eye" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>
-                </button>
-              </div>
+          <div class="form-group">
+            <label>Trading Experience</label>
+            <select>
+              <option>Beginner (0–1 years)</option>
+              <option>Intermediate (1–3 years)</option>
+              <option>Advanced (3+ years)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Country</label>
+          <select>
+            <option>Kenya</option>
+            <option>Tanzania</option>
+            <option>Uganda</option>
+            <option>Rwanda</option>
+            <option>Ethiopia</option>
+            <option>Nigeria</option>
+            <option>Ghana</option>
+            <option>South Africa</option>
+            <option>Other Africa</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Create Password</label>
+            <div class="pass-wrap">
+              <input type="password" id="reg-pass" placeholder="Min. 8 characters" minlength="8" required />
+              <button type="button" class="pass-toggle" onclick="toggleRegPass('reg-pass','reg-eye')" aria-label="Show password">
+                <svg id="reg-eye" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>
+              </button>
             </div>
-            <div class="form-group">
-              <label>Confirm Password</label>
-              <div class="pass-wrap">
-                <input type="password" id="reg-pass-confirm" placeholder="Re-enter password" minlength="8" required />
-                <button type="button" class="pass-toggle" onclick="toggleRegPass('reg-pass-confirm','reg-eye2')" aria-label="Show password">
-                  <svg id="reg-eye2" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>
-                </button>
-              </div>
-              <span id="pass-match-msg" style="font-size:0.76rem;margin-top:0.25rem;display:none;"></span>
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <div class="pass-wrap">
+              <input type="password" id="reg-pass-confirm" placeholder="Re-enter password" minlength="8" required />
+              <button type="button" class="pass-toggle" onclick="toggleRegPass('reg-pass-confirm','reg-eye2')" aria-label="Show password">
+                <svg id="reg-eye2" xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16"><path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/><path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/></svg>
+              </button>
             </div>
+            <span id="pass-match-msg" style="font-size:0.76rem;margin-top:0.3rem;display:none;"></span>
           </div>
-          <button type="submit" class="btn-submit">Create Account &amp; Get Funded</button>
-          <p class="form-note">By submitting you agree to our <a href="terms.html" style="color:var(--accent);">Terms &amp; Conditions</a>. Past performance does not guarantee future results.</p>
-        </form>
-        <div class="contact-info">
-          <div class="ci-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/></svg>
-            <div><strong>Email</strong><p>info@imaralogic.co.ke</p></div>
+        </div>
+        <button type="submit" class="btn-submit">Create Account &amp; Get Funded</button>
+        <p class="form-note">By submitting you agree to our <a href="terms.html">Terms &amp; Conditions</a>. Trading involves significant risk.</p>
+      </form>
+      <div class="contact-info">
+        <div class="ci-item reveal">
+          <div class="ci-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/></svg>
           </div>
-          <div class="ci-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
-            <div><strong>Phone / WhatsApp</strong><p><a href="https://wa.me/254701940964" target="_blank" rel="noopener" style="color:var(--green);">+254 701 940 964</a></p></div>
+          <div><strong>Email</strong><p>info@imaralogic.co.ke</p></div>
+        </div>
+        <div class="ci-item reveal">
+          <div class="ci-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328z"/></svg>
           </div>
-          <div class="ci-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
-            <div><strong>Office</strong><p>City Park Drive, off Limuru Rd, Nairobi</p></div>
+          <div><strong>WhatsApp</strong><p><a href="https://wa.me/254701940964" target="_blank" rel="noopener">+254 701 940 964</a></p></div>
+        </div>
+        <div class="ci-item reveal">
+          <div class="ci-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></svg>
           </div>
-          <div class="ci-item">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>
-            <div><strong>Support Hours</strong><p>24/6 — closed Sundays &amp; public holidays</p></div>
+          <div><strong>Office</strong><p>City Park Drive, off Limuru Rd, Nairobi</p></div>
+        </div>
+        <div class="ci-item reveal">
+          <div class="ci-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16"><path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/><path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/></svg>
           </div>
-          <div class="reg-box">
-            <p class="reg-title">About Imara Logic Funded</p>
-            <p>Imara Logic Funded is Africa's proprietary trading firm, providing capital to skilled traders across the continent. We evaluate traders through a transparent 2-phase process and fund the best.</p>
-            <p>Trading involves significant risk. Challenge fees are non-refundable except upon first funded payout.</p>
-          </div>
+          <div><strong>Support Hours</strong><p>24/6 — closed Sundays &amp; public holidays</p></div>
+        </div>
+        <div class="about-box">
+          <p class="about-box-title">About Imara Logic Funded</p>
+          <p>Imara Logic Funded is Africa's proprietary trading firm, providing capital to skilled traders across the continent through a transparent 2-phase evaluation process.</p>
+          <p>Trading involves significant risk. Challenge fees are non-refundable except upon first funded payout.</p>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <div class="brand-icon">IL</div>
-          <div>
-            <span class="footer-name">Imara Logic Funded</span>
-            <span class="footer-tag">Endure. Rise. Lead.</span>
-          </div>
-        </div>
-        <div class="footer-links">
-          <a href="#how-it-works">How It Works</a>
-          <a href="#challenges">Challenges</a>
-          <a href="#rules">Trading Rules</a>
-          <a href="#payouts">Payouts</a>
-          <a href="#faq">FAQ</a>
-          <a href="#contact">Contact</a>
-          <a href="terms.html">Terms &amp; Conditions</a>
-          <a href="login.html">Trader Portal</a>
+<!-- PRE-FOOTER CTA -->
+<section class="precta-section">
+  <div class="precta-orb precta-orb-1"></div>
+  <div class="precta-orb precta-orb-2"></div>
+  <div class="precta-inner">
+    <p class="section-label light-label">Ready to Start?</p>
+    <h2 class="white-text">Join Africa's Premier<br>Prop Trading Community</h2>
+    <p class="muted-text">Trade our capital. Keep your profits. Build your future.</p>
+    <div class="precta-btns">
+      <a href="#challenge" class="btn-primary">Imara Challenge</a>
+      <a href="#challenge" class="btn-outline-light">Free Trial</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand-icon">I</div>
+        <div>
+          <span class="footer-name">Imara Logic Funded</span>
+          <span class="footer-tag">Endure. Rise. Lead.</span>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Imara Logic Funded Ltd. Nairobi, Kenya. All rights reserved.</p>
-        <p class="risk-warning">Risk Warning: Proprietary trading involves significant risk. Challenge fees may be lost if evaluation objectives are not met. Past performance of any trader does not guarantee future results.</p>
+      <div class="footer-links">
+        <a href="#how">How It Works</a>
+        <a href="#challenge">Challenges</a>
+        <a href="#rules">Trading Rules</a>
+        <a href="#payouts">Payouts</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="login.html">Trader Portal</a>
       </div>
     </div>
-  </footer>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Imara Logic Funded Ltd. Nairobi, Kenya. All rights reserved.</p>
+      <p class="risk-warning">Risk Warning: Proprietary trading involves significant risk. Challenge fees may be lost if evaluation objectives are not met. Past performance of any trader does not guarantee future results. All funded accounts use simulated capital.</p>
+    </div>
+  </div>
+</footer>
 
-  <div class="toast" id="toast"></div>
-  <script src="script.js"></script>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
 </body>
 </html>
