@@ -35,6 +35,15 @@ const nc=document.getElementById('nav-collapse');
 if(ham&&nc)ham.addEventListener('click',()=>{nc.classList.toggle('open');ham.classList.toggle('open');});
 if(nc)nc.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nc.classList.remove('open');ham&&ham.classList.remove('open');}));
 
+// Mobile dropdown toggles
+document.querySelectorAll('.has-drop .nav-link-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    if(window.innerWidth>768)return;
+    const li=btn.closest('.has-drop');
+    li.classList.toggle('mob-open');
+  });
+});
+
 // Scroll reveal
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});
 document.querySelectorAll('.market-card,.mt5-feat,.acc-card,.dep-card,.ci-item,.step-card,.rule-card,.tcard,.why-card,.trader-card,.payout-card,.pf-item,.plan-card,.step,.reveal').forEach(el=>{if(!el.classList.contains('reveal'))el.classList.add('reveal');ro.observe(el);});
