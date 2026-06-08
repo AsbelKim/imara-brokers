@@ -176,4 +176,41 @@ router.patch('/me', requireAuth, (req, res) => {
   res.json(data);
 });
 
+// POST /api/auth/social-complete  — create or update account after OAuth
+router.post('/social-complete', async (req, res) => {
+  const { email, full_name, phone, country } = req.body;
+
+  if (!email || !full_name) {
+    return res.status(400).json({ error: 'email and full_name are required' });
+  }
+
+  const normalizedEmail = email.toLowerCase().trim();
+  const existing = db.prepare('SELECT * FROM traders WHERE email = ?').get(normalizedEmail);
+
+  if (existing) {
+    db.prepare('UPDATE traders SET full_name = ?, phone = ?, country = ?, updated_at = ? WHERE id = ?')
+      .run(full_name, phone || existing.phone, country || existing.country, now(), existing.id);
+    const trader = db.prepare(`SELECT ${PUBLIC_FIELDS} FROM traders WHERE id = ?`).get(existing.id);
+    return res.json({ token: signToken(trader), trader });
+  }
+
+  // New OAuth account — random unguessable password (they use OAuth to sign in)
+  const password_hash = await bcrypt.hash(crypto.randomBytes(32).toString('hex'), 10);
+  const id = crypto.randomUUID();
+  const created_at = now();
+
+  try {
+    db.prepare(`
+      INSERT INTO traders (id, full_name, email, password_hash, phone, country, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `).run(id, full_name, normalizedEmail, password_hash, phone || null, country || null, created_at, created_at);
+  } catch (err) {
+    console.error('Social complete DB error:', err);
+    return res.status(500).json({ error: 'Failed to create account. Please try again.' });
+  }
+
+  const trader = db.prepare(`SELECT ${PUBLIC_FIELDS} FROM traders WHERE id = ?`).get(id);
+  res.status(201).json({ token: signToken(trader), trader });
+});
+
 export default router;
