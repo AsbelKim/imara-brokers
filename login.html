@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log In | Imara Logic Funded</title>
+  <title>Log In | IMARA</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="login.css" />
@@ -12,30 +12,42 @@
 </head>
 <body class="login-body">
 
+  <!-- Language selector — fixed top-left like FTMO -->
+  <div class="login-lang-sel" id="login-lang-sel">
+    <button class="login-lang-btn" id="login-lang-btn" aria-label="Select language">
+      <span class="flag-circle" id="lang-flag-wrap">
+        <img id="lang-flag-img" src="https://flagcdn.com/w40/gb.png" alt="EN" />
+      </span>
+      <span class="login-lang-code" id="login-lang-code">EN</span>
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
+    <div class="login-lang-drop" id="login-lang-drop"></div>
+  </div>
+
   <div class="login-wrap">
 
-    <div class="login-brand">
-      <a href="index.html" class="nav-brand">
-        <div class="brand-icon">IL</div>
-        <span>Imara Logic <span class="brand-accent">Funded</span></span>
-      </a>
+    <!-- Brand -->
+    <a href="index.html" class="login-wordmark">IMARA</a>
+
+    <!-- Heading -->
+    <div class="login-heading">
+      <h2 data-i18n="title">Log in to IMARA</h2>
+      <p><span data-i18n="subtitle">Don't have a profile yet?</span> <a href="index.html#contact" data-i18n="create">Create a profile</a></p>
     </div>
 
     <div class="login-card">
-      <h2>Welcome back</h2>
-      <p class="login-sub">Log in to your Trader Portal</p>
 
       <form class="login-form" onsubmit="handleLogin(event)">
         <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" id="login-email" placeholder="you@email.com" required />
+          <label data-i18n="email">Email</label>
+          <input type="email" id="login-email" data-i18n-ph="emailPh" placeholder="Email" required />
         </div>
         <div class="form-group">
-          <label>Password</label>
+          <label data-i18n="password">Password</label>
           <div class="pass-wrap">
-            <input type="password" id="login-pass" placeholder="••••••••" required />
+            <input type="password" id="login-pass" data-i18n-ph="passwordPh" placeholder="Password" required />
             <button type="button" class="pass-toggle" onclick="togglePass()" aria-label="Show password">
-              <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
               </svg>
@@ -43,22 +55,35 @@
           </div>
         </div>
         <div class="login-extras">
-          <label class="remember-label">
-            <input type="checkbox" /> Remember me
-          </label>
-          <a href="#" class="forgot-link" onclick="forgotPass(event)">Forgot password?</a>
+          <label class="remember-label"><input type="checkbox" /> <span data-i18n="remember">Remember me</span></label>
+          <a href="#" class="forgot-link" onclick="forgotPass(event)" data-i18n="forgot">Forgot Password?</a>
         </div>
-        <button type="submit" class="btn-submit">Log In to Portal</button>
+        <button type="submit" class="btn-submit" data-i18n="submit">Log In</button>
       </form>
 
-      <p class="login-signup" style="margin-top:1.25rem;">
-        Don't have an account? <a href="index.html#challenges">Get Funded &rarr;</a>
-      </p>
+      <div class="or-divider"><span data-i18n="or">or</span></div>
+
+      <div class="social-btns">
+        <button type="button" class="btn-social btn-google" onclick="socialLogin('google')">
+          <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          <span data-i18n="google">Continue with Google</span>
+        </button>
+        <button type="button" class="btn-social btn-facebook" onclick="socialLogin('facebook')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877F2" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.235 2.686.235v2.97h-1.514c-1.491 0-1.956.93-1.956 1.886v2.268h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+          <span data-i18n="facebook">Continue with Facebook</span>
+        </button>
+        <button type="button" class="btn-social btn-apple" onclick="socialLogin('apple')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <span data-i18n="apple">Continue with Apple</span>
+        </button>
+      </div>
+
     </div>
 
     <p class="login-footer-note">
-      By logging in you agree to our <a href="terms.html">Terms &amp; Conditions</a>.<br />
-      Trading involves significant risk of loss.
+      <span data-i18n="footerPre">By logging in you agree to our</span>
+      <a href="terms.html" data-i18n="terms">Terms &amp; Conditions</a>.
+      <span data-i18n="footerRisk">Trading involves significant risk of loss.</span>
     </p>
 
   </div>
@@ -66,22 +91,148 @@
   <!-- Forgot Password Modal -->
   <div class="forgot-overlay" id="forgot-overlay" style="display:none;" onclick="closeForgot(event)">
     <div class="forgot-modal">
-      <h3>Reset your password</h3>
-      <p>Enter the email address linked to your account and we'll send you a reset link.</p>
+      <h3 data-i18n="resetTitle">Reset your password</h3>
+      <p data-i18n="resetSub">Enter the email address linked to your account and we'll send you a reset link.</p>
       <form onsubmit="submitForgot(event)">
         <div class="form-group">
-          <label>Email Address</label>
+          <label data-i18n="email">Email</label>
           <input type="email" id="forgot-email" placeholder="you@email.com" required />
         </div>
-        <button type="submit" class="btn-submit">Send Reset Link</button>
+        <button type="submit" class="btn-submit" data-i18n="sendReset">Send Reset Link</button>
       </form>
-      <button class="forgot-cancel" onclick="closeForgot()">Cancel</button>
+      <button class="forgot-cancel" onclick="closeForgot()" data-i18n="cancel">Cancel</button>
     </div>
   </div>
 
   <div class="toast" id="toast"></div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script>
+    // ── Languages config ──────────────────────────────────────────────────────
+    const LANGS = [
+      { code:'EN', country:'gb', dir:'ltr' },
+      { code:'FR', country:'fr', dir:'ltr' },
+      { code:'ES', country:'es', dir:'ltr' },
+      { code:'DE', country:'de', dir:'ltr' },
+      { code:'IT', country:'it', dir:'ltr' },
+      { code:'PT', country:'pt', dir:'ltr' },
+      { code:'CS', country:'cz', dir:'ltr' },
+      { code:'VI', country:'vn', dir:'ltr' },
+      { code:'SW', country:'ke', dir:'ltr' },
+      { code:'AR', country:'sa', dir:'rtl' },
+      { code:'ZH', country:'cn', dir:'ltr' },
+    ];
+
+    // ── Translations ──────────────────────────────────────────────────────────
+    const T = {
+      EN:{ title:'Log in to IMARA', subtitle:"Don't have a profile yet?", create:'Create a profile', email:'Email', emailPh:'Email', password:'Password', passwordPh:'Password', remember:'Remember me', forgot:'Forgot Password?', submit:'Log In', or:'or', google:'Continue with Google', facebook:'Continue with Facebook', apple:'Continue with Apple', footerPre:'By logging in you agree to our', terms:'Terms & Conditions', footerRisk:'Trading involves significant risk of loss.', resetTitle:'Reset your password', resetSub:"Enter the email address linked to your account and we'll send you a reset link.", sendReset:'Send Reset Link', cancel:'Cancel' },
+      FR:{ title:'Se connecter à IMARA', subtitle:"Vous n'avez pas encore de profil ?", create:'Créer un profil', email:'E-mail', emailPh:'E-mail', password:'Mot de passe', passwordPh:'Mot de passe', remember:'Se souvenir de moi', forgot:'Mot de passe oublié ?', submit:'Se connecter', or:'ou', google:'Continuer avec Google', facebook:'Continuer avec Facebook', apple:'Continuer avec Apple', footerPre:'En vous connectant, vous acceptez nos', terms:'Conditions générales', footerRisk:'Le trading implique des risques importants.', resetTitle:'Réinitialiser votre mot de passe', resetSub:'Entrez votre adresse e-mail et nous vous enverrons un lien de réinitialisation.', sendReset:'Envoyer le lien', cancel:'Annuler' },
+      ES:{ title:'Iniciar sesión en IMARA', subtitle:'¿Aún no tienes un perfil?', create:'Crear un perfil', email:'Correo electrónico', emailPh:'Correo electrónico', password:'Contraseña', passwordPh:'Contraseña', remember:'Recordarme', forgot:'¿Olvidaste tu contraseña?', submit:'Iniciar sesión', or:'o', google:'Continuar con Google', facebook:'Continuar con Facebook', apple:'Continuar con Apple', footerPre:'Al iniciar sesión, aceptas nuestros', terms:'Términos y Condiciones', footerRisk:'El trading conlleva riesgos significativos.', resetTitle:'Restablecer contraseña', resetSub:'Ingresa tu correo y te enviaremos un enlace de restablecimiento.', sendReset:'Enviar enlace', cancel:'Cancelar' },
+      DE:{ title:'Bei IMARA anmelden', subtitle:'Noch kein Profil?', create:'Profil erstellen', email:'E-Mail', emailPh:'E-Mail', password:'Passwort', passwordPh:'Passwort', remember:'Angemeldet bleiben', forgot:'Passwort vergessen?', submit:'Anmelden', or:'oder', google:'Mit Google fortfahren', facebook:'Mit Facebook fortfahren', apple:'Mit Apple fortfahren', footerPre:'Mit der Anmeldung stimmen Sie unseren', terms:'Nutzungsbedingungen', footerRisk:'Handel birgt erhebliche Risiken.', resetTitle:'Passwort zurücksetzen', resetSub:'Geben Sie Ihre E-Mail ein und wir senden Ihnen einen Reset-Link.', sendReset:'Link senden', cancel:'Abbrechen' },
+      IT:{ title:'Accedi a IMARA', subtitle:'Non hai ancora un profilo?', create:'Crea un profilo', email:'Email', emailPh:'Email', password:'Password', passwordPh:'Password', remember:'Ricordami', forgot:'Password dimenticata?', submit:'Accedi', or:'oppure', google:'Continua con Google', facebook:'Continua con Facebook', apple:'Continua con Apple', footerPre:'Accedendo, accetti i nostri', terms:'Termini e Condizioni', footerRisk:'Il trading comporta rischi significativi.', resetTitle:'Reimposta la password', resetSub:"Inserisci la tua email e ti invieremo un link per reimpostare la password.", sendReset:'Invia link', cancel:'Annulla' },
+      PT:{ title:'Entrar no IMARA', subtitle:'Ainda não tem um perfil?', create:'Criar um perfil', email:'E-mail', emailPh:'E-mail', password:'Senha', passwordPh:'Senha', remember:'Lembrar-me', forgot:'Esqueceu a senha?', submit:'Entrar', or:'ou', google:'Continuar com Google', facebook:'Continuar com Facebook', apple:'Continuar com Apple', footerPre:'Ao entrar, você concorda com nossos', terms:'Termos e Condições', footerRisk:'O trading envolve riscos significativos.', resetTitle:'Redefinir senha', resetSub:'Digite seu e-mail e enviaremos um link de redefinição.', sendReset:'Enviar link', cancel:'Cancelar' },
+      CS:{ title:'Přihlásit se do IMARA', subtitle:'Ještě nemáte profil?', create:'Vytvořit profil', email:'E-mail', emailPh:'E-mail', password:'Heslo', passwordPh:'Heslo', remember:'Zapamatovat si mě', forgot:'Zapomněli jste heslo?', submit:'Přihlásit se', or:'nebo', google:'Pokračovat přes Google', facebook:'Pokračovat přes Facebook', apple:'Pokračovat přes Apple', footerPre:'Přihlášením souhlasíte s našimi', terms:'Obchodními podmínkami', footerRisk:'Obchodování s sebou nese značná rizika.', resetTitle:'Obnovit heslo', resetSub:'Zadejte svůj e-mail a zašleme vám odkaz pro obnovení.', sendReset:'Odeslat odkaz', cancel:'Zrušit' },
+      VI:{ title:'Đăng nhập vào IMARA', subtitle:'Chưa có hồ sơ?', create:'Tạo hồ sơ', email:'Email', emailPh:'Email', password:'Mật khẩu', passwordPh:'Mật khẩu', remember:'Ghi nhớ tôi', forgot:'Quên mật khẩu?', submit:'Đăng nhập', or:'hoặc', google:'Tiếp tục với Google', facebook:'Tiếp tục với Facebook', apple:'Tiếp tục với Apple', footerPre:'Bằng cách đăng nhập, bạn đồng ý với', terms:'Điều khoản & Điều kiện', footerRisk:'Giao dịch tiềm ẩn rủi ro đáng kể.', resetTitle:'Đặt lại mật khẩu', resetSub:'Nhập email của bạn và chúng tôi sẽ gửi liên kết đặt lại.', sendReset:'Gửi liên kết', cancel:'Hủy bỏ' },
+      SW:{ title:'Ingia IMARA', subtitle:'Bado huna wasifu?', create:'Unda wasifu', email:'Barua pepe', emailPh:'Barua pepe', password:'Nenosiri', passwordPh:'Nenosiri', remember:'Nikikumbuke', forgot:'Umesahau nenosiri?', submit:'Ingia', or:'au', google:'Endelea na Google', facebook:'Endelea na Facebook', apple:'Endelea na Apple', footerPre:'Kwa kuingia, unakubali', terms:'Masharti na Hali', footerRisk:'Biashara inahusisha hatari kubwa.', resetTitle:'Weka upya nenosiri', resetSub:'Ingiza barua pepe yako na tutakutumia kiungo.', sendReset:'Tuma kiungo', cancel:'Ghairi' },
+      AR:{ title:'تسجيل الدخول إلى IMARA', subtitle:'ليس لديك ملف شخصي بعد؟', create:'إنشاء ملف شخصي', email:'البريد الإلكتروني', emailPh:'البريد الإلكتروني', password:'كلمة المرور', passwordPh:'كلمة المرور', remember:'تذكرني', forgot:'نسيت كلمة المرور؟', submit:'تسجيل الدخول', or:'أو', google:'المتابعة مع Google', facebook:'المتابعة مع Facebook', apple:'المتابعة مع Apple', footerPre:'بتسجيل الدخول، فإنك توافق على', terms:'الشروط والأحكام', footerRisk:'ينطوي التداول على مخاطر كبيرة.', resetTitle:'إعادة تعيين كلمة المرور', resetSub:'أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة التعيين.', sendReset:'إرسال الرابط', cancel:'إلغاء' },
+      ZH:{ title:'登录 IMARA', subtitle:'还没有账户？', create:'创建账户', email:'电子邮件', emailPh:'电子邮件', password:'密码', passwordPh:'密码', remember:'记住我', forgot:'忘记密码？', submit:'登录', or:'或', google:'使用 Google 继续', facebook:'使用 Facebook 继续', apple:'使用 Apple 继续', footerPre:'登录即表示您同意我们的', terms:'条款与条件', footerRisk:'交易涉及重大风险。', resetTitle:'重置密码', resetSub:'输入您的电子邮件，我们将发送重置链接。', sendReset:'发送链接', cancel:'取消' },
+    };
+
+    // ── Apply translations ────────────────────────────────────────────────────
+    function applyLang(code) {
+      const t = T[code] || T.EN;
+      const lang = LANGS.find(l => l.code === code) || LANGS[0];
+
+      // text nodes
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[key] !== undefined) el.textContent = t[key];
+      });
+
+      // placeholders
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.dataset.i18nPh;
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+
+      // page direction (RTL for Arabic)
+      document.getElementById('html-root').setAttribute('dir', lang.dir);
+      document.getElementById('html-root').setAttribute('lang', code.toLowerCase());
+
+      // update page title
+      document.title = `${t.submit} | IMARA`;
+    }
+
+    // ── Build language dropdown ───────────────────────────────────────────────
+    function flagUrl(country) {
+      return `https://flagcdn.com/w40/${country}.png`;
+    }
+
+    (function buildLangDropdown() {
+      const drop = document.getElementById('login-lang-drop');
+      LANGS.forEach(lang => {
+        const div = document.createElement('div');
+        div.className = 'login-lang-opt';
+        div.dataset.code = lang.code;
+        div.innerHTML = `<span class="flag-circle"><img src="${flagUrl(lang.country)}" alt="${lang.code}" /></span><span>${lang.code}</span>`;
+        div.addEventListener('click', () => selectLang(lang.code, lang.country));
+        drop.appendChild(div);
+      });
+    })();
+
+    function selectLang(code, country) {
+      document.getElementById('lang-flag-img').src = flagUrl(country);
+      document.getElementById('lang-flag-img').alt = code;
+      document.getElementById('login-lang-code').textContent = code;
+      document.querySelectorAll('.login-lang-opt').forEach(o => o.classList.toggle('active', o.dataset.code === code));
+      document.getElementById('login-lang-drop').classList.remove('open');
+      localStorage.setItem('ilf_lang', code);
+      localStorage.setItem('ilf_lang_country', country);
+      applyLang(code);
+    }
+
+    // toggle dropdown
+    document.getElementById('login-lang-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      document.getElementById('login-lang-drop').classList.toggle('open');
+    });
+    document.addEventListener('click', () => document.getElementById('login-lang-drop').classList.remove('open'));
+
+    // restore saved language on load
+    (function restoreLang() {
+      const code = localStorage.getItem('ilf_lang') || 'EN';
+      const lang = LANGS.find(l => l.code === code) || LANGS[0];
+      document.getElementById('lang-flag-img').src = flagUrl(lang.country);
+      document.getElementById('lang-flag-img').alt = code;
+      document.getElementById('login-lang-code').textContent = code;
+      document.querySelectorAll('.login-lang-opt').forEach(o => o.classList.toggle('active', o.dataset.code === code));
+      applyLang(code);
+    })();
+
+    // ── Supabase OAuth ────────────────────────────────────────────────────────
+    const SUPABASE_URL  = 'https://rvrcxtcsyixrcifcdkwt.supabase.co';
+    const SUPABASE_ANON_KEY = ''; // Paste your anon/public key from Supabase → Settings → API
+
+    let _sb = null;
+    function getSB() {
+      if (!_sb && SUPABASE_ANON_KEY) _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      return _sb;
+    }
+
+    async function socialLogin(provider) {
+      const sb = getSB();
+      if (!sb) {
+        showToast('Add your Supabase anon key to activate social login.', 'error');
+        return;
+      }
+      const { error } = await sb.auth.signInWithOAuth({
+        provider,
+        options: { redirectTo: window.location.origin + '/dashboard.html' }
+      });
+      if (error) showToast(error.message, 'error');
+    }
+
+    // ── Email / password login ────────────────────────────────────────────────
     const API_BASE = '/api';
 
     async function handleLogin(e) {
@@ -89,8 +240,7 @@
       const btn = e.target.querySelector('button[type=submit]');
       const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-pass').value;
-
-      btn.textContent = 'Logging in…';
+      const origText = btn.textContent;
       btn.disabled = true;
 
       try {
@@ -100,21 +250,12 @@
           body: JSON.stringify({ email, password }),
         });
         const data = await res.json();
-
-        if (!res.ok) {
-          showToast(data.error || 'Login failed — please try again.', 'error');
-          return;
-        }
-
+        if (!res.ok) { showToast(data.error || 'Login failed.', 'error'); return; }
         localStorage.setItem('ilf_token', data.token);
         localStorage.setItem('ilf_trader', JSON.stringify(data.trader));
         window.location.href = 'dashboard.html';
-      } catch {
-        showToast('Could not reach the server. Please try again later.', 'error');
-      } finally {
-        btn.textContent = 'Log In to Portal';
-        btn.disabled = false;
-      }
+      } catch { showToast('Could not reach the server.', 'error'); }
+      finally { btn.textContent = origText; btn.disabled = false; }
     }
 
     function togglePass() {
@@ -124,8 +265,8 @@
 
     function forgotPass(e) {
       e.preventDefault();
-      const loginEmail = document.getElementById('login-email').value;
-      if (loginEmail) document.getElementById('forgot-email').value = loginEmail;
+      const v = document.getElementById('login-email').value;
+      if (v) document.getElementById('forgot-email').value = v;
       document.getElementById('forgot-overlay').style.display = 'flex';
       document.getElementById('forgot-email').focus();
     }
@@ -134,19 +275,14 @@
       e.preventDefault();
       const email = document.getElementById('forgot-email').value.trim();
       const btn = e.target.querySelector('button[type=submit]');
-      btn.textContent = 'Sending…';
       btn.disabled = true;
-
       try {
         await fetch(`${API_BASE}/auth/forgot-password`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email }),
         });
-      } catch { /* network error — still show success to avoid enumeration */ }
-
+      } catch {}
       closeForgot();
-      btn.textContent = 'Send Reset Link';
       btn.disabled = false;
       showToast('If that email is registered, a reset link has been sent.', 'success');
     }

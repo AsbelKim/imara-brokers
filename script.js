@@ -38,11 +38,80 @@ if(nc)nc.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nc.cla
 // Mobile dropdown toggles
 document.querySelectorAll('.has-drop .nav-link-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    if(window.innerWidth>768)return;
+    if(window.innerWidth>1140)return;
     const li=btn.closest('.has-drop');
     li.classList.toggle('mob-open');
   });
 });
+
+// Language selector — nav (index.html)
+(function(){
+  const sel = document.getElementById('lang-sel');
+  if (!sel) return;
+
+  const LANGS = [
+    { code:'EN', country:'gb' }, { code:'FR', country:'fr' }, { code:'ES', country:'es' },
+    { code:'DE', country:'de' }, { code:'IT', country:'it' }, { code:'PT', country:'pt' },
+    { code:'CS', country:'cz' }, { code:'VI', country:'vn' }, { code:'SW', country:'ke' },
+    { code:'AR', country:'sa' }, { code:'ZH', country:'cn' },
+  ];
+
+  function flagUrl(c){ return `https://flagcdn.com/w40/${c}.png`; }
+
+  // build dropdown
+  const drop = document.getElementById('lang-drop');
+  LANGS.forEach(l => {
+    const d = document.createElement('div');
+    d.className = 'lang-opt';
+    d.dataset.code = l.code;
+    d.innerHTML = `<span class="flag-circle"><img src="${flagUrl(l.country)}" alt="${l.code}" /></span><span>${l.code}</span>`;
+    d.addEventListener('click', () => pick(l.code, l.country));
+    drop.appendChild(d);
+  });
+
+  function pick(code, country) {
+    document.getElementById('nav-flag-img').src = flagUrl(country);
+    document.getElementById('nav-flag-img').alt = code;
+    document.getElementById('lang-code').textContent = code;
+    sel.querySelectorAll('.lang-opt').forEach(o => o.classList.toggle('active', o.dataset.code === code));
+    drop.classList.remove('open');
+    localStorage.setItem('ilf_lang', code);
+    localStorage.setItem('ilf_lang_country', country);
+    if (window.IMARA_I18N) window.IMARA_I18N.applyLang(code);
+  }
+
+  // restore saved
+  const saved = localStorage.getItem('ilf_lang') || 'EN';
+  const savedCountry = localStorage.getItem('ilf_lang_country') || 'gb';
+  document.getElementById('nav-flag-img').src = flagUrl(savedCountry);
+  document.getElementById('nav-flag-img').alt = saved;
+  document.getElementById('lang-code').textContent = saved;
+  sel.querySelectorAll('.lang-opt').forEach(o => o.classList.toggle('active', o.dataset.code === saved));
+
+  // toggle
+  sel.querySelector('.lang-btn').addEventListener('click', e => { e.stopPropagation(); drop.classList.toggle('open'); });
+  document.addEventListener('click', e => { if (!sel.contains(e.target)) drop.classList.remove('open'); });
+})();
+
+// Auth gate — starting a challenge requires login (viewing pricing does not)
+document.querySelectorAll('.btn-plan, .btn-plan-featured, .btn-nav-cta').forEach(el => {
+  el.addEventListener('click', e => {
+    if (localStorage.getItem('ilf_token')) return; // already logged in — proceed normally
+    e.preventDefault();
+    window.location.href = 'login.html';
+  });
+});
+
+// MT5 server card — only visible to logged-in traders
+(function () {
+  const card = document.getElementById('server-card');
+  const locked = document.getElementById('server-locked');
+  if (!card || !locked) return;
+  if (localStorage.getItem('ilf_token')) {
+    card.classList.add('show');
+    locked.classList.add('hide');
+  }
+})();
 
 // Scroll reveal
 const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');}),{threshold:0.1});

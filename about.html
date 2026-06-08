@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | IMARA</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    .about-body{padding-top:64px;background:var(--off-white);}
+    .about-hero{
+      position:relative;overflow:hidden;
+      padding:5rem 1.5rem;text-align:center;color:#fff;
+      background-image:
+        linear-gradient(165deg, rgba(8,13,24,.92) 0%, rgba(13,21,38,.85) 50%, rgba(8,13,24,.94) 100%),
+        url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&auto=format&q=65&fit=crop");
+      background-size:cover;background-position:center;
+    }
+    .about-hero p.label{font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#60a5fa;margin-bottom:0.6rem;}
+    .about-hero h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:0.9rem;}
+    .about-hero p.sub{font-size:1rem;color:#cbd5e1;max-width:620px;margin:0 auto;line-height:1.75;}
+
+    .about-inner{max-width:880px;margin:0 auto;padding:4rem 1.5rem;}
+    .about-inner h2{font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:0.75rem;letter-spacing:-0.01em;}
+    .about-inner p{color:var(--text-muted);font-size:0.97rem;line-height:1.8;margin-bottom:1.1rem;}
+    .about-inner strong{color:var(--text);}
+
+    .about-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2.5rem 0 3rem;}
+    .about-stat{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.4rem 1.2rem;text-align:center;}
+    .about-stat-num{font-size:1.9rem;font-weight:800;color:var(--blue);letter-spacing:-0.02em;}
+    .about-stat-label{font-size:0.82rem;color:var(--text-muted);margin-top:0.25rem;}
+
+    .about-values{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem;margin:1.5rem 0 3rem;}
+    .about-value{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.4rem 1.5rem;}
+    .about-value h3{font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:0.4rem;}
+    .about-value p{margin-bottom:0;font-size:0.9rem;}
+
+    .about-cta{
+      background:var(--navy);border-radius:var(--radius-lg);
+      padding:2.6rem 2rem;text-align:center;color:#fff;
+      margin-top:1rem;
+    }
+    .about-cta h3{font-size:1.4rem;font-weight:800;margin-bottom:0.6rem;}
+    .about-cta p{color:#94a3b8;margin-bottom:1.4rem;}
+    .about-cta .btn-primary{display:inline-flex;}
+
+    @media(max-width:640px){
+      .about-stats,.about-values{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body class="about-body">
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-icon">IM</div>
+        <span>IMARA</span>
+      </a>
+      <div style="margin-left:auto;display:flex;gap:0.75rem;">
+        <a href="index.html" class="btn-ghost" data-i18n="common.backToSite">← Back to Site</a>
+        <a href="login.html" class="btn-cta" data-i18n="common.traderPortal">Trader Portal</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="about-hero">
+    <p class="label">About IMARA</p>
+    <h1>Capital, tools and community for Africa's traders</h1>
+    <p class="sub">IMARA Logic Funded is a modern proprietary trading firm built to give skilled traders across Africa — and the world — real capital, a fair evaluation process, and the support to grow into professional, funded traders.</p>
+  </header>
+
+  <div class="about-inner">
+
+    <h2>Our Story</h2>
+    <p>IMARA was founded in 2021 in Nairobi, Kenya, by a small group of traders and technologists who believed that talent, not capital, should be the only barrier to becoming a professional trader. Many promising traders across the continent had the skill but lacked the funds to trade at scale — so we built a platform that bridges that gap.</p>
+    <p>Today, <strong>IMARA</strong> stands for <em>Endure. Rise. Lead.</em> — values that describe both the journey of our traders and the spirit of the team building the firm. We provide a transparent, two-phase evaluation, fund successful traders with up to <strong>$200,000</strong> in simulated capital, and pay out up to <strong>90% of profits</strong> via wire transfer, crypto, and mobile money — including M-Pesa, MTN and Orange Money.</p>
+
+    <div class="about-stats">
+      <div class="about-stat"><div class="about-stat-num">2021</div><div class="about-stat-label">Founded in Nairobi</div></div>
+      <div class="about-stat"><div class="about-stat-num">50+</div><div class="about-stat-label">Team members</div></div>
+      <div class="about-stat"><div class="about-stat-num">100+</div><div class="about-stat-label">Countries served</div></div>
+    </div>
+
+    <h2>What We Stand For</h2>
+    <div class="about-values">
+      <div class="about-value">
+        <h3>🌍 Africa-first, globally open</h3>
+        <p>Built around the realities of African traders — mobile money payouts, local support, multilingual service — while welcoming traders from over 100 countries worldwide.</p>
+      </div>
+      <div class="about-value">
+        <h3>🔍 Transparency</h3>
+        <p>Clear rules, published targets, and an evaluation process with no hidden conditions. What you see is what you trade.</p>
+      </div>
+      <div class="about-value">
+        <h3>⚡ Speed &amp; fairness</h3>
+        <p>Fast first payouts (within 14 trading days), bi-weekly cycles after, and a fee that's fully refunded with your first payout.</p>
+      </div>
+      <div class="about-value">
+        <h3>🤝 Trader-first support</h3>
+        <p>Real humans behind live chat, email and WhatsApp — available 24/6, in over 10 languages.</p>
+      </div>
+    </div>
+
+    <div class="about-cta">
+      <h3>Ready to start your journey?</h3>
+      <p>Join thousands of traders building their careers with IMARA.</p>
+      <a href="index.html#challenge" class="btn-primary">Take the IMARA Challenge</a>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p>&copy; 2026 IMARA Logic Funded Ltd. Nairobi, Kenya. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="index.html" class="float-home" title="Back to home" aria-label="Back to home">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5Z"/></svg>
+  </a>
+
+  <script src="translations.js"></script>
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

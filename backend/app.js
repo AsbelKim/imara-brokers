@@ -5,6 +5,8 @@ import authRoutes from './routes/auth.js';
 import challengeRoutes from './routes/challenges.js';
 import payoutRoutes from './routes/payouts.js';
 import kycRoutes from './routes/kyc.js';
+import chatRoutes from './routes/chat.js';
+import adminRoutes from './routes/admin.js';
 
 const app = express();
 
@@ -15,6 +17,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/challenges', challengeRoutes);
 app.use('/api/payouts', payoutRoutes);
 app.use('/api/kyc', kycRoutes);
+app.use('/api/chat', chatRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.get('/api/health', (_req, res) =>
   res.json({ status: 'ok', service: 'Imara Logic Funded API', ts: new Date().toISOString() })

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IMARA Academy | Learn to Trade</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    .academy-body{padding-top:64px;background:var(--off-white);}
+    .academy-hero{
+      position:relative;overflow:hidden;
+      padding:5rem 1.5rem;text-align:center;color:#fff;
+      background-image:
+        linear-gradient(165deg, rgba(8,13,24,.92) 0%, rgba(13,21,38,.85) 50%, rgba(8,13,24,.94) 100%),
+        url("https://images.unsplash.com/photo-1573164713988-8665fc963095?w=1600&auto=format&q=65&fit=crop");
+      background-size:cover;background-position:center;
+    }
+    .academy-hero p.label{font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#60a5fa;margin-bottom:0.6rem;}
+    .academy-hero h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:0.9rem;}
+    .academy-hero p.sub{font-size:1rem;color:#cbd5e1;max-width:620px;margin:0 auto;line-height:1.75;}
+
+    .academy-toc{
+      max-width:920px;margin:-1.6rem auto 0;position:relative;z-index:2;
+      display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;
+      padding:0 1.5rem;
+    }
+    .academy-toc a{
+      background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);
+      padding:0.9rem 1rem;text-align:center;font-size:0.84rem;font-weight:700;color:var(--text);
+      box-shadow:var(--shadow);transition:border-color .2s,transform .2s;
+    }
+    .academy-toc a:hover{border-color:var(--blue);transform:translateY(-2px);}
+
+    .academy-inner{max-width:880px;margin:0 auto;padding:4.5rem 1.5rem 2rem;}
+    .academy-topic{padding-top:2rem;margin-bottom:3rem;border-top:1px solid var(--gray-200);}
+    .academy-topic:first-child{border-top:none;padding-top:0;}
+    .academy-topic .topic-label{font-size:0.72rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--blue);margin-bottom:0.5rem;}
+    .academy-topic h2{font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:0.9rem;letter-spacing:-0.01em;}
+    .academy-topic p{color:var(--text-muted);font-size:0.97rem;line-height:1.8;margin-bottom:1rem;}
+    .academy-topic strong{color:var(--text);}
+    .academy-topic ul{margin:0 0 1rem 1.2rem;color:var(--text-muted);font-size:0.95rem;line-height:1.9;}
+    .academy-topic li strong{color:var(--text);}
+
+    .academy-cta{
+      background:var(--navy);border-radius:var(--radius-lg);
+      padding:2.6rem 2rem;text-align:center;color:#fff;margin-top:1rem;
+    }
+    .academy-cta h3{font-size:1.4rem;font-weight:800;margin-bottom:0.6rem;}
+    .academy-cta p{color:#94a3b8;margin-bottom:1.4rem;}
+    .academy-cta .btn-primary{display:inline-flex;}
+
+    @media(max-width:720px){
+      .academy-toc{grid-template-columns:repeat(2,1fr);}
+    }
+  </style>
+</head>
+<body class="academy-body">
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-icon">IM</div>
+        <span>IMARA</span>
+      </a>
+      <div style="margin-left:auto;display:flex;gap:0.75rem;">
+        <a href="index.html" class="btn-ghost" data-i18n="common.backToSite">← Back to Site</a>
+        <a href="login.html" class="btn-cta" data-i18n="common.traderPortal">Trader Portal</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="academy-hero">
+    <p class="label">IMARA Academy</p>
+    <h1>Learn to trade with confidence</h1>
+    <p class="sub">Free guides on getting started, the markets you can trade, and the analysis skills that help you pass the IMARA Challenge and trade funded accounts profitably.</p>
+  </header>
+
+  <nav class="academy-toc" aria-label="Academy topics">
+    <a href="#gateway">Gateway to Trading</a>
+    <a href="#markets">Financial Markets</a>
+    <a href="#technical">Technical Analysis</a>
+    <a href="#fundamental">Fundamental Analysis</a>
+  </nav>
+
+  <div class="academy-inner">
+
+    <section class="academy-topic" id="gateway">
+      <p class="topic-label">Start Here</p>
+      <h2>Gateway to Trading</h2>
+      <p>New to trading? Here's the short version of everything you need before risking a single dollar — simulated or otherwise.</p>
+      <ul>
+        <li><strong>What trading actually is</strong> — buying and selling financial instruments to profit from price movement, using a broker's platform like MetaTrader 5.</li>
+        <li><strong>Demo first, always</strong> — practise on a free demo account until your strategy is consistent before attempting any evaluation.</li>
+        <li><strong>Risk management is everything</strong> — position size, stop losses and a maximum daily-loss rule protect your account (and the IMARA Challenge requires them).</li>
+        <li><strong>The IMARA path</strong> — pass our 2-phase evaluation, get funded with up to $200,000 in simulated capital, and keep up to 90% of the profits you make.</li>
+      </ul>
+      <p>Ready to put it into practice? <a href="index.html#how">See how the IMARA Challenge works</a> or head straight to <a href="index.html#challenge">our pricing &amp; account sizes</a>.</p>
+    </section>
+
+    <section class="academy-topic" id="markets">
+      <p class="topic-label">Know What You're Trading</p>
+      <h2>Financial Markets</h2>
+      <p>IMARA funded accounts give you access to a wide range of instruments on MT5. Understanding what moves each market is the first step to trading it well.</p>
+      <ul>
+        <li><strong>Forex</strong> — 40+ currency pairs (majors, minors and exotics) driven by interest rates, inflation and economic data.</li>
+        <li><strong>Metals</strong> — Gold (XAU/USD) and Silver, often traded as a hedge during uncertainty or dollar weakness.</li>
+        <li><strong>Indices</strong> — US30, NAS100, SPX500 and more, tracking the performance of major stock markets.</li>
+        <li><strong>Commodities</strong> — Oil and Gas, sensitive to supply, demand and geopolitical events.</li>
+        <li><strong>Crypto CFDs</strong> — trade price movement on major cryptocurrencies without holding the underlying asset.</li>
+      </ul>
+      <p>Check the <a href="index.html#calendar">economic calendar</a> to see which events are likely to move these markets this week.</p>
+    </section>
+
+    <section class="academy-topic" id="technical">
+      <p class="topic-label">Read The Charts</p>
+      <h2>Technical Analysis</h2>
+      <p>Technical analysis is the study of price charts to anticipate future moves. MT5 gives you 21 timeframes and 80+ indicators to build your edge.</p>
+      <ul>
+        <li><strong>Candlesticks</strong> — each candle shows the open, high, low and close for a period, and patterns (engulfing, doji, pin bars) hint at where price may go next.</li>
+        <li><strong>Support &amp; resistance</strong> — price levels where buying or selling pressure has historically reversed or paused a trend.</li>
+        <li><strong>Trend &amp; momentum indicators</strong> — moving averages, RSI and MACD help confirm the strength and direction of a move.</li>
+        <li><strong>Risk-to-reward</strong> — plan your stop loss and take profit before entering, and only take trades where the potential reward justifies the risk.</li>
+      </ul>
+      <p>Practise these tools on a free MT5 demo, available for <a href="index.html#platform">Windows, Mac, iOS and Android</a>.</p>
+    </section>
+
+    <section class="academy-topic" id="fundamental">
+      <p class="topic-label">Trade The News</p>
+      <h2>Fundamental Analysis</h2>
+      <p>Fundamental analysis looks at the economic and political forces that drive prices — interest rate decisions, employment data, inflation reports and central bank statements.</p>
+      <ul>
+        <li><strong>Interest rates</strong> — central bank decisions are some of the biggest market movers; higher rates often strengthen a currency.</li>
+        <li><strong>Employment &amp; inflation data</strong> — releases like Non-Farm Payrolls and CPI can trigger sharp, fast moves around their release time.</li>
+        <li><strong>Risk sentiment</strong> — geopolitical events and "risk-on / risk-off" moods shift money between currencies, gold and equities.</li>
+        <li><strong>Plan around the calendar</strong> — many traders reduce position size or stay flat just before high-impact releases to manage volatility.</li>
+      </ul>
+      <p>Stay ahead of these events with our live <a href="index.html#calendar">Economic Calendar</a>.</p>
+    </section>
+
+    <div class="academy-cta">
+      <h3>Put your learning to the test</h3>
+      <p>Take the IMARA Challenge and start your journey to a funded account.</p>
+      <a href="index.html#challenge" class="btn-primary">View Challenge Plans</a>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p>&copy; 2026 IMARA Logic Funded Ltd. Nairobi, Kenya. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="index.html" class="float-home" title="Back to home" aria-label="Back to home">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5Z"/></svg>
+  </a>
+
+  <script src="translations.js"></script>
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

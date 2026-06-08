@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Careers | IMARA</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    .careers-body{padding-top:64px;background:var(--off-white);}
+    .careers-hero{
+      position:relative;overflow:hidden;
+      padding:5rem 1.5rem;text-align:center;color:#fff;
+      background-image:
+        linear-gradient(165deg, rgba(8,13,24,.92) 0%, rgba(13,21,38,.85) 50%, rgba(8,13,24,.94) 100%),
+        url("https://images.unsplash.com/photo-1521791055366-0d553872125f?w=1600&auto=format&q=65&fit=crop");
+      background-size:cover;background-position:center;
+    }
+    .careers-hero p.label{font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#60a5fa;margin-bottom:0.6rem;}
+    .careers-hero h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:0.9rem;}
+    .careers-hero p.sub{font-size:1rem;color:#cbd5e1;max-width:620px;margin:0 auto;line-height:1.75;}
+
+    .careers-inner{max-width:920px;margin:0 auto;padding:4rem 1.5rem;}
+    .careers-inner h2{font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:0.6rem;letter-spacing:-0.01em;}
+    .careers-inner > p.lead{color:var(--text-muted);font-size:0.97rem;line-height:1.8;margin-bottom:2rem;max-width:680px;}
+
+    .perks{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:3rem;}
+    .perk{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:1.3rem 1.2rem;text-align:center;}
+    .perk .ico{font-size:1.5rem;margin-bottom:0.4rem;}
+    .perk h3{font-size:0.95rem;font-weight:700;color:var(--text);margin-bottom:0.3rem;}
+    .perk p{font-size:0.84rem;color:var(--text-muted);margin:0;line-height:1.6;}
+
+    .job-list{display:flex;flex-direction:column;gap:0.9rem;margin-bottom:1rem;}
+    .job-card{
+      background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);
+      padding:1.4rem 1.5rem;display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap;
+    }
+    .job-info h3{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:0.35rem;}
+    .job-meta{display:flex;gap:0.5rem;flex-wrap:wrap;}
+    .job-tag{
+      font-size:0.74rem;font-weight:600;color:var(--blue);background:rgba(37,99,235,0.08);
+      padding:0.25rem 0.6rem;border-radius:999px;
+    }
+    .job-tag.loc{color:var(--green);background:rgba(16,185,129,0.1);}
+    .job-tag.type{color:#a855f7;background:rgba(168,85,247,0.1);}
+    .job-card .btn-primary{white-space:nowrap;}
+
+    .careers-cta{
+      background:var(--navy);border-radius:var(--radius-lg);
+      padding:2.6rem 2rem;text-align:center;color:#fff;
+      margin-top:2.5rem;
+    }
+    .careers-cta h3{font-size:1.4rem;font-weight:800;margin-bottom:0.6rem;}
+    .careers-cta p{color:#94a3b8;margin-bottom:1.4rem;}
+    .careers-cta .btn-primary{display:inline-flex;}
+
+    @media(max-width:720px){
+      .perks{grid-template-columns:1fr;}
+      .job-card{flex-direction:column;align-items:flex-start;}
+    }
+  </style>
+</head>
+<body class="careers-body">
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-icon">IM</div>
+        <span>IMARA</span>
+      </a>
+      <div style="margin-left:auto;display:flex;gap:0.75rem;">
+        <a href="index.html" class="btn-ghost" data-i18n="common.backToSite">← Back to Site</a>
+        <a href="login.html" class="btn-cta" data-i18n="common.traderPortal">Trader Portal</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="careers-hero">
+    <p class="label">Careers at IMARA</p>
+    <h1>Help us build the future of funded trading</h1>
+    <p class="sub">We're a fast-growing remote-first team based in Nairobi, hiring across product, engineering, trading operations and trader support. Come build something that changes traders' lives.</p>
+  </header>
+
+  <div class="careers-inner">
+
+    <h2>Why work here</h2>
+    <p class="lead">IMARA is small enough that your work has visible impact, and ambitious enough to be building for traders in over 100 countries. We hire for ownership, curiosity and care for the people we serve.</p>
+
+    <div class="perks">
+      <div class="perk"><div class="ico">🌍</div><h3>Remote-first</h3><p>Work from anywhere — our team spans Kenya, Nigeria, South Africa and beyond.</p></div>
+      <div class="perk"><div class="ico">📈</div><h3>Real ownership</h3><p>Ship features and decisions that directly shape the trader experience.</p></div>
+      <div class="perk"><div class="ico">💸</div><h3>Competitive pay</h3><p>Market-rate salaries paid in USD, plus performance bonuses.</p></div>
+      <div class="perk"><div class="ico">🩺</div><h3>Health cover</h3><p>Medical insurance for you and your immediate family.</p></div>
+      <div class="perk"><div class="ico">🌴</div><h3>Flexible time off</h3><p>Take the rest you need — we trust you to manage your schedule.</p></div>
+      <div class="perk"><div class="ico">🎓</div><h3>Learning budget</h3><p>Annual budget for courses, books and conferences.</p></div>
+    </div>
+
+    <h2>Open positions</h2>
+    <div class="job-list">
+
+      <div class="job-card">
+        <div class="job-info">
+          <h3>Senior Backend Engineer (Node.js)</h3>
+          <div class="job-meta">
+            <span class="job-tag type">Full-time</span>
+            <span class="job-tag loc">Remote — Africa</span>
+            <span class="job-tag">Engineering</span>
+          </div>
+        </div>
+        <a href="mailto:careers@imaralogic.co.ke?subject=Application%3A%20Senior%20Backend%20Engineer%20(Node.js)" class="btn-primary">Apply Now</a>
+      </div>
+
+      <div class="job-card">
+        <div class="job-info">
+          <h3>Trader Support Specialist</h3>
+          <div class="job-meta">
+            <span class="job-tag type">Full-time</span>
+            <span class="job-tag loc">Remote — Africa / EU hours</span>
+            <span class="job-tag">Support</span>
+          </div>
+        </div>
+        <a href="mailto:careers@imaralogic.co.ke?subject=Application%3A%20Trader%20Support%20Specialist" class="btn-primary">Apply Now</a>
+      </div>
+
+      <div class="job-card">
+        <div class="job-info">
+          <h3>Risk &amp; Trading Operations Analyst</h3>
+          <div class="job-meta">
+            <span class="job-tag type">Full-time</span>
+            <span class="job-tag loc">Nairobi, Kenya (Hybrid)</span>
+            <span class="job-tag">Operations</span>
+          </div>
+        </div>
+        <a href="mailto:careers@imaralogic.co.ke?subject=Application%3A%20Risk%20%26%20Trading%20Operations%20Analyst" class="btn-primary">Apply Now</a>
+      </div>
+
+      <div class="job-card">
+        <div class="job-info">
+          <h3>Product Designer (UI/UX)</h3>
+          <div class="job-meta">
+            <span class="job-tag type">Contract</span>
+            <span class="job-tag loc">Remote — Worldwide</span>
+            <span class="job-tag">Design</span>
+          </div>
+        </div>
+        <a href="mailto:careers@imaralogic.co.ke?subject=Application%3A%20Product%20Designer%20(UI%2FUX)" class="btn-primary">Apply Now</a>
+      </div>
+
+      <div class="job-card">
+        <div class="job-info">
+          <h3>Growth &amp; Partnerships Manager</h3>
+          <div class="job-meta">
+            <span class="job-tag type">Full-time</span>
+            <span class="job-tag loc">Remote — Africa</span>
+            <span class="job-tag">Marketing</span>
+          </div>
+        </div>
+        <a href="mailto:careers@imaralogic.co.ke?subject=Application%3A%20Growth%20%26%20Partnerships%20Manager" class="btn-primary">Apply Now</a>
+      </div>
+
+    </div>
+
+    <div class="careers-cta">
+      <h3>Don't see a role that fits?</h3>
+      <p>We're always glad to hear from talented people. Send us your CV and tell us how you'd like to contribute.</p>
+      <a href="mailto:careers@imaralogic.co.ke?subject=General%20Application" class="btn-primary">Send a General Application</a>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p>&copy; 2026 IMARA Logic Funded Ltd. Nairobi, Kenya. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="index.html" class="float-home" title="Back to home" aria-label="Back to home">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5Z"/></svg>
+  </a>
+
+  <script src="translations.js"></script>
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

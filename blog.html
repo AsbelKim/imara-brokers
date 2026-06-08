@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog &amp; Insights | IMARA</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    .blog-body{padding-top:64px;background:var(--off-white);}
+    .blog-hero{
+      position:relative;overflow:hidden;
+      padding:5rem 1.5rem;text-align:center;color:#fff;
+      background-image:
+        linear-gradient(165deg, rgba(8,13,24,.92) 0%, rgba(13,21,38,.85) 50%, rgba(8,13,24,.94) 100%),
+        url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&auto=format&q=65&fit=crop");
+      background-size:cover;background-position:center;
+    }
+    .blog-hero p.label{font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#60a5fa;margin-bottom:0.6rem;}
+    .blog-hero h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:0.9rem;}
+    .blog-hero p.sub{font-size:1rem;color:#cbd5e1;max-width:620px;margin:0 auto;line-height:1.75;}
+
+    .blog-inner{max-width:1080px;margin:0 auto;padding:4rem 1.5rem 2rem;}
+    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;}
+    .blog-card{
+      background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;
+      box-shadow:var(--shadow);transition:transform .2s,border-color .2s;display:flex;flex-direction:column;
+    }
+    .blog-card:hover{transform:translateY(-3px);border-color:var(--blue);}
+    .blog-card .bc-img{height:170px;background-size:cover;background-position:center;}
+    .blog-card .bc-body{padding:1.3rem 1.4rem 1.5rem;display:flex;flex-direction:column;gap:0.6rem;flex:1;}
+    .blog-card .bc-meta{font-size:0.74rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--blue);}
+    .blog-card h2{font-size:1.08rem;font-weight:800;color:var(--text);line-height:1.4;letter-spacing:-0.01em;}
+    .blog-card p{font-size:0.88rem;color:var(--text-muted);line-height:1.7;flex:1;}
+    .blog-card .bc-link{font-size:0.84rem;font-weight:700;color:var(--blue);}
+
+    .blog-cta{
+      background:var(--navy);border-radius:var(--radius-lg);
+      padding:2.6rem 2rem;text-align:center;color:#fff;margin:3rem 0 1rem;
+    }
+    .blog-cta h3{font-size:1.4rem;font-weight:800;margin-bottom:0.6rem;}
+    .blog-cta p{color:#94a3b8;margin-bottom:1.4rem;}
+    .blog-cta .btn-primary{display:inline-flex;}
+
+    @media(max-width:900px){ .blog-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:600px){ .blog-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body class="blog-body">
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <div class="brand-icon">IM</div>
+        <span>IMARA</span>
+      </a>
+      <div style="margin-left:auto;display:flex;gap:0.75rem;">
+        <a href="index.html" class="btn-ghost" data-i18n="common.backToSite">← Back to Site</a>
+        <a href="login.html" class="btn-cta" data-i18n="common.traderPortal">Trader Portal</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="blog-hero">
+    <p class="label">IMARA Insights</p>
+    <h1>Blog &amp; trading insights</h1>
+    <p class="sub">Strategy notes, market updates and lessons from the IMARA trading community — written to help you trade smarter and pass the Challenge with confidence.</p>
+  </header>
+
+  <div class="blog-inner">
+    <div class="blog-grid">
+
+      <article class="blog-card">
+        <div class="bc-img" style="background-image:url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&q=60&fit=crop')"></div>
+        <div class="bc-body">
+          <span class="bc-meta">Risk Management</span>
+          <h2>Five risk rules every funded trader follows</h2>
+          <p>Position sizing, daily loss limits and the habits that keep an evaluation — and a funded account — alive through a losing streak.</p>
+          <a href="academy.html#gateway" class="bc-link">Read in the Academy →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="bc-img" style="background-image:url('https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&auto=format&q=60&fit=crop')"></div>
+        <div class="bc-body">
+          <span class="bc-meta">Market Update</span>
+          <h2>What moves gold — and how to trade the calendar around it</h2>
+          <p>From US interest-rate decisions to risk sentiment shifts, here's how XAU/USD reacts to the week's biggest economic releases.</p>
+          <a href="index.html#calendar" class="bc-link">Open the Economic Calendar →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="bc-img" style="background-image:url('https://images.unsplash.com/photo-1535320903710-d993d3d77d29?w=800&auto=format&q=60&fit=crop')"></div>
+        <div class="bc-body">
+          <span class="bc-meta">Strategy</span>
+          <h2>Reading candlesticks: a 10-minute primer</h2>
+          <p>Engulfing patterns, doji and pin bars — the chart signals that show up again and again, and how to use them with support and resistance.</p>
+          <a href="academy.html#technical" class="bc-link">Continue in Technical Analysis →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="bc-img" style="background-image:url('https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=800&auto=format&q=60&fit=crop')"></div>
+        <div class="bc-body">
+          <span class="bc-meta">Trader Tools</span>
+          <h2>Stop guessing your lot size — use the calculator</h2>
+          <p>A walkthrough of the Position Size and Pip Value tools, and why sizing trades to your risk percentage is the single highest-leverage habit you can build.</p>
+          <a href="calculators.html" class="bc-link">Open Trading Calculators →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="bc-img" style="background-image:url('https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&auto=format&q=60&fit=crop')"></div>
+        <div class="bc-body">
+          <span class="bc-meta">Inside IMARA</span>
+          <h2>From challenge to payout: a trader's first 90 days</h2>
+          <p>What the journey through Phase 1, Phase 2 and your first funded payout actually looks like — and what catches new traders off guard.</p>
+          <a href="index.html#how" class="bc-link">See How It Works →</a>
+        </div>
+      </article>
+
+      <article class="blog-card">
+        <div class="bc-img" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&q=60&fit=crop')"></div>
+        <div class="bc-body">
+          <span class="bc-meta">Fundamentals</span>
+          <h2>Why Non-Farm Payrolls still moves every major pair</h2>
+          <p>A look at why one US jobs report can swing the dollar — and the simple plan many funded traders use to manage volatility around it.</p>
+          <a href="academy.html#fundamental" class="bc-link">Continue in Fundamental Analysis →</a>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="blog-cta">
+      <h3>Ready to put these ideas into practice?</h3>
+      <p>Take the IMARA Challenge and start your journey to a funded account.</p>
+      <a href="index.html#challenge" class="btn-primary">View Challenge Plans</a>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-bottom">
+        <p>&copy; 2026 IMARA Logic Funded Ltd. Nairobi, Kenya. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="index.html" class="float-home" title="Back to home" aria-label="Back to home">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5Z"/></svg>
+  </a>
+
+  <script src="translations.js"></script>
+  <script src="i18n.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

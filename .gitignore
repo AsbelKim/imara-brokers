@@ -4,6 +4,12 @@ node_modules/
 backend/node_modules/
 .env
 backend/.env
+backend/db/*.sqlite
+backend/db/*.sqlite-*
+backend/uploads/
 *.log
 *.err
 .claude/
+
+# Local Netlify folder
+.netlify
