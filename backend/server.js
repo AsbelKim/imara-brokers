@@ -13,7 +13,11 @@ const siteRoot = path.join(__dirname, '..');
 // fetch('/api/...') calls in the browser resolve correctly during local dev
 // (mirrors what the Netlify redirect does in production).
 app.use(express.static(siteRoot));
-app.get(/^(?!\/api).*/, (_req, res) => res.sendFile(path.join(siteRoot, 'index.html')));
+// admin.html is a real file — let express.static serve it directly.
+// All other non-API routes fall back to the SPA (index.html).
+app.get(/^(?!\/(api|admin\.html|admin\.css|admin\.js)).*/, (_req, res) =>
+  res.sendFile(path.join(siteRoot, 'index.html'))
+);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Imara Logic API + frontend → http://localhost:${PORT}`));

@@ -9,24 +9,54 @@ const DRAWDOWN_PCT = 10;
 const STATUS_BADGES = {
   active: '🟢 Active', passed: '✅ Passed', failed: '🔴 Failed', funded: '🏆 Funded',
 };
-const KYC_DOC_META = {
-  national_id_front: { icon: '🪪', name: 'National ID (Front)' },
-  national_id_back:  { icon: '🪪', name: 'National ID (Back)' },
-  selfie:            { icon: '🤳', name: 'Selfie with ID' },
-  bank_statement:    { icon: '🏦', name: 'Bank Statement' },
-  utility_bill:      { icon: '📄', name: 'Utility Bill' },
-};
-const KYC_DOC_NOTE = {
-  bank_statement: 'Last 3 months, PDF or image',
-  utility_bill: 'Proof of address, not older than 3 months',
-};
+// ── FTMO-aligned KYC steps ───────────────────────────────────────
+const KYC_STEPS = [
+  {
+    docType:  'identity_document',
+    label:    'Identity Document',
+    icon:     '🪪',
+    desc:     'A valid government-issued photo ID showing your full name, photo, and date of birth.',
+    accepted: 'Passport (data page) · National Identity Card (front)',
+    rejected: 'Driver\'s license · Residence permit · Student ID',
+    subtypes: [
+      { value: 'passport',    label: 'Passport' },
+      { value: 'national_id', label: 'National ID Card' },
+    ],
+  },
+  {
+    docType:       'identity_document_back',
+    label:         'Identity Document (Back)',
+    icon:          '🪪',
+    desc:          'The reverse side of your national ID card showing the MRZ strip or barcode.',
+    conditionalOn: 'national_id', // only show when identity_document subtype = national_id
+    note:          'Only required if your identity document is a National ID card.',
+  },
+  {
+    docType:  'proof_of_address',
+    label:    'Proof of Address',
+    icon:     '📋',
+    desc:     'A document confirming your current residential address, issued within the last 6 months.',
+    accepted: 'Bank statement · Utility bill · Lease agreement · Government letter',
+    rejected: 'Bank cards · Handwritten notes · Screenshots · P.O. Box only',
+    ageNote:  'Must not be older than 6 months and must show your name and full address.',
+    subtypes: [
+      { value: 'utility_bill',      label: 'Utility Bill' },
+      { value: 'bank_statement',    label: 'Bank Statement' },
+      { value: 'lease_agreement',   label: 'Lease Agreement' },
+      { value: 'government_letter', label: 'Government Letter' },
+    ],
+  },
+];
 
 const token  = localStorage.getItem('ilf_token');
-let trader   = null;
-let challenges = [];
-let payouts  = [];
-let kycDocs  = [];
-let active   = null; // active/most-relevant challenge
+let trader          = null;
+let challenges      = [];
+let payouts         = [];
+let paymentMethods  = [];
+let kycDocs         = [];
+let kycStatus       = 'not_started';
+let active          = null; // active/most-relevant challenge
+let selectedPmId    = null; // chosen payment method for payout
 
 function fmtMoney(n) {
   return '$' + Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -129,10 +159,9 @@ function renderOverview() {
     return;
   }
 
-  const targetPct = PHASE_TARGET_PCT[active.phase] ?? 0;
-  const target = active.account_size * targetPct / 100;
-  const dailyLossLimit = active.account_size * DAILY_LOSS_PCT / 100;
-  const drawdownLimit = active.account_size * DRAWDOWN_PCT / 100;
+  const target         = active.profit_target_usd    ?? (active.account_size * (PHASE_TARGET_PCT[active.phase] ?? 0) / 100);
+  const dailyLossLimit = active.daily_loss_limit_usd ?? (active.account_size * DAILY_LOSS_PCT / 100);
+  const drawdownLimit  = active.max_drawdown_usd      ?? (active.account_size * DRAWDOWN_PCT   / 100);
   const profitPct = target ? clampPct((active.profit_usd / target) * 100) : 0;
   const lossPct = clampPct((active.daily_loss_usd / dailyLossLimit) * 100);
   const ddPct = clampPct((active.drawdown_usd / drawdownLimit) * 100);
@@ -190,21 +219,21 @@ function renderChallenges() {
       'View Challenge Plans', () => { window.location.href = 'index.html#challenges'; }
     ));
   } else {
-    const targetPct = PHASE_TARGET_PCT[active.phase] ?? 0;
-    const target = active.account_size * targetPct / 100;
-    const dailyLossLimit = active.account_size * DAILY_LOSS_PCT / 100;
-    const drawdownLimit = active.account_size * DRAWDOWN_PCT / 100;
+    const target         = active.profit_target_usd    ?? (active.account_size * (PHASE_TARGET_PCT[active.phase] ?? 0) / 100);
+    const dailyLossLimit = active.daily_loss_limit_usd ?? (active.account_size * DAILY_LOSS_PCT / 100);
+    const drawdownLimit  = active.max_drawdown_usd      ?? (active.account_size * DRAWDOWN_PCT   / 100);
     const profitPct = target ? clampPct((active.profit_usd / target) * 100) : 0;
     const lossPct = clampPct((active.daily_loss_usd / dailyLossLimit) * 100);
     const ddPct = clampPct((active.drawdown_usd / drawdownLimit) * 100);
     const elapsed = daysSince(active.start_date);
-    const maxDays = PHASE_MAX_DAYS[active.phase];
+    const maxDays = active.max_calendar_days ?? PHASE_MAX_DAYS[active.phase];
     const daysLeft = maxDays ? Math.max(0, maxDays - elapsed) : null;
 
     card.querySelector('.ch-phase-badge').textContent = PHASE_LABELS[active.phase] || `Phase ${active.phase}`;
     card.querySelector('.ch-status-badge').textContent = STATUS_BADGES[active.status] || active.status;
     card.querySelector('.ch-title').textContent = `${PLAN_LABELS[active.plan] || active.plan} Challenge — $${active.account_size.toLocaleString()}`;
-    card.querySelector('.ch-sub').innerHTML = `Started ${fmtDate(active.start_date)} &bull; ${elapsed} of ${maxDays ?? '—'} days elapsed &bull; Fee paid: <strong>$${active.fee}</strong> (refunded on first payout)`;
+    const deadlineStr = active.deadline ? ` &bull; Deadline: <strong>${fmtDate(active.deadline)}</strong>` : '';
+    card.querySelector('.ch-sub').innerHTML = `Started ${fmtDate(active.start_date)} &bull; ${elapsed} of ${maxDays ?? '—'} days elapsed${deadlineStr} &bull; Fee paid: <strong>$${active.fee}</strong> (refunded on first payout)`;
     card.querySelector('.ch-progress-row').innerHTML =
       progressRow('Profit Target', `${fmtMoney(active.profit_usd)} / ${fmtMoney(target)}`, profitPct, false) +
       progressRow('Daily Loss Used', `${fmtMoney(active.daily_loss_usd)} / ${fmtMoney(dailyLossLimit)}`, lossPct, true) +
@@ -258,65 +287,103 @@ function renderTradeHistory() {
   if (filter) filter.style.display = 'none';
 }
 
+const METHOD_LABELS = { mpesa: ‘M-Pesa’, bank_transfer: ‘Bank Transfer’, crypto: ‘Crypto’, skrill: ‘Skrill’ };
+
+function renderPayoutMethods() {
+  const list = document.getElementById(‘payout-methods-list’);
+  if (!list) return;
+  list.innerHTML = ‘’;
+  selectedPmId = null;
+
+  if (!paymentMethods.length) {
+    list.innerHTML = `<p style="font-size:0.8rem;color:var(--muted);margin:0 0 0.5rem;">No saved payment methods. Add one below.</p>`;
+    return;
+  }
+
+  paymentMethods.forEach((pm, i) => {
+    const id = `pm-${pm.id}`;
+    const isDefault = pm.is_default === 1;
+    const div = document.createElement(‘div’);
+    div.className = ‘method-opt’;
+    div.innerHTML = `
+      <input type="radio" name="pm_sel" id="${id}" value="${pm.id}" ${isDefault ? ‘checked’ : ‘’}>
+      <label for="${id}" class="method-label">
+        <span style="font-size:1.1rem;">${pm.type === ‘mpesa’ ? ‘📱’ : pm.type === ‘bank_transfer’ ? ‘🏦’ : pm.type === ‘crypto’ ? ‘🪙’ : ‘💳’}</span>
+        <div>
+          <span>${esc(pm.label)}</span><br/>
+          <small>${METHOD_LABELS[pm.type] || pm.type}${isDefault ? ‘ &bull; Default’ : ‘’}</small>
+        </div>
+      </label>`;
+    list.appendChild(div);
+    if (isDefault || i === 0) selectedPmId = pm.id;
+  });
+
+  list.querySelectorAll(‘input[name="pm_sel"]’).forEach(r => {
+    r.addEventListener(‘change’, () => { selectedPmId = r.value; });
+  });
+}
+
 function renderPayout() {
-  const tab = document.getElementById('tab-payout');
+  const tab = document.getElementById(‘tab-payout’);
   if (!tab) return;
 
-  const availCard = tab.querySelector('.payout-avail-card');
-  const notice = tab.querySelector('.payout-notice');
-  const formCard = tab.querySelector('.payout-form-card');
-  const rulesCard = tab.querySelector('.payout-rules-card');
+  const availCard = tab.querySelector(‘.payout-avail-card’);
+  const notice    = tab.querySelector(‘.payout-notice’);
+  const formCard  = tab.querySelector(‘.payout-form-card’);
+  const rulesCard = tab.querySelector(‘.payout-rules-card’);
 
   if (!active) {
-    availCard.querySelector('.payout-avail-amount').textContent = '$0.00';
-    availCard.querySelector('.payout-avail-sub').textContent = 'Start and pass a challenge to unlock payouts.';
-    notice.innerHTML = '<strong>🔒 Payouts are locked</strong> — payouts become available once you have a funded account.';
-    formCard.style.display = 'none';
+    availCard.querySelector(‘.payout-avail-amount’).textContent = ‘$0.00’;
+    availCard.querySelector(‘.payout-avail-sub’).textContent = ‘Start and pass a challenge to unlock payouts.’;
+    notice.innerHTML = ‘<strong>🔒 Payouts are locked</strong> — payouts become available once you have a funded account.’;
+    formCard.style.display = ‘none’;
   } else {
     const available = (active.profit_usd * active.profit_split) / 100;
-    availCard.querySelector('.payout-avail-label').textContent = `Available Profit (${active.profit_split}% split)`;
-    availCard.querySelector('.payout-avail-amount').textContent = fmtMoney(Math.max(0, available));
-    availCard.querySelector('.payout-avail-sub').textContent = `From ${fmtMoney(active.profit_usd)} gross profit • ${PLAN_LABELS[active.plan] || active.plan} plan — ${active.profit_split}% share`;
+    availCard.querySelector(‘.payout-avail-label’).textContent = `Available Profit (${active.profit_split}% split)`;
+    availCard.querySelector(‘.payout-avail-amount’).textContent = fmtMoney(Math.max(0, available));
+    availCard.querySelector(‘.payout-avail-sub’).textContent = `From ${fmtMoney(active.profit_usd)} gross profit • ${PLAN_LABELS[active.plan] || active.plan} plan — ${active.profit_split}% share`;
 
-    if (active.status !== 'funded') {
-      notice.innerHTML = '<strong>🔒 Not yet funded</strong> — payouts unlock once you pass your evaluation and move to a funded account.';
-      formCard.style.display = 'none';
+    if (active.status !== ‘funded’) {
+      notice.innerHTML = ‘<strong>🔒 Not yet funded</strong> — payouts unlock once you pass your evaluation and move to a funded account.’;
+      formCard.style.display = ‘none’;
     } else {
-      const elapsed = daysSince(active.start_date);
-      if (elapsed < 14) {
-        const remaining = 14 - elapsed;
-        notice.innerHTML = `<strong>⏳ Payout available in ${remaining} day${remaining !== 1 ? 's' : ''}</strong> — your first payout unlocks after 14 days of funded trading. You're at day ${elapsed}.`;
+      const daysFunded = active.funded_at ? Math.floor((Date.now() - new Date(active.funded_at).getTime()) / 86_400_000) : daysSince(active.start_date);
+      if (daysFunded < 14) {
+        const remaining = 14 - daysFunded;
+        notice.innerHTML = `<strong>⏳ Payout available in ${remaining} day${remaining !== 1 ? ‘s’ : ‘’}</strong> — your first payout unlocks after 14 days of funded trading. You’re at day ${daysFunded}.`;
       } else {
-        notice.innerHTML = `<strong>✅ You’re eligible for payout</strong> — bi-weekly payouts are available. Submit a request below.`;
+        notice.innerHTML = `<strong>✅ You’re eligible for payout</strong> — submit your request below.`;
       }
-      formCard.style.display = '';
+      formCard.style.display = ‘’;
     }
 
-    const splitRow = rulesCard.querySelector('.prule:nth-child(5) p');
+    const splitRow = rulesCard.querySelector(‘.prule:nth-child(4) p’);
     if (splitRow) splitRow.innerHTML = `Your profit share: <strong>${active.profit_split}%</strong> (${PLAN_LABELS[active.plan] || active.plan} plan)`;
   }
 
+  renderPayoutMethods();
+
   // Recent payout requests
-  let histWrap = tab.querySelector('.payout-history-card');
+  let histWrap = tab.querySelector(‘.payout-history-card’);
   if (!histWrap) {
-    histWrap = document.createElement('div');
-    histWrap.className = 'ch-history-card payout-history-card';
-    histWrap.style.marginTop = '1.25rem';
+    histWrap = document.createElement(‘div’);
+    histWrap.className = ‘ch-history-card payout-history-card’;
+    histWrap.style.marginTop = ‘1.25rem’;
     histWrap.innerHTML = `<h3>Recent Payout Requests</h3><table class="trade-table"><thead><tr><th>Amount</th><th>Method</th><th>Requested</th><th>Status</th></tr></thead><tbody></tbody></table>`;
     formCard.parentElement.appendChild(histWrap);
   }
-  const pBody = histWrap.querySelector('tbody');
-  pBody.innerHTML = '';
+  const pBody = histWrap.querySelector(‘tbody’);
+  pBody.innerHTML = ‘’;
   if (!payouts.length) {
     pBody.innerHTML = `<tr><td colspan="4" style="color:var(--muted);text-align:center;padding:1.25rem;">No payout requests yet</td></tr>`;
   } else {
     payouts.forEach(p => {
-      const cls = p.status === 'paid' ? 'status-closed' : 'status-open';
+      const statusCls = p.status === ‘paid’ ? ‘status-closed’ : ‘status-open’;
       pBody.innerHTML += `<tr>
         <td><strong>${fmtMoney(p.amount_usd)}</strong></td>
-        <td>${p.method === 'mpesa' ? 'M-Pesa' : 'Bank Transfer'}</td>
+        <td>${METHOD_LABELS[p.method] || esc(p.method)}</td>
         <td>${fmtDate(p.requested_at)}</td>
-        <td><span class="${cls}">${esc(p.status)}</span></td>
+        <td><span class="${statusCls}">${esc(p.status)}</span></td>
       </tr>`;
     });
   }
@@ -327,6 +394,45 @@ function setupPayoutForm() {
   if (!form || form.dataset.wired) return;
   form.dataset.wired = '1';
 
+  // Add payment method toggle
+  const addBtn    = document.getElementById('add-payment-method-btn');
+  const newPmForm = document.getElementById('new-pm-form');
+  const savePmBtn = document.getElementById('save-pm-btn');
+  const cancelPmBtn = document.getElementById('cancel-pm-btn');
+
+  addBtn?.addEventListener('click', () => { newPmForm.style.display = ''; addBtn.style.display = 'none'; });
+  cancelPmBtn?.addEventListener('click', () => { newPmForm.style.display = 'none'; addBtn.style.display = ''; });
+
+  savePmBtn?.addEventListener('click', async () => {
+    const type    = document.getElementById('new-pm-type').value;
+    const label   = document.getElementById('new-pm-label').value.trim();
+    const details = document.getElementById('new-pm-details').value.trim();
+    if (!label || !details) { dashToast('Please fill in label and account details', 'error'); return; }
+
+    savePmBtn.disabled = true; savePmBtn.textContent = 'Saving…';
+    try {
+      const pm = await authFetch('/payments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type, label, details: { value: details }, is_default: !paymentMethods.length }),
+      });
+      paymentMethods = await authFetch('/payments');
+      selectedPmId = pm.id;
+      newPmForm.style.display = 'none';
+      addBtn.style.display = '';
+      document.getElementById('new-pm-type').value = 'mpesa';
+      document.getElementById('new-pm-label').value = '';
+      document.getElementById('new-pm-details').value = '';
+      renderPayoutMethods();
+      dashToast('Payment method saved', 'success');
+    } catch (err) {
+      dashToast(err.message || 'Could not save payment method', 'error');
+    } finally {
+      savePmBtn.disabled = false; savePmBtn.textContent = 'Save Method';
+    }
+  });
+
+  // Payout submission
   form.addEventListener('submit', async e => {
     e.preventDefault();
     if (!active) return;
@@ -334,16 +440,13 @@ function setupPayoutForm() {
       dashToast('Payouts are only available on funded accounts', 'error');
       return;
     }
-
-    const amount = Number(form.querySelector('input[type="number"]').value);
-    const method = form.querySelector('input[name="method"]:checked')?.value;
-    const account_details = form.querySelectorAll('input[type="text"]')[0].value.trim();
-    const account_name = form.querySelectorAll('input[type="text"]')[1].value.trim();
-
-    if (!amount || !method || !account_details || !account_name) {
-      dashToast('Please fill in all payout fields', 'error');
+    if (!selectedPmId) {
+      dashToast('Please select or add a payment method first', 'error');
       return;
     }
+
+    const amount = Number(document.getElementById('payout-amount').value);
+    if (!amount || amount <= 0) { dashToast('Enter a valid payout amount', 'error'); return; }
 
     const submitBtn = form.querySelector('.btn-submit');
     submitBtn.disabled = true;
@@ -353,10 +456,10 @@ function setupPayoutForm() {
       await authFetch('/payouts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ challenge_id: active.id, amount_usd: amount, method, account_details, account_name }),
+        body: JSON.stringify({ challenge_id: active.id, amount_usd: amount, payment_method_id: selectedPmId }),
       });
       dashToast('Payout request submitted successfully', 'success');
-      form.reset();
+      document.getElementById('payout-amount').value = '';
       payouts = await authFetch('/payouts');
       renderPayout();
     } catch (err) {
@@ -418,11 +521,14 @@ function renderAccount() {
   const [profileCard, mt5Card, statusCard, securityCard] = cards;
 
   // Trader profile
-  const totalDocs = Object.keys(KYC_DOC_META).length;
-  const verified = kycDocs.filter(d => d.status === 'approved').length;
-  const kycLabel = verified === totalDocs
-    ? '<span style="color:var(--green);font-weight:700;">✓ Verified</span>'
-    : `<span style="color:#fbbf24;font-weight:700;">${verified} of ${totalDocs} verified</span>`;
+  const kycLabelMap = {
+    verified:       '<span style="color:var(--green);font-weight:700;">✓ Verified</span>',
+    pending_review: '<span style="color:#fbbf24;font-weight:700;">⏳ Pending Review</span>',
+    action_required:'<span style="color:#ef4444;font-weight:700;">⚠ Action Required</span>',
+    in_progress:    '<span style="color:#fbbf24;font-weight:700;">In Progress</span>',
+    not_started:    '<span style="color:var(--muted);font-weight:700;">Not Started</span>',
+  };
+  const kycLabel = kycLabelMap[kycStatus] ?? kycLabelMap.not_started;
   const profRows = profileCard.querySelectorAll('.arow');
   profRows[0].querySelector('span:last-child').textContent = trader.full_name;
   profRows[1].querySelector('span:last-child').textContent = trader.email;
@@ -431,30 +537,79 @@ function renderAccount() {
   profRows[4].querySelector('span:last-child').innerHTML = kycLabel;
   setupEditProfile(profileCard, profRows);
 
-  // MT5 credentials — not yet provisioned in our system; be honest about it
+  // MT5 credentials — from challenge data (provisioned by admin)
   const mt5Rows = mt5Card.querySelectorAll('.arow');
-  mt5Rows[0].lastElementChild.textContent = active ? 'Sent to your email' : '— (start a challenge first)';
-  mt5Rows[1].lastElementChild.textContent = active?.status === 'funded' ? 'live.imaralogic.co.ke' : 'eval.imaralogic.co.ke';
-  mt5Rows[4].querySelector('span:last-child').textContent = active?.status === 'funded' ? '1:100 (Funded)' : '1:200 (Evaluation)';
+  if (active?.mt5_login) {
+    mt5Rows[0].lastElementChild.textContent = active.mt5_login;
+    mt5Rows[1].querySelector('code,span:last-child').textContent = active.mt5_server ?? (active.status === 'funded' ? 'trade.imaralogic.co.ke:443' : 'eval.imaralogic.co.ke:443');
+  } else {
+    mt5Rows[0].lastElementChild.textContent = active ? 'Pending provisioning — will be emailed' : '—';
+    mt5Rows[1].querySelector('code,span:last-child').textContent = active?.status === 'funded' ? 'trade.imaralogic.co.ke:443' : (active ? 'eval.imaralogic.co.ke:443' : '—');
+  }
+  mt5Rows[4].querySelector('span:last-child').textContent = active?.status === 'funded' ? '1:100 (Funded)' : (active ? '1:200 (Evaluation)' : '—');
   const emailBtn = mt5Card.querySelector('.btn-sec');
-  emailBtn.onclick = () => dashToast(`MT5 credentials request sent to ${trader.email}`, 'success');
+  emailBtn.onclick = async () => {
+    emailBtn.disabled = true;
+    try {
+      await fetch(`${API_BASE}/auth/forgot-password`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: trader.email }),
+      });
+      dashToast('MT5 credentials re-sent to your email', 'success');
+    } catch { dashToast('Could not send — please contact support', 'error'); }
+    finally { emailBtn.disabled = false; }
+  };
 
   // Challenge status
   const chRows = statusCard.querySelectorAll('.arow');
   if (active) {
-    const targetPct = PHASE_TARGET_PCT[active.phase] ?? 0;
-    const target = active.account_size * targetPct / 100;
-    const elapsed = daysSince(active.start_date);
-    const maxDays = PHASE_MAX_DAYS[active.phase];
+    const target    = active.profit_target_usd ?? (active.account_size * (PHASE_TARGET_PCT[active.phase] ?? 0) / 100);
+    const elapsed   = daysSince(active.start_date);
+    const maxDays   = active.max_calendar_days ?? PHASE_MAX_DAYS[active.phase];
     chRows[0].querySelector('span:last-child').textContent = `${PLAN_LABELS[active.plan] || active.plan} — $${active.account_size.toLocaleString()}`;
     chRows[1].querySelector('span:last-child').innerHTML = `<span class="challenge-phase-badge">${PHASE_LABELS[active.phase] || `Phase ${active.phase}`}</span>`;
     chRows[2].querySelector('span:last-child').textContent = fmtDate(active.start_date);
     chRows[3].querySelector('span:last-child').textContent = maxDays ? `${elapsed} of ${maxDays}` : `${active.trading_days}`;
-    chRows[4].querySelector('span:last-child').textContent = targetPct ? `${fmtMoney(active.profit_usd)} / ${fmtMoney(target)}` : 'No target — funded';
+    chRows[4].querySelector('span:last-child').textContent = target ? `${fmtMoney(active.profit_usd)} / ${fmtMoney(target)}` : 'No target — funded';
     chRows[5].querySelector('span:last-child').textContent = `$${active.fee} (refunded on 1st payout)`;
   } else {
     chRows.forEach(r => r.querySelector('span:last-child').textContent = '—');
     chRows[0].querySelector('span:last-child').textContent = 'No active challenge';
+  }
+
+  // Agreement signing — show if any challenge is in 'passed' state waiting for funded
+  const passedCh = challenges.find(c => c.status === 'passed' && !c.agreement_signed_at);
+  let agreementBanner = statusCard.querySelector('.agreement-banner');
+  if (passedCh && kycStatus === 'verified') {
+    if (!agreementBanner) {
+      agreementBanner = document.createElement('div');
+      agreementBanner.className = 'agreement-banner';
+      agreementBanner.style.cssText = 'margin-top:1rem;padding:0.875rem 1rem;background:rgba(201,168,76,0.12);border:1px solid var(--accent);border-radius:8px;';
+      statusCard.appendChild(agreementBanner);
+    }
+    agreementBanner.innerHTML = `
+      <p style="font-size:0.85rem;margin:0 0 0.75rem;color:var(--text);">
+        <strong>Action required:</strong> You passed Phase 2. Sign the Trader Account Agreement to activate your funded account.
+      </p>
+      <button class="btn-primary" id="sign-agreement-btn" style="font-size:0.8rem;padding:0.45rem 1rem;">Sign Agreement</button>
+    `;
+    agreementBanner.querySelector('#sign-agreement-btn').addEventListener('click', async () => {
+      const btn = agreementBanner.querySelector('#sign-agreement-btn');
+      btn.disabled = true; btn.textContent = 'Signing…';
+      try {
+        await authFetch(`/challenges/${passedCh.id}/sign-agreement`, { method: 'POST' });
+        dashToast('Agreement signed — your funded account is being activated', 'success');
+        challenges = await authFetch('/challenges');
+        active = pickActive(challenges);
+        renderAccount();
+        renderChallenges();
+      } catch (err) {
+        dashToast(err.message || 'Could not sign agreement', 'error');
+        btn.disabled = false; btn.textContent = 'Sign Agreement';
+      }
+    });
+  } else if (agreementBanner) {
+    agreementBanner.remove();
   }
 
   // Security
@@ -481,80 +636,244 @@ function renderKyc() {
   const tab = document.getElementById('tab-documents');
   if (!tab) return;
 
-  const docTypes = Object.keys(KYC_DOC_META);
-  const verified = docTypes.filter(t => kycDocs.find(d => d.doc_type === t && d.status === 'approved')).length;
-  tab.querySelector('.kyc-progress').innerHTML = `Verified: <strong>${verified} of ${docTypes.length}</strong> documents`;
+  const idDoc     = kycDocs.find(d => d.doc_type === 'identity_document');
+  const needsBack = idDoc?.doc_subtype === 'national_id';
 
-  const grid = tab.querySelector('.kyc-grid');
-  grid.innerHTML = '';
+  // Compute overall status label
+  const statusCfg = {
+    verified:        { cls: 'kyc-badge-ok',      label: '✓ Verified' },
+    pending_review:  { cls: 'kyc-badge-review',  label: '⏳ Pending Review' },
+    action_required: { cls: 'kyc-badge-warn',    label: '⚠ Action Required' },
+    in_progress:     { cls: 'kyc-badge-review',  label: 'In Progress' },
+    not_started:     { cls: 'kyc-badge-empty',   label: 'Not Started' },
+  };
+  const sc = statusCfg[kycStatus] ?? statusCfg.not_started;
 
-  docTypes.forEach(docType => {
-    const meta = KYC_DOC_META[docType];
-    const existing = kycDocs.find(d => d.doc_type === docType);
-    const card = document.createElement('div');
-    card.className = 'kyc-card';
+  tab.innerHTML = `
+    <div class="kyc-page">
+      <div class="kyc-page-header">
+        <div>
+          <h3 class="kyc-page-title">Identity Verification</h3>
+          <p class="kyc-page-sub">Complete all steps below to unlock your funded account and process payouts.</p>
+        </div>
+        <span class="kyc-badge ${sc.cls}">${sc.label}</span>
+      </div>
 
-    let statusHtml, extra = '';
-    if (existing?.status === 'approved') {
-      card.classList.add('kyc-approved');
-      statusHtml = '<span class="kyc-status approved">✓ Approved</span>';
-    } else if (existing?.status === 'under_review') {
-      card.classList.add('kyc-review');
-      statusHtml = '<span class="kyc-status review">⏳ Under Review</span>';
-    } else if (existing?.status === 'rejected') {
-      statusHtml = '<span class="kyc-status required">✗ Rejected — re-upload</span>';
-      extra = `<button class="kyc-upload-btn" data-doc="${docType}">Click to Re-upload</button>`;
-      if (existing.notes) extra += `<p class="kyc-note">${esc(existing.notes)}</p>`;
-    } else {
-      statusHtml = '<span class="kyc-status required">⬆ Upload Required</span>';
-      extra = `<button class="kyc-upload-btn" data-doc="${docType}">Click to Upload</button>`;
-      if (KYC_DOC_NOTE[docType]) extra += `<p class="kyc-note">${KYC_DOC_NOTE[docType]}</p>`;
+      <div class="kyc-steps" id="kyc-steps"></div>
+
+      <div class="kyc-tips">
+        <div class="kyc-tips-title">Document Guidelines</div>
+        <ul>
+          <li>Upload clear, fully visible documents — no glare, shadows, or cropping</li>
+          <li>Files must be under 10 MB — accepted formats: JPG, PNG, WebP, or PDF</li>
+          <li>Documents must be valid and not expired</li>
+          <li>Proof of address must be issued within the last 6 months</li>
+          <li>For PDF documents, a compliance officer will review within 1 business day</li>
+        </ul>
+      </div>
+    </div>
+  `;
+
+  const stepsEl = tab.querySelector('#kyc-steps');
+
+  KYC_STEPS.forEach((step, idx) => {
+    // Hide back-of-ID step unless national_id was uploaded
+    if (step.conditionalOn && !needsBack) {
+      if (!idDoc) return; // hide entirely until front is uploaded
+      // If front uploaded but it's a passport, skip back
+      if (idDoc.doc_subtype !== step.conditionalOn) return;
     }
 
-    card.innerHTML = `<div class="kyc-icon">${meta.icon}</div><div class="kyc-name">${meta.name}</div>${statusHtml}${extra}`;
-    grid.appendChild(card);
+    const doc    = kycDocs.find(d => d.doc_type === step.docType);
+    const stepEl = document.createElement('div');
+    stepEl.className = 'kyc-step';
 
-    const uploadBtn = card.querySelector('.kyc-upload-btn');
-    if (uploadBtn) {
-      const fileInput = document.createElement('input');
-      fileInput.type = 'file';
-      fileInput.accept = '.jpg,.jpeg,.png,.webp,.pdf';
-      fileInput.style.display = 'none';
-      card.appendChild(fileInput);
+    const statusInfo = kycStepStatus(doc);
+    stepEl.classList.add(`kyc-step-${statusInfo.state}`);
 
-      uploadBtn.addEventListener('click', () => fileInput.click());
-      fileInput.addEventListener('change', async () => {
-        const file = fileInput.files[0];
-        if (!file) return;
-        uploadBtn.disabled = true;
-        uploadBtn.textContent = 'Uploading…';
-        try {
-          const fd = new FormData();
-          fd.append('file', file);
-          fd.append('doc_type', docType);
-          await authFetch('/kyc/upload', { method: 'POST', body: fd });
-          dashToast(`${meta.name} uploaded — under review`, 'success');
-          kycDocs = await authFetch('/kyc');
-          renderKyc();
-        } catch (err) {
-          dashToast(err.message || 'Upload failed', 'error');
-          uploadBtn.disabled = false;
-          uploadBtn.textContent = 'Click to Upload';
+    const hasUpload = statusInfo.state !== 'approved';
+
+    stepEl.innerHTML = `
+      <div class="kyc-step-header">
+        <div class="kyc-step-num">${idx + 1}</div>
+        <div class="kyc-step-info">
+          <div class="kyc-step-label">${step.icon} ${step.label}</div>
+          <div class="kyc-step-desc">${step.desc}</div>
+        </div>
+        <span class="kyc-step-badge ${statusInfo.badgeCls}">${statusInfo.badgeText}</span>
+      </div>
+
+      ${statusInfo.state === 'rejected' && doc?.notes ? `
+        <div class="kyc-rejection-reason">
+          <strong>Rejection reason:</strong> ${esc(doc.notes)}
+        </div>` : ''}
+
+      ${statusInfo.state === 'under_review' && doc?.notes ? `
+        <div class="kyc-review-note">${esc(doc.notes)}</div>` : ''}
+
+      ${statusInfo.state === 'approved' && doc?.notes ? `
+        <div class="kyc-approved-note">${esc(doc.notes)}</div>` : ''}
+
+      ${statusInfo.state === 'approved' ? `
+        <div class="kyc-step-actions">
+          <button class="kyc-btn-secondary kyc-view-btn" data-id="${doc.id}">View Document</button>
+          <button class="kyc-btn-reupload kyc-upload-trigger">Replace</button>
+        </div>` : ''}
+
+      ${statusInfo.state === 'under_review' ? `
+        <div class="kyc-step-actions">
+          <button class="kyc-btn-secondary kyc-view-btn" data-id="${doc.id}">View Document</button>
+          <button class="kyc-btn-reupload kyc-upload-trigger">Re-upload</button>
+        </div>` : ''}
+
+      ${hasUpload && statusInfo.state !== 'approved' && statusInfo.state !== 'under_review' ? `
+        <div class="kyc-upload-area" id="upload-area-${step.docType}">
+          ${step.subtypes?.length ? `
+            <div class="kyc-subtype-row">
+              ${step.subtypes.map(s => `
+                <label class="kyc-radio-label">
+                  <input type="radio" name="subtype-${step.docType}" value="${s.value}">
+                  ${s.label}
+                </label>
+              `).join('')}
+            </div>` : ''}
+          ${step.accepted ? `<div class="kyc-accepted"><span class="kyc-accept-label">Accepted:</span> ${step.accepted}</div>` : ''}
+          ${step.rejected ? `<div class="kyc-not-accepted"><span class="kyc-reject-label">Not accepted:</span> ${step.rejected}</div>` : ''}
+          ${step.ageNote  ? `<div class="kyc-age-note">⚠ ${step.ageNote}</div>` : ''}
+          ${step.note     ? `<div class="kyc-cond-note">${step.note}</div>` : ''}
+          <button class="kyc-btn-upload kyc-upload-trigger"
+                  data-doc="${step.docType}"
+                  ${step.subtypes?.length ? 'data-needs-subtype="1"' : ''}>
+            Upload Document
+          </button>
+        </div>` : ''}
+
+      ${statusInfo.state === 'rejected' ? `
+        <div class="kyc-upload-area" id="upload-area-${step.docType}">
+          ${step.subtypes?.length ? `
+            <div class="kyc-subtype-row">
+              ${step.subtypes.map(s => `
+                <label class="kyc-radio-label">
+                  <input type="radio" name="subtype-${step.docType}" value="${s.value}"
+                    ${doc?.doc_subtype === s.value ? 'checked' : ''}>
+                  ${s.label}
+                </label>
+              `).join('')}
+            </div>` : ''}
+          <button class="kyc-btn-upload kyc-upload-trigger"
+                  data-doc="${step.docType}"
+                  ${step.subtypes?.length ? 'data-needs-subtype="1"' : ''}>
+            Re-upload Document
+          </button>
+        </div>` : ''}
+    `;
+
+    // Hidden file input
+    const fileInput = document.createElement('input');
+    fileInput.type    = 'file';
+    fileInput.accept  = '.jpg,.jpeg,.png,.webp,.pdf';
+    fileInput.style.display = 'none';
+    stepEl.appendChild(fileInput);
+
+    // View document buttons
+    stepEl.querySelectorAll('.kyc-view-btn').forEach(btn => {
+      btn.addEventListener('click', () => viewKycFile(btn.dataset.id));
+    });
+
+    // Upload trigger buttons
+    stepEl.querySelectorAll('.kyc-upload-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const needsSub = btn.dataset.needsSubtype === '1';
+        if (needsSub) {
+          const checked = stepEl.querySelector(`input[name="subtype-${step.docType}"]:checked`);
+          if (!checked) {
+            dashToast('Please select a document type first', 'error');
+            return;
+          }
         }
+        fileInput.click();
       });
-    }
+    });
+
+    // File selected → upload
+    fileInput.addEventListener('change', async () => {
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const subtype = stepEl.querySelector(`input[name="subtype-${step.docType}"]:checked`)?.value ?? null;
+      const triggers = stepEl.querySelectorAll('.kyc-upload-trigger');
+      triggers.forEach(b => { b.disabled = true; b.textContent = 'Checking document…'; });
+
+      try {
+        const fd = new FormData();
+        fd.append('file', file);
+        fd.append('doc_type', step.docType);
+        if (subtype) fd.append('doc_subtype', subtype);
+
+        const result = await authFetch('/kyc/upload', { method: 'POST', body: fd });
+        kycStatus = result.kyc_status ?? kycStatus;
+
+        if (result.status === 'approved') {
+          dashToast(`${step.label} verified and approved`, 'success');
+        } else if (result.status === 'rejected') {
+          dashToast(result.notes || `${step.label} rejected — please re-upload`, 'error');
+        } else {
+          dashToast(`${step.label} submitted — compliance review within 1 business day`, 'success');
+        }
+
+        const kycData = await authFetch('/kyc');
+        kycDocs   = kycData.documents  ?? kycData ?? [];
+        kycStatus = kycData.kyc_status ?? kycStatus;
+        renderKyc();
+      } catch (err) {
+        dashToast(err.message || 'Upload failed', 'error');
+        triggers.forEach(b => { b.disabled = false; b.textContent = 'Upload Document'; });
+      }
+    });
+
+    stepsEl.appendChild(stepEl);
   });
+}
+
+function kycStepStatus(doc) {
+  if (!doc) return { state: 'empty',        badgeCls: 'badge-empty',   badgeText: 'Upload Required' };
+  switch (doc.status) {
+    case 'approved':     return { state: 'approved',     badgeCls: 'badge-ok',     badgeText: '✓ Approved' };
+    case 'under_review': return { state: 'under_review', badgeCls: 'badge-review', badgeText: '⏳ Under Review' };
+    case 'rejected':     return { state: 'rejected',     badgeCls: 'badge-err',    badgeText: '✗ Rejected' };
+    default:             return { state: 'empty',        badgeCls: 'badge-empty',  badgeText: 'Upload Required' };
+  }
+}
+
+async function viewKycFile(docId) {
+  try {
+    const res = await fetch(`${API_BASE}/kyc/file/${docId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!res.ok) { dashToast('File not found on disk', 'error'); return; }
+    const blob = await res.blob();
+    window.open(URL.createObjectURL(blob), '_blank');
+  } catch {
+    dashToast('Could not load document', 'error');
+  }
 }
 
 // ── Bootstrap ────────────────────────────────────────────────────
 async function loadAll() {
   try {
-    [trader, challenges, payouts, kycDocs] = await Promise.all([
+    const [t, c, p, pm, kycData] = await Promise.all([
       authFetch('/auth/me'),
       authFetch('/challenges'),
       authFetch('/payouts'),
+      authFetch('/payments'),
       authFetch('/kyc'),
     ]);
+    trader          = t;
+    challenges      = c;
+    payouts         = p;
+    paymentMethods  = pm;
+    kycDocs         = kycData.documents   ?? kycData ?? [];
+    kycStatus       = kycData.kyc_status  ?? 'not_started';
   } catch (err) {
     dashToast(err.message || 'Could not load your account — please refresh', 'error');
     return;

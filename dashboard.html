@@ -378,33 +378,38 @@
             <form id="payout-form">
               <div class="form-group">
                 <label>Payout Amount (USD)</label>
-                <input type="number" min="10" placeholder="Minimum $10 (M-Pesa) / $50 (Bank)" required />
+                <input id="payout-amount" type="number" min="10" step="0.01" placeholder="Enter amount (min $10 M-Pesa / $50 Bank)" required />
               </div>
-              <div class="payout-method-row">
-                <div class="method-opt">
-                  <input type="radio" name="method" id="method-mpesa" value="mpesa" checked />
-                  <label for="method-mpesa" class="method-label">
-                    <span style="font-size:1.1rem;">📱</span>
-                    <div><span>M-Pesa</span><br /><small>Min $10 &bull; Instant</small></div>
-                  </label>
+
+              <!-- Saved payment methods — rendered by dashboard.js -->
+              <div id="payout-methods-wrap">
+                <label style="display:block;margin-bottom:0.5rem;font-size:0.85rem;color:var(--muted);">Payment Method</label>
+                <div id="payout-methods-list">
+                  <!-- Populated dynamically -->
                 </div>
-                <div class="method-opt">
-                  <input type="radio" name="method" id="method-bank" value="bank" />
-                  <label for="method-bank" class="method-label">
-                    <span style="font-size:1.1rem;">🏦</span>
-                    <div><span>Bank Transfer</span><br /><small>Min $50 &bull; 1–2 days</small></div>
-                  </label>
+                <button type="button" id="add-payment-method-btn" class="btn-sec" style="margin-top:0.75rem;font-size:0.8rem;">
+                  + Add Payment Method
+                </button>
+              </div>
+
+              <!-- New payment method inline form (hidden by default) -->
+              <div id="new-pm-form" style="display:none;background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-top:0.75rem;">
+                <label style="font-size:0.85rem;display:block;margin-bottom:0.5rem;">Method Type</label>
+                <select id="new-pm-type" style="width:100%;padding:0.5rem;background:var(--panel);border:1px solid var(--border);border-radius:6px;color:var(--text);margin-bottom:0.75rem;">
+                  <option value="mpesa">M-Pesa (min $10 &bull; instant)</option>
+                  <option value="bank_transfer">Bank Transfer (min $50 &bull; 1–2 days)</option>
+                  <option value="crypto">Crypto (min $20)</option>
+                  <option value="skrill">Skrill (min $20)</option>
+                </select>
+                <input id="new-pm-label" type="text" placeholder="Label e.g. My Equity Bank" style="width:100%;box-sizing:border-box;padding:0.5rem 0.75rem;background:var(--panel);border:1px solid var(--border);border-radius:6px;color:var(--text);margin-bottom:0.5rem;" />
+                <input id="new-pm-details" type="text" placeholder="Account number / phone / wallet address" style="width:100%;box-sizing:border-box;padding:0.5rem 0.75rem;background:var(--panel);border:1px solid var(--border);border-radius:6px;color:var(--text);margin-bottom:0.75rem;" />
+                <div style="display:flex;gap:0.5rem;">
+                  <button type="button" id="save-pm-btn" class="btn-primary" style="flex:1;padding:0.5rem;">Save Method</button>
+                  <button type="button" id="cancel-pm-btn" class="btn-sec" style="padding:0.5rem 1rem;">Cancel</button>
                 </div>
               </div>
-              <div class="form-group">
-                <label>M-Pesa Number / Bank Account</label>
-                <input type="text" placeholder="+254 7XX XXX XXX or account number" required />
-              </div>
-              <div class="form-group">
-                <label>Account Name</label>
-                <input type="text" placeholder="Name as registered with M-Pesa / Bank" required />
-              </div>
-              <button type="submit" class="btn-submit">Submit Payout Request</button>
+
+              <button type="submit" class="btn-submit" style="margin-top:1rem;">Submit Payout Request</button>
             </form>
           </div>
         </div>
@@ -480,54 +485,7 @@
 
     <!-- TAB: DOCUMENTS / KYC -->
     <div class="tab-section" id="tab-documents">
-
-      <div class="kyc-header">
-        <h3>KYC Documents</h3>
-        <span class="kyc-progress">Verified: <strong>2 of 5</strong> documents</span>
-      </div>
-
-      <div class="kyc-grid">
-
-        <div class="kyc-card kyc-approved">
-          <div class="kyc-icon">🪪</div>
-          <div class="kyc-name">National ID (Front)</div>
-          <span class="kyc-status approved">✓ Approved</span>
-        </div>
-
-        <div class="kyc-card kyc-approved">
-          <div class="kyc-icon">🪪</div>
-          <div class="kyc-name">National ID (Back)</div>
-          <span class="kyc-status approved">✓ Approved</span>
-        </div>
-
-        <div class="kyc-card kyc-review">
-          <div class="kyc-icon">🤳</div>
-          <div class="kyc-name">Selfie with ID</div>
-          <span class="kyc-status review">⏳ Under Review</span>
-        </div>
-
-        <div class="kyc-card">
-          <div class="kyc-icon">🏦</div>
-          <div class="kyc-name">Bank Statement</div>
-          <span class="kyc-status required">⬆ Upload Required</span>
-          <button class="kyc-upload-btn" onclick="dashToast('File upload coming soon — email to info@imaralogic.co.ke','success')">Click to Upload</button>
-          <p class="kyc-note">Last 3 months, PDF or image</p>
-        </div>
-
-        <div class="kyc-card">
-          <div class="kyc-icon">📄</div>
-          <div class="kyc-name">Utility Bill</div>
-          <span class="kyc-status required">⬆ Upload Required</span>
-          <button class="kyc-upload-btn" onclick="dashToast('File upload coming soon — email to info@imaralogic.co.ke','success')">Click to Upload</button>
-          <p class="kyc-note">Proof of address, not older than 3 months</p>
-        </div>
-
-      </div>
-
-      <div class="kyc-note-box">
-        <p>Documents under review are processed within <strong>24 hours</strong>. For assistance email <a href="mailto:info@imaralogic.co.ke">info@imaralogic.co.ke</a> or WhatsApp <strong>+254 701 940 964</strong>.</p>
-      </div>
-
+      <!-- Rendered entirely by renderKyc() in dashboard.js -->
     </div>
 
   </main>

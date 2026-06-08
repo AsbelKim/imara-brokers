@@ -73,3 +73,16 @@ CREATE TABLE IF NOT EXISTS kyc_documents (
 );
 
 CREATE INDEX IF NOT EXISTS idx_kyc_trader ON kyc_documents(trader_id);
+
+-- 5. PAYMENT METHODS  (saved payout destinations)
+CREATE TABLE IF NOT EXISTS payment_methods (
+  id         TEXT PRIMARY KEY,
+  trader_id  TEXT NOT NULL REFERENCES traders(id) ON DELETE CASCADE,
+  type       TEXT NOT NULL,     -- mpesa | bank_transfer | crypto | skrill
+  label      TEXT NOT NULL,     -- e.g. "My Equity Bank Account"
+  details    TEXT NOT NULL,     -- JSON blob
+  is_default INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_pm_trader ON payment_methods(trader_id);

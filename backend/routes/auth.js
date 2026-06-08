@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { db, now } from '../db.js';
 import { requireAuth } from '../middleware/auth.js';
+import { sendEmail } from '../services/email.js';
 
 const router = Router();
 
@@ -96,8 +97,18 @@ router.post('/forgot-password', async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );
-    // TODO: send via email service (nodemailer / SendGrid / Resend)
-    console.log(`[RESET] Token for ${email}: ${resetToken}`);
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/login.html?reset=${resetToken}`;
+    await sendEmail({
+      to:      trader.email,
+      subject: 'Reset your Imara Logic password',
+      html: `
+        <h2>Password Reset Request</h2>
+        <p>We received a request to reset the password for your Imara Logic account.</p>
+        <p><a href="${resetUrl}" style="background:#c9a84c;color:#000;padding:10px 22px;border-radius:6px;text-decoration:none;font-weight:700;">Reset Password</a></p>
+        <p>This link expires in 1 hour. If you didn't request this, you can safely ignore this email.</p>
+        <p>Imara Logic Team</p>
+      `,
+    });
   }
 
   // Always respond the same — don't reveal whether the email exists
