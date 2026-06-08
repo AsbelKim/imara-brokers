@@ -20,23 +20,23 @@ export const PLANS = {
 export const PHASE_RULES = {
   1: {
     label:              'Phase 1 — Challenge',
-    profit_target_pct:  0.08,   // 8%
+    profit_target_pct:  0.10,   // 10%
     daily_loss_pct:     0.05,   // 5%
     max_drawdown_pct:   0.10,   // 10%
-    min_trading_days:   5,
+    min_trading_days:   4,
     max_calendar_days:  30,
     mt5_server:         'eval.imaralogic.co.ke:443',
-    leverage:           '1:200',
+    leverage:           '1:100',
   },
   2: {
     label:              'Phase 2 — Verification',
     profit_target_pct:  0.05,   // 5%
     daily_loss_pct:     0.05,
     max_drawdown_pct:   0.10,
-    min_trading_days:   5,
+    min_trading_days:   4,
     max_calendar_days:  60,
     mt5_server:         'eval.imaralogic.co.ke:443',
-    leverage:           '1:200',
+    leverage:           '1:100',
   },
   3: {
     label:              'Funded Account',
@@ -165,7 +165,7 @@ router.post('/', (req, res) => {
       <p>Your <strong>$${planInfo.account_size.toLocaleString()} ${PLANS[planKey].label}</strong> challenge is now active.</p>
       <h3>Challenge Rules</h3>
       <ul>
-        <li>Profit Target (Phase 1): <strong>8% ($${rules.profit_target_usd?.toLocaleString()})</strong></li>
+        <li>Profit Target (Phase 1): <strong>10% ($${rules.profit_target_usd?.toLocaleString()})</strong></li>
         <li>Daily Loss Limit: <strong>5% ($${rules.daily_loss_limit_usd.toLocaleString()})</strong></li>
         <li>Maximum Drawdown: <strong>10% ($${rules.max_drawdown_usd.toLocaleString()})</strong></li>
         <li>Minimum Trading Days: <strong>${rules.min_trading_days}</strong></li>

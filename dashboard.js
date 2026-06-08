@@ -2,7 +2,7 @@
 
 const PLAN_LABELS = { starter: 'Starter', standard: 'Standard', advanced: 'Advanced', elite: 'Elite', pro: 'Pro' };
 const PHASE_LABELS = { 1: 'Phase 1 — Evaluation', 2: 'Phase 2 — Evaluation', 3: 'Funded Account' };
-const PHASE_TARGET_PCT = { 1: 8, 2: 5, 3: 0 };
+const PHASE_TARGET_PCT = { 1: 10, 2: 5, 3: 0 };
 const PHASE_MAX_DAYS = { 1: 30, 2: 60, 3: null };
 const DAILY_LOSS_PCT = 5;
 const DRAWDOWN_PCT = 10;
@@ -250,6 +250,43 @@ function renderChallenges() {
     if (active.phase === 1) ruleCards[0]?.classList.add('ch-rule-active');
     else if (active.phase === 2) ruleCards[1]?.classList.add('ch-rule-active');
     else if (active.status === 'funded') ruleCards[2]?.classList.add('ch-rule-active');
+
+    // Populate rule card values dynamically from account size
+    const sz = active.account_size;
+    const ph1T  = active.profit_target_usd    ?? Math.round(sz * 0.10);
+    const daily = active.daily_loss_limit_usd ?? Math.round(sz * 0.05);
+    const dd    = active.max_drawdown_usd      ?? Math.round(sz * 0.10);
+    const ph1D  = active.min_trading_days      ?? 4;
+    const ph2T  = Math.round(sz * 0.05);
+
+    if (ruleCards[0]) {
+      const items = ruleCards[0].querySelectorAll('.ch-rule-item strong');
+      if (items[0]) items[0].textContent = `10% (${fmtMoney(ph1T)})`;
+      if (items[1]) items[1].textContent = `5% (${fmtMoney(daily)})`;
+      if (items[2]) items[2].textContent = `10% (${fmtMoney(dd)})`;
+      if (items[3]) items[3].textContent = `${ph1D} days`;
+      if (items[4]) items[4].textContent = `30 days`;
+      if (items[5]) items[5].textContent = '1:100';
+      ruleCards[0].querySelector('.ch-rule-label').textContent =
+        active.phase === 1 ? '📋 Phase 1 — In Progress' : '✅ Phase 1 — Completed';
+    }
+    if (ruleCards[1]) {
+      const items = ruleCards[1].querySelectorAll('.ch-rule-item strong');
+      if (items[0]) items[0].textContent = `5% (${fmtMoney(ph2T)})`;
+      if (items[1]) items[1].textContent = `5% (${fmtMoney(daily)})`;
+      if (items[2]) items[2].textContent = `10% (${fmtMoney(dd)})`;
+      if (items[3]) items[3].textContent = `4 days`;
+      if (items[4]) items[4].textContent = `60 days`;
+      if (items[5]) items[5].textContent = '1:100';
+      ruleCards[1].querySelector('.ch-rule-label').textContent =
+        active.phase === 2 ? '📋 Phase 2 — In Progress' : (active.phase > 2 ? '✅ Phase 2 — Completed' : '🔒 Phase 2 — Locked');
+    }
+    if (ruleCards[2]) {
+      const items = ruleCards[2].querySelectorAll('.ch-rule-item strong');
+      if (items[4]) items[4].textContent = `${active.profit_split}%`;
+      ruleCards[2].querySelector('.ch-rule-label').textContent =
+        active.status === 'funded' ? '🏆 Funded Account — Active' : '🏆 Funded Account — Upon Passing';
+    }
   }
 
   // Challenge history table — every challenge the trader has purchased
@@ -546,7 +583,7 @@ function renderAccount() {
     mt5Rows[0].lastElementChild.textContent = active ? 'Pending provisioning — will be emailed' : '—';
     mt5Rows[1].querySelector('code,span:last-child').textContent = active?.status === 'funded' ? 'trade.imaralogic.co.ke:443' : (active ? 'eval.imaralogic.co.ke:443' : '—');
   }
-  mt5Rows[4].querySelector('span:last-child').textContent = active?.status === 'funded' ? '1:100 (Funded)' : (active ? '1:200 (Evaluation)' : '—');
+  mt5Rows[4].querySelector('span:last-child').textContent = active?.status === 'funded' ? '1:100 (Funded)' : (active ? '1:100 (Evaluation)' : '—');
   const emailBtn = mt5Card.querySelector('.btn-sec');
   emailBtn.onclick = async () => {
     emailBtn.disabled = true;

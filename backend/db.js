@@ -63,7 +63,7 @@ addCol('traders', 'agreement_signed_at', 'TEXT');
 addCol('challenges', 'profit_target_usd',    'REAL');
 addCol('challenges', 'daily_loss_limit_usd', 'REAL');
 addCol('challenges', 'max_drawdown_usd',     'REAL');
-addCol('challenges', 'min_trading_days',     'INTEGER DEFAULT 5');
+addCol('challenges', 'min_trading_days',     'INTEGER DEFAULT 4');
 addCol('challenges', 'max_calendar_days',    'INTEGER');
 addCol('challenges', 'deadline',             'TEXT');
 addCol('challenges', 'initial_balance',      'REAL');

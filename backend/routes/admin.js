@@ -163,7 +163,7 @@ router.post('/challenges/:id/provision-mt5', (req, res) => {
         <tr><td><strong>Login:</strong></td><td>${mt5_login}</td></tr>
         <tr><td><strong>Password:</strong></td><td>${mt5_password}</td></tr>
         <tr><td><strong>Server:</strong></td><td>${server}</td></tr>
-        <tr><td><strong>Leverage:</strong></td><td>${phase?.leverage ?? '1:200'}</td></tr>
+        <tr><td><strong>Leverage:</strong></td><td>${phase?.leverage ?? '1:100'}</td></tr>
       </table>
       <p><em>Please change your password after first login.</em></p>
       <p>Imara Logic Team</p>
