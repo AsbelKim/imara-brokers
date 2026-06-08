@@ -230,7 +230,7 @@ function renderOverview() {
   const maxDays = PHASE_MAX_DAYS[active.phase];
   statsWrap.innerHTML = '';
   const stats = [
-    { label: `Profit (${PHASE_LABELS[active.phase] || 'Phase ' + active.phase})`, value: `${active.profit_usd >= 0 ? '+' : ''}${fmtMoney(active.profit_usd)}`, change: targetPct ? `▲ ${profitPct.toFixed(1)}% toward target` : 'No profit target — funded account', green: active.profit_usd >= 0 },
+    { label: `Profit (${PHASE_LABELS[active.phase] || 'Phase ' + active.phase})`, value: `${active.profit_usd >= 0 ? '+' : ''}${fmtMoney(active.profit_usd)}`, change: target ? `▲ ${profitPct.toFixed(1)}% toward target` : 'No profit target — funded account', green: active.profit_usd >= 0 },
     { label: 'Daily Loss Used', value: fmtMoney(active.daily_loss_usd), change: `${lossPct.toFixed(0)}% of ${fmtMoney(dailyLossLimit)} limit` },
     { label: 'Max Drawdown Used', value: fmtMoney(active.drawdown_usd), change: `${ddPct.toFixed(0)}% of ${fmtMoney(drawdownLimit)} limit` },
     { label: 'Trading Days', value: maxDays ? `${active.trading_days} of ${maxDays}` : `${active.trading_days}`, change: `Started ${fmtDate(active.start_date)}` },
