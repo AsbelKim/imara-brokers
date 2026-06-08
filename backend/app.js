@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 
 import authRoutes from './routes/auth.js';
 import challengeRoutes from './routes/challenges.js';
@@ -11,10 +13,27 @@ import adminRoutes from './routes/admin.js';
 
 const app = express();
 
-app.use(cors({ origin: process.env.FRONTEND_URL || '*', credentials: true }));
+// Security headers (disable CSP for static file serving — handled by Netlify/CDN in prod)
+app.use(helmet({ contentSecurityPolicy: false }));
+
+// CORS — reflect exact origin when FRONTEND_URL is set; allow all in dev
+app.use(cors({
+  origin: process.env.FRONTEND_URL || true,
+  credentials: true,
+}));
+
 app.use(express.json());
 
-app.use('/api/auth', authRoutes);
+// Rate-limit all auth endpoints: 20 req / 15 min per IP
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests, please try again in 15 minutes.' },
+});
+
+app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/challenges', challengeRoutes);
 app.use('/api/payouts', payoutRoutes);
 app.use('/api/payments', paymentsRoutes);

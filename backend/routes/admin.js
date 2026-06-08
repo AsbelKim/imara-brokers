@@ -8,6 +8,25 @@ import { requireAdmin } from '../middleware/adminAuth.js';
 import { PLANS, PHASE_RULES } from './challenges.js';
 import { sendEmail } from '../services/email.js';
 
+// Recalculates and persists trader-level kyc_status after any document change
+function syncKycStatus(traderId) {
+  const docs    = db.prepare('SELECT * FROM kyc_documents WHERE trader_id = ?').all(traderId);
+  const getDoc  = (type) => docs.find(d => d.doc_type === type);
+  const idDoc   = getDoc('identity_document');
+  const poaDoc  = getDoc('proof_of_address');
+  const needsBack = idDoc?.doc_subtype === 'national_id';
+  const backDoc   = getDoc('identity_document_back');
+  const required  = [idDoc, poaDoc, ...(needsBack ? [backDoc] : [])];
+  let status;
+  if (!idDoc && !poaDoc)                              status = 'not_started';
+  else if (required.some(d => !d))                    status = 'in_progress';
+  else if (required.some(d => d?.status === 'rejected')) status = 'action_required';
+  else if (required.every(d => d?.status === 'approved')) status = 'verified';
+  else                                                status = 'pending_review';
+  db.prepare('UPDATE traders SET kyc_status = ? WHERE id = ?').run(status, traderId);
+  return status;
+}
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadsRoot = path.resolve(__dirname, '..', 'uploads', 'kyc');
 
@@ -319,6 +338,32 @@ router.patch('/payouts/:id', (req, res) => {
   db.prepare('UPDATE payouts SET status = ?, processed_at = ? WHERE id = ?')
     .run(status, processed_at, req.params.id);
 
+  // Email trader when payout is finalised
+  if (['paid', 'rejected'].includes(status)) {
+    const trader = db.prepare('SELECT email, full_name FROM traders WHERE id = ?').get(payout.trader_id);
+    const amt = Number(payout.amount_usd).toFixed(2);
+    sendEmail({
+      to:      trader.email,
+      subject: status === 'paid'
+        ? `Your $${amt} Payout Has Been Sent`
+        : `Payout Request Update — Action Required`,
+      html: status === 'paid' ? `
+        <h2>Payout Processed</h2>
+        <p>Hi ${trader.full_name.split(' ')[0]},</p>
+        <p>Your payout of <strong>$${amt}</strong> via <strong>${payout.method}</strong> has been sent.</p>
+        <p>Allow 1–2 business days for funds to arrive.</p>
+        <p>Imara Logic Team</p>
+      ` : `
+        <h2>Payout Request Rejected</h2>
+        <p>Hi ${trader.full_name.split(' ')[0]},</p>
+        <p>Unfortunately your payout request of <strong>$${amt}</strong> was not approved.</p>
+        ${notes ? `<p><strong>Reason:</strong> ${notes}</p>` : ''}
+        <p>Please log in to your dashboard or contact support if you have questions.</p>
+        <p>Imara Logic Team</p>
+      `,
+    });
+  }
+
   res.json(db.prepare('SELECT * FROM payouts WHERE id = ?').get(req.params.id));
 });
 
@@ -376,9 +421,14 @@ router.patch('/kyc/:id', (req, res) => {
   db.prepare('UPDATE kyc_documents SET status = ?, reviewed_at = ?, notes = ? WHERE id = ?')
     .run(status, reviewed_at, notes ?? doc.notes, req.params.id);
 
-  res.json(db.prepare(
+  // Sync trader-level kyc_status so payouts/agreements unlock correctly
+  const newKycStatus = syncKycStatus(doc.trader_id);
+
+  const updatedDoc = db.prepare(
     'SELECT id, doc_type, status, uploaded_at, reviewed_at, notes FROM kyc_documents WHERE id = ?'
-  ).get(req.params.id));
+  ).get(req.params.id);
+
+  res.json({ ...updatedDoc, trader_kyc_status: newKycStatus });
 });
 
 export default router;
