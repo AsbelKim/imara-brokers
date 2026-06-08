@@ -9,11 +9,12 @@ router.use(requireAuth);
 
 // ── Challenge plans ───────────────────────────────────────────────────────
 export const PLANS = {
-  starter:  { label: 'Starter',  account_size: 10000,  fee: 99,  profit_split: 80 },
-  standard: { label: 'Standard', account_size: 25000,  fee: 199, profit_split: 80 },
-  advanced: { label: 'Advanced', account_size: 50000,  fee: 299, profit_split: 85 },
-  elite:    { label: 'Elite',    account_size: 100000, fee: 499, profit_split: 85 },
-  pro:      { label: 'Pro',      account_size: 200000, fee: 799, profit_split: 90 },
+  free_trial: { label: 'Free Trial', account_size: 5000,   fee: 0,   profit_split: 0,  is_trial: true },
+  starter:    { label: 'Starter',    account_size: 10000,  fee: 99,  profit_split: 80 },
+  standard:   { label: 'Standard',   account_size: 25000,  fee: 199, profit_split: 80 },
+  advanced:   { label: 'Advanced',   account_size: 50000,  fee: 299, profit_split: 85 },
+  elite:      { label: 'Elite',      account_size: 100000, fee: 499, profit_split: 85 },
+  pro:        { label: 'Pro',        account_size: 200000, fee: 799, profit_split: 90 },
 };
 
 // ── FTMO-exact phase rules ────────────────────────────────────────────────
@@ -69,6 +70,14 @@ function calcDeadline(maxCalendarDays) {
   return d.toISOString().split('T')[0];
 }
 
+// ── GET /api/challenges/trial-status ─────────────────────────────────────
+router.get('/trial-status', (req, res) => {
+  const trial = db.prepare(
+    "SELECT id, status, phase, trading_days, profit_usd, created_at FROM challenges WHERE trader_id = ? AND plan = 'free_trial' LIMIT 1"
+  ).get(req.trader.id);
+  res.json({ has_trial: !!trial, trial });
+});
+
 // ── GET /api/challenges ───────────────────────────────────────────────────
 router.get('/', (req, res) => {
   const rows = db.prepare(`
@@ -103,12 +112,24 @@ router.post('/', (req, res) => {
     });
   }
 
-  // Check for 20% retry discount (previous failed challenge of same plan)
-  const prevFailed = db.prepare(`
+  // Free trial: one per trader, ever
+  if (planInfo.is_trial) {
+    const existingTrial = db.prepare(
+      "SELECT id FROM challenges WHERE trader_id = ? AND plan = 'free_trial' LIMIT 1"
+    ).get(req.trader.id);
+    if (existingTrial) {
+      return res.status(409).json({
+        error: 'You have already used your free trial. Purchase a paid challenge to get funded.',
+      });
+    }
+  }
+
+  // Check for 20% retry discount (previous failed challenge of same paid plan)
+  const prevFailed = !planInfo.is_trial ? db.prepare(`
     SELECT id FROM challenges
     WHERE trader_id = ? AND plan = ? AND status = 'failed'
     ORDER BY created_at DESC LIMIT 1
-  `).get(req.trader.id, planKey);
+  `).get(req.trader.id, planKey) : null;
 
   const discount   = prevFailed ? 0.20 : 0;
   const fee        = Math.round(planInfo.fee * (1 - discount));

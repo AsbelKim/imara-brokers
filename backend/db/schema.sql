@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS traders (
 CREATE TABLE IF NOT EXISTS challenges (
   id             TEXT PRIMARY KEY,
   trader_id      TEXT NOT NULL REFERENCES traders(id) ON DELETE CASCADE,
-  plan           TEXT NOT NULL CHECK (plan IN ('starter','standard','advanced','elite','pro')),
+  plan           TEXT NOT NULL,
   account_size   INTEGER NOT NULL,
   fee            INTEGER NOT NULL,
   profit_split   INTEGER NOT NULL,

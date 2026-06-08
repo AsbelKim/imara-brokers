@@ -232,6 +232,15 @@
       if (error) showToast(error.message, 'error');
     }
 
+    // ── Free trial param ─────────────────────────────────────────────────────
+    const _isTrial = new URLSearchParams(window.location.search).get('trial') === '1';
+    if (_isTrial) sessionStorage.setItem('ilf_start_trial', '1');
+    function postAuthRedirect() {
+      const dest = sessionStorage.getItem('ilf_start_trial') ? 'dashboard.html?trial=1' : 'dashboard.html';
+      sessionStorage.removeItem('ilf_start_trial');
+      window.location.href = dest;
+    }
+
     // ── Email / password login ────────────────────────────────────────────────
     const API_BASE = '/api';
 
@@ -253,7 +262,7 @@
         if (!res.ok) { showToast(data.error || 'Login failed.', 'error'); return; }
         localStorage.setItem('ilf_token', data.token);
         localStorage.setItem('ilf_trader', JSON.stringify(data.trader));
-        window.location.href = 'dashboard.html';
+        postAuthRedirect();
       } catch { showToast('Could not reach the server.', 'error'); }
       finally { btn.textContent = origText; btn.disabled = false; }
     }

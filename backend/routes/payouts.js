@@ -105,6 +105,10 @@ router.post('/', (req, res) => {
     .get(challenge_id, req.trader.id);
   if (!ch) return res.status(404).json({ error: 'Challenge not found' });
 
+  if (ch.plan === 'free_trial') {
+    return res.status(400).json({ error: 'Payouts are not available on free trial accounts. Purchase a paid challenge to get funded.' });
+  }
+
   if (ch.status !== 'funded') {
     return res.status(400).json({ error: 'Payouts are only available on funded accounts' });
   }

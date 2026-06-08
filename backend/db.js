@@ -59,6 +59,42 @@ if (kycSql.includes('national_id_front')) {
 addCol('traders', 'kyc_status',          "TEXT NOT NULL DEFAULT 'not_started'");
 addCol('traders', 'agreement_signed_at', 'TEXT');
 
+// ── challenges: widen plan CHECK to include free_trial ────────────────────
+const chSql = db.prepare(
+  "SELECT sql FROM sqlite_master WHERE type='table' AND name='challenges'"
+).get()?.sql ?? '';
+
+if (chSql.includes("'starter','standard','advanced','elite','pro'") && !chSql.includes('free_trial')) {
+  db.exec(`
+    BEGIN;
+    ALTER TABLE challenges RENAME TO _challenges_v1;
+    CREATE TABLE challenges (
+      id             TEXT PRIMARY KEY,
+      trader_id      TEXT NOT NULL REFERENCES traders(id) ON DELETE CASCADE,
+      plan           TEXT NOT NULL,
+      account_size   INTEGER NOT NULL,
+      fee            INTEGER NOT NULL,
+      profit_split   INTEGER NOT NULL,
+      phase          INTEGER NOT NULL DEFAULT 1,
+      status         TEXT NOT NULL DEFAULT 'active'
+                       CHECK (status IN ('active','passed','failed','funded')),
+      profit_usd     REAL DEFAULT 0,
+      daily_loss_usd REAL DEFAULT 0,
+      drawdown_usd   REAL DEFAULT 0,
+      trading_days   INTEGER DEFAULT 0,
+      start_date     TEXT NOT NULL DEFAULT (date('now')),
+      created_at     TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_challenges_trader ON challenges(trader_id);
+    INSERT INTO challenges
+      SELECT id,trader_id,plan,account_size,fee,profit_split,phase,status,
+             profit_usd,daily_loss_usd,drawdown_usd,trading_days,start_date,created_at
+      FROM _challenges_v1;
+    DROP TABLE _challenges_v1;
+    COMMIT;
+  `);
+}
+
 // ── challenges: FTMO-rule columns ─────────────────────────────────────────
 addCol('challenges', 'profit_target_usd',    'REAL');
 addCol('challenges', 'daily_loss_limit_usd', 'REAL');

@@ -57,6 +57,7 @@ let kycDocs         = [];
 let kycStatus       = 'not_started';
 let active          = null; // active/most-relevant challenge
 let selectedPmId    = null; // chosen payment method for payout
+let trialStatus     = { has_trial: false, trial: null };
 
 function fmtMoney(n) {
   return '$' + Number(n || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -140,22 +141,69 @@ function renderTopbar() {
   if (chip) chip.textContent = active ? `USD ${Number(active.account_size).toLocaleString()}.00` : '—';
 }
 
+function renderTrialBanner(container) {
+  let banner = document.getElementById(‘trial-offer-banner’);
+  if (trialStatus.has_trial) {
+    if (banner) banner.remove();
+    return;
+  }
+  if (!banner) {
+    banner = document.createElement(‘div’);
+    banner.id = ‘trial-offer-banner’;
+    banner.style.cssText = ‘background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05));border:1px solid var(--accent);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;’;
+    banner.innerHTML = `
+      <div>
+        <p style="margin:0 0 0.25rem;font-weight:700;font-size:1rem;color:var(--accent);">Try IMARA Free — $5,000 Practice Account</p>
+        <p style="margin:0;font-size:0.85rem;color:var(--muted);">No payment required. Same rules as the real challenge. One free trial per account.</p>
+      </div>
+      <button id="start-trial-btn" class="btn-primary" style="white-space:nowrap;padding:0.55rem 1.25rem;">Start Free Trial</button>
+    `;
+    container.insertBefore(banner, container.firstChild);
+
+    document.getElementById(‘start-trial-btn’).addEventListener(‘click’, async () => {
+      const btn = document.getElementById(‘start-trial-btn’);
+      btn.disabled = true; btn.textContent = ‘Starting…’;
+      try {
+        await authFetch(‘/challenges’, {
+          method: ‘POST’,
+          headers: { ‘Content-Type’: ‘application/json’ },
+          body: JSON.stringify({ plan: ‘free_trial’ }),
+        });
+        dashToast(‘Free trial started! Your $5,000 practice account is ready.’, ‘success’);
+        challenges     = await authFetch(‘/challenges’);
+        trialStatus    = await authFetch(‘/challenges/trial-status’);
+        active         = pickActive(challenges);
+        renderTrialBanner(container);
+        renderOverview();
+        renderChallenges();
+      } catch (err) {
+        dashToast(err.message || ‘Could not start free trial’, ‘error’);
+        btn.disabled = false; btn.textContent = ‘Start Free Trial’;
+      }
+    });
+  }
+}
+
 function renderOverview() {
-  const overview = document.getElementById('tab-overview');
+  const overview = document.getElementById(‘tab-overview’);
   if (!overview) return;
 
-  const banner = overview.querySelector('.eval-banner');
-  const statsWrap = overview.querySelector('.dash-stats');
-  const tradesPanel = overview.querySelector('.mini-trades-panel');
+  const banner = overview.querySelector(‘.eval-banner’);
+  const statsWrap = overview.querySelector(‘.dash-stats’);
+  const tradesPanel = overview.querySelector(‘.mini-trades-panel’);
+
+  // Inject trial offer if applicable
+  const overviewInner = overview.querySelector(‘.tab-inner’) ?? overview;
+  renderTrialBanner(overviewInner);
 
   if (!active) {
     banner.replaceWith(emptyState(
-      'You don’t have an active challenge yet. Start one to see your evaluation progress here.',
-      'View Challenge Plans', () => { window.location.href = 'index.html#challenges'; }
+      ‘You don\’t have an active challenge yet. Start a free trial or choose a plan.’,
+      ‘View Challenge Plans’, () => { window.location.href = ‘index.html#challenges’; }
     ));
-    statsWrap.style.display = 'none';
-    const tbl = tradesPanel.querySelector('table');
-    if (tbl) tbl.replaceWith(emptyState('No trade activity yet.'));
+    statsWrap.style.display = ‘none’;
+    const tbl = tradesPanel.querySelector(‘table’);
+    if (tbl) tbl.replaceWith(emptyState(‘No trade activity yet.’));
     return;
   }
 
@@ -231,7 +279,10 @@ function renderChallenges() {
 
     card.querySelector('.ch-phase-badge').textContent = PHASE_LABELS[active.phase] || `Phase ${active.phase}`;
     card.querySelector('.ch-status-badge').textContent = STATUS_BADGES[active.status] || active.status;
-    card.querySelector('.ch-title').textContent = `${PLAN_LABELS[active.plan] || active.plan} Challenge — $${active.account_size.toLocaleString()}`;
+    const isTrial = active.plan === 'free_trial';
+    card.querySelector('.ch-title').textContent = isTrial
+      ? `Free Trial — $${active.account_size.toLocaleString()} Practice Account`
+      : `${PLAN_LABELS[active.plan] || active.plan} Challenge — $${active.account_size.toLocaleString()}`;
     const deadlineStr = active.deadline ? ` &bull; Deadline: <strong>${fmtDate(active.deadline)}</strong>` : '';
     card.querySelector('.ch-sub').innerHTML = `Started ${fmtDate(active.start_date)} &bull; ${elapsed} of ${maxDays ?? '—'} days elapsed${deadlineStr} &bull; Fee paid: <strong>$${active.fee}</strong> (refunded on first payout)`;
     card.querySelector('.ch-progress-row').innerHTML =
@@ -298,10 +349,13 @@ function renderChallenges() {
     } else {
       challenges.forEach(c => {
         const statusCls = c.status === 'active' ? 'status-open' : 'status-closed';
+        const planLabel = c.plan === 'free_trial'
+          ? '<span style="color:var(--accent);font-weight:700;">Free Trial</span>'
+          : `<strong>${esc(PLAN_LABELS[c.plan] || c.plan)}</strong>`;
         histBody.innerHTML += `<tr>
-          <td><strong>${esc(PLAN_LABELS[c.plan] || c.plan)}</strong></td>
+          <td>${planLabel}</td>
           <td>$${Number(c.account_size).toLocaleString()}</td>
-          <td>$${c.fee}</td>
+          <td>${c.plan === 'free_trial' ? '<span style="color:var(--accent);">Free</span>' : `$${c.fee}`}</td>
           <td>${fmtDate(c.start_date)}</td>
           <td><span class="${statusCls}">${esc(STATUS_BADGES[c.status] || c.status)}</span></td>
         </tr>`;
@@ -369,7 +423,14 @@ function renderPayout() {
   const formCard  = tab.querySelector(‘.payout-form-card’);
   const rulesCard = tab.querySelector(‘.payout-rules-card’);
 
-  if (!active) {
+  if (active?.plan === ‘free_trial’) {
+    availCard.querySelector(‘.payout-avail-amount’).textContent = ‘N/A’;
+    availCard.querySelector(‘.payout-avail-sub’).textContent = ‘Free trial accounts do not earn real payouts.’;
+    notice.innerHTML = `<strong>🎓 This is a free trial account.</strong> Pass the evaluation to prove your skills, then purchase a paid challenge to earn real payouts. <a href="index.html#challenges" style="color:var(--accent);">View plans →</a>`;
+    formCard.style.display = ‘none’;
+    const splitRow = rulesCard.querySelector(‘.prule:nth-child(4) p’);
+    if (splitRow) splitRow.innerHTML = `Free trial — no real payouts`;
+  } else if (!active) {
     availCard.querySelector(‘.payout-avail-amount’).textContent = ‘$0.00’;
     availCard.querySelector(‘.payout-avail-sub’).textContent = ‘Start and pass a challenge to unlock payouts.’;
     notice.innerHTML = ‘<strong>🔒 Payouts are locked</strong> — payouts become available once you have a funded account.’;
@@ -898,12 +959,13 @@ async function viewKycFile(docId) {
 // ── Bootstrap ────────────────────────────────────────────────────
 async function loadAll() {
   try {
-    const [t, c, p, pm, kycData] = await Promise.all([
+    const [t, c, p, pm, kycData, ts] = await Promise.all([
       authFetch('/auth/me'),
       authFetch('/challenges'),
       authFetch('/payouts'),
       authFetch('/payments'),
       authFetch('/kyc'),
+      authFetch('/challenges/trial-status'),
     ]);
     trader          = t;
     challenges      = c;
@@ -911,6 +973,7 @@ async function loadAll() {
     paymentMethods  = pm;
     kycDocs         = kycData.documents   ?? kycData ?? [];
     kycStatus       = kycData.kyc_status  ?? 'not_started';
+    trialStatus     = ts;
   } catch (err) {
     dashToast(err.message || 'Could not load your account — please refresh', 'error');
     return;
@@ -968,5 +1031,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  loadAll();
+  loadAll().then(async () => {
+    // Auto-start free trial if redirected from ?trial=1
+    if (new URLSearchParams(window.location.search).get('trial') === '1' && !trialStatus.has_trial) {
+      try {
+        await authFetch('/challenges', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan: 'free_trial' }),
+        });
+        dashToast('Free trial started! Your $5,000 practice account is ready.', 'success');
+        challenges  = await authFetch('/challenges');
+        trialStatus = await authFetch('/challenges/trial-status');
+        active      = pickActive(challenges);
+        renderOverview();
+        renderChallenges();
+      } catch (err) {
+        dashToast(err.message || 'Could not start free trial', 'error');
+      }
+      // Clean URL
+      window.history.replaceState({}, '', 'dashboard.html');
+    }
+  });
 });
