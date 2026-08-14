@@ -142,15 +142,15 @@ function renderTopbar() {
 }
 
 function renderTrialBanner(container) {
-  let banner = document.getElementById(‘trial-offer-banner’);
+  let banner = document.getElementById('trial-offer-banner');
   if (trialStatus.has_trial) {
     if (banner) banner.remove();
     return;
   }
   if (!banner) {
-    banner = document.createElement(‘div’);
-    banner.id = ‘trial-offer-banner’;
-    banner.style.cssText = ‘background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05));border:1px solid var(--accent);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;’;
+    banner = document.createElement('div');
+    banner.id = 'trial-offer-banner';
+    banner.style.cssText = 'background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05));border:1px solid var(--accent);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;';
     banner.innerHTML = `
       <div>
         <p style="margin:0 0 0.25rem;font-weight:700;font-size:1rem;color:var(--accent);">Try IMARA Free — $5,000 Practice Account</p>
@@ -160,50 +160,50 @@ function renderTrialBanner(container) {
     `;
     container.insertBefore(banner, container.firstChild);
 
-    document.getElementById(‘start-trial-btn’).addEventListener(‘click’, async () => {
-      const btn = document.getElementById(‘start-trial-btn’);
-      btn.disabled = true; btn.textContent = ‘Starting…’;
+    document.getElementById('start-trial-btn').addEventListener('click', async () => {
+      const btn = document.getElementById('start-trial-btn');
+      btn.disabled = true; btn.textContent = 'Starting…';
       try {
-        await authFetch(‘/challenges’, {
-          method: ‘POST’,
-          headers: { ‘Content-Type’: ‘application/json’ },
-          body: JSON.stringify({ plan: ‘free_trial’ }),
+        await authFetch('/challenges', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ plan: 'free_trial' }),
         });
-        dashToast(‘Free trial started! Your $5,000 practice account is ready.’, ‘success’);
-        challenges     = await authFetch(‘/challenges’);
-        trialStatus    = await authFetch(‘/challenges/trial-status’);
+        dashToast('Free trial started! Your $5,000 practice account is ready.', 'success');
+        challenges     = await authFetch('/challenges');
+        trialStatus    = await authFetch('/challenges/trial-status');
         active         = pickActive(challenges);
         renderTrialBanner(container);
         renderOverview();
         renderChallenges();
       } catch (err) {
-        dashToast(err.message || ‘Could not start free trial’, ‘error’);
-        btn.disabled = false; btn.textContent = ‘Start Free Trial’;
+        dashToast(err.message || 'Could not start free trial', 'error');
+        btn.disabled = false; btn.textContent = 'Start Free Trial';
       }
     });
   }
 }
 
 function renderOverview() {
-  const overview = document.getElementById(‘tab-overview’);
+  const overview = document.getElementById('tab-overview');
   if (!overview) return;
 
-  const banner = overview.querySelector(‘.eval-banner’);
-  const statsWrap = overview.querySelector(‘.dash-stats’);
-  const tradesPanel = overview.querySelector(‘.mini-trades-panel’);
+  const banner = overview.querySelector('.eval-banner');
+  const statsWrap = overview.querySelector('.dash-stats');
+  const tradesPanel = overview.querySelector('.mini-trades-panel');
 
   // Inject trial offer if applicable
-  const overviewInner = overview.querySelector(‘.tab-inner’) ?? overview;
+  const overviewInner = overview.querySelector('.tab-inner') ?? overview;
   renderTrialBanner(overviewInner);
 
   if (!active) {
     banner.replaceWith(emptyState(
-      ‘You don\’t have an active challenge yet. Start a free trial or choose a plan.’,
-      ‘View Challenge Plans’, () => { window.location.href = ‘index.html#challenges’; }
+      'You don\'t have an active challenge yet. Start a free trial or choose a plan.',
+      'View Challenge Plans', () => { window.location.href = 'index.html#challenges'; }
     ));
-    statsWrap.style.display = ‘none’;
-    const tbl = tradesPanel.querySelector(‘table’);
-    if (tbl) tbl.replaceWith(emptyState(‘No trade activity yet.’));
+    statsWrap.style.display = 'none';
+    const tbl = tradesPanel.querySelector('table');
+    if (tbl) tbl.replaceWith(emptyState('No trade activity yet.'));
     return;
   }
 
@@ -263,7 +263,7 @@ function renderChallenges() {
 
   if (!active) {
     card.replaceWith(emptyState(
-      'You haven’t started a challenge yet. Choose a plan to begin your evaluation.',
+      "You haven't started a challenge yet. Choose a plan to begin your evaluation.",
       'View Challenge Plans', () => { window.location.href = 'index.html#challenges'; }
     ));
   } else {
@@ -378,12 +378,12 @@ function renderTradeHistory() {
   if (filter) filter.style.display = 'none';
 }
 
-const METHOD_LABELS = { mpesa: ‘M-Pesa’, bank_transfer: ‘Bank Transfer’, crypto: ‘Crypto’, skrill: ‘Skrill’ };
+const METHOD_LABELS = { mpesa: 'M-Pesa', bank_transfer: 'Bank Transfer', crypto: 'Crypto', skrill: 'Skrill' };
 
 function renderPayoutMethods() {
-  const list = document.getElementById(‘payout-methods-list’);
+  const list = document.getElementById('payout-methods-list');
   if (!list) return;
-  list.innerHTML = ‘’;
+  list.innerHTML = '';
   selectedPmId = null;
 
   if (!paymentMethods.length) {
@@ -394,89 +394,89 @@ function renderPayoutMethods() {
   paymentMethods.forEach((pm, i) => {
     const id = `pm-${pm.id}`;
     const isDefault = pm.is_default === 1;
-    const div = document.createElement(‘div’);
-    div.className = ‘method-opt’;
+    const div = document.createElement('div');
+    div.className = 'method-opt';
     div.innerHTML = `
-      <input type="radio" name="pm_sel" id="${id}" value="${pm.id}" ${isDefault ? ‘checked’ : ‘’}>
+      <input type="radio" name="pm_sel" id="${id}" value="${pm.id}" ${isDefault ? 'checked' : ''}>
       <label for="${id}" class="method-label">
-        <span style="font-size:1.1rem;">${pm.type === ‘mpesa’ ? ‘📱’ : pm.type === ‘bank_transfer’ ? ‘🏦’ : pm.type === ‘crypto’ ? ‘🪙’ : ‘💳’}</span>
+        <span style="font-size:1.1rem;">${pm.type === 'mpesa' ? '📱' : pm.type === 'bank_transfer' ? '🏦' : pm.type === 'crypto' ? '🪙' : '💳'}</span>
         <div>
           <span>${esc(pm.label)}</span><br/>
-          <small>${METHOD_LABELS[pm.type] || pm.type}${isDefault ? ‘ &bull; Default’ : ‘’}</small>
+          <small>${METHOD_LABELS[pm.type] || pm.type}${isDefault ? ' &bull; Default' : ''}</small>
         </div>
       </label>`;
     list.appendChild(div);
     if (isDefault || i === 0) selectedPmId = pm.id;
   });
 
-  list.querySelectorAll(‘input[name="pm_sel"]’).forEach(r => {
-    r.addEventListener(‘change’, () => { selectedPmId = r.value; });
+  list.querySelectorAll('input[name="pm_sel"]').forEach(r => {
+    r.addEventListener('change', () => { selectedPmId = r.value; });
   });
 }
 
 function renderPayout() {
-  const tab = document.getElementById(‘tab-payout’);
+  const tab = document.getElementById('tab-payout');
   if (!tab) return;
 
-  const availCard = tab.querySelector(‘.payout-avail-card’);
-  const notice    = tab.querySelector(‘.payout-notice’);
-  const formCard  = tab.querySelector(‘.payout-form-card’);
-  const rulesCard = tab.querySelector(‘.payout-rules-card’);
+  const availCard = tab.querySelector('.payout-avail-card');
+  const notice    = tab.querySelector('.payout-notice');
+  const formCard  = tab.querySelector('.payout-form-card');
+  const rulesCard = tab.querySelector('.payout-rules-card');
 
-  if (active?.plan === ‘free_trial’) {
-    availCard.querySelector(‘.payout-avail-amount’).textContent = ‘N/A’;
-    availCard.querySelector(‘.payout-avail-sub’).textContent = ‘Free trial accounts do not earn real payouts.’;
+  if (active?.plan === 'free_trial') {
+    availCard.querySelector('.payout-avail-amount').textContent = 'N/A';
+    availCard.querySelector('.payout-avail-sub').textContent = 'Free trial accounts do not earn real payouts.';
     notice.innerHTML = `<strong>🎓 This is a free trial account.</strong> Pass the evaluation to prove your skills, then purchase a paid challenge to earn real payouts. <a href="index.html#challenges" style="color:var(--accent);">View plans →</a>`;
-    formCard.style.display = ‘none’;
-    const splitRow = rulesCard.querySelector(‘.prule:nth-child(4) p’);
+    formCard.style.display = 'none';
+    const splitRow = rulesCard.querySelector('.prule:nth-child(4) p');
     if (splitRow) splitRow.innerHTML = `Free trial — no real payouts`;
   } else if (!active) {
-    availCard.querySelector(‘.payout-avail-amount’).textContent = ‘$0.00’;
-    availCard.querySelector(‘.payout-avail-sub’).textContent = ‘Start and pass a challenge to unlock payouts.’;
-    notice.innerHTML = ‘<strong>🔒 Payouts are locked</strong> — payouts become available once you have a funded account.’;
-    formCard.style.display = ‘none’;
+    availCard.querySelector('.payout-avail-amount').textContent = '$0.00';
+    availCard.querySelector('.payout-avail-sub').textContent = 'Start and pass a challenge to unlock payouts.';
+    notice.innerHTML = '<strong>🔒 Payouts are locked</strong> — payouts become available once you have a funded account.';
+    formCard.style.display = 'none';
   } else {
     const available = (active.profit_usd * active.profit_split) / 100;
-    availCard.querySelector(‘.payout-avail-label’).textContent = `Available Profit (${active.profit_split}% split)`;
-    availCard.querySelector(‘.payout-avail-amount’).textContent = fmtMoney(Math.max(0, available));
-    availCard.querySelector(‘.payout-avail-sub’).textContent = `From ${fmtMoney(active.profit_usd)} gross profit • ${PLAN_LABELS[active.plan] || active.plan} plan — ${active.profit_split}% share`;
+    availCard.querySelector('.payout-avail-label').textContent = `Available Profit (${active.profit_split}% split)`;
+    availCard.querySelector('.payout-avail-amount').textContent = fmtMoney(Math.max(0, available));
+    availCard.querySelector('.payout-avail-sub').textContent = `From ${fmtMoney(active.profit_usd)} gross profit • ${PLAN_LABELS[active.plan] || active.plan} plan — ${active.profit_split}% share`;
 
-    if (active.status !== ‘funded’) {
-      notice.innerHTML = ‘<strong>🔒 Not yet funded</strong> — payouts unlock once you pass your evaluation and move to a funded account.’;
-      formCard.style.display = ‘none’;
+    if (active.status !== 'funded') {
+      notice.innerHTML = '<strong>🔒 Not yet funded</strong> — payouts unlock once you pass your evaluation and move to a funded account.';
+      formCard.style.display = 'none';
     } else {
       const daysFunded = active.funded_at ? Math.floor((Date.now() - new Date(active.funded_at).getTime()) / 86_400_000) : daysSince(active.start_date);
       if (daysFunded < 14) {
         const remaining = 14 - daysFunded;
-        notice.innerHTML = `<strong>⏳ Payout available in ${remaining} day${remaining !== 1 ? ‘s’ : ‘’}</strong> — your first payout unlocks after 14 days of funded trading. You’re at day ${daysFunded}.`;
+        notice.innerHTML = `<strong>⏳ Payout available in ${remaining} day${remaining !== 1 ? 's' : ''}</strong> — your first payout unlocks after 14 days of funded trading. You're at day ${daysFunded}.`;
       } else {
-        notice.innerHTML = `<strong>✅ You’re eligible for payout</strong> — submit your request below.`;
+        notice.innerHTML = `<strong>✅ You're eligible for payout</strong> — submit your request below.`;
       }
-      formCard.style.display = ‘’;
+      formCard.style.display = '';
     }
 
-    const splitRow = rulesCard.querySelector(‘.prule:nth-child(4) p’);
+    const splitRow = rulesCard.querySelector('.prule:nth-child(4) p');
     if (splitRow) splitRow.innerHTML = `Your profit share: <strong>${active.profit_split}%</strong> (${PLAN_LABELS[active.plan] || active.plan} plan)`;
   }
 
   renderPayoutMethods();
 
   // Recent payout requests
-  let histWrap = tab.querySelector(‘.payout-history-card’);
+  let histWrap = tab.querySelector('.payout-history-card');
   if (!histWrap) {
-    histWrap = document.createElement(‘div’);
-    histWrap.className = ‘ch-history-card payout-history-card’;
-    histWrap.style.marginTop = ‘1.25rem’;
+    histWrap = document.createElement('div');
+    histWrap.className = 'ch-history-card payout-history-card';
+    histWrap.style.marginTop = '1.25rem';
     histWrap.innerHTML = `<h3>Recent Payout Requests</h3><table class="trade-table"><thead><tr><th>Amount</th><th>Method</th><th>Requested</th><th>Status</th></tr></thead><tbody></tbody></table>`;
     formCard.parentElement.appendChild(histWrap);
   }
-  const pBody = histWrap.querySelector(‘tbody’);
-  pBody.innerHTML = ‘’;
+  const pBody = histWrap.querySelector('tbody');
+  pBody.innerHTML = '';
   if (!payouts.length) {
     pBody.innerHTML = `<tr><td colspan="4" style="color:var(--muted);text-align:center;padding:1.25rem;">No payout requests yet</td></tr>`;
   } else {
     payouts.forEach(p => {
-      const statusCls = p.status === ‘paid’ ? ‘status-closed’ : ‘status-open’;
+      const statusCls = p.status === 'paid' ? 'status-closed' : 'status-open';
       pBody.innerHTML += `<tr>
         <td><strong>${fmtMoney(p.amount_usd)}</strong></td>
         <td>${METHOD_LABELS[p.method] || esc(p.method)}</td>

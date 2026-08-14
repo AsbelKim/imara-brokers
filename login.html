@@ -216,7 +216,10 @@
 
   <div class="toast" id="toast"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!-- Social login provider SDKs -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://connect.facebook.net/en_US/sdk.js" async defer crossorigin="anonymous"></script>
+  <script src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js" async defer></script>
   <script>
     // ── Languages config ──────────────────────────────────────────────────────
     const LANGS = [
@@ -319,31 +322,101 @@
       applyLang(code);
     })();
 
-    // ── Supabase OAuth ────────────────────────────────────────────────────────
-    const SUPABASE_URL  = 'https://rvrcxtcsyixrcifcdkwt.supabase.co';
-    const SUPABASE_ANON_KEY = ''; // Paste your anon/public key from Supabase → Settings → API
+    // ── Social OAuth (direct provider SDKs — no third-party auth service) ─────
+    // Fill in your credentials from each provider's developer console:
+    //   Google  : console.cloud.google.com → APIs & Services → Credentials → OAuth 2.0 Client ID
+    //   Facebook: developers.facebook.com  → My Apps → Facebook Login → Settings → App ID
+    //   Apple   : developer.apple.com      → Identifiers → Services IDs → your service ID
+    const GOOGLE_CLIENT_ID = '';   // e.g. 123456789-abc.apps.googleusercontent.com
+    const FACEBOOK_APP_ID  = '';   // e.g. 1234567890123456
+    const APPLE_SERVICE_ID = '';   // e.g. com.yourdomain.login
 
-    let _sb = null;
-    let _oauthEmail = null;
+    let _oauthEmail   = null;
+    let _pendingToken = null;
+    let _googleClient = null;
 
-    function getSB() {
-      if (!_sb && SUPABASE_ANON_KEY) _sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      return _sb;
+    // Init Google token client (called once GSI script loads)
+    function _initGoogleClient() {
+      if (!GOOGLE_CLIENT_ID || !window.google?.accounts?.oauth2) return;
+      _googleClient = google.accounts.oauth2.initTokenClient({
+        client_id: GOOGLE_CLIENT_ID,
+        scope: 'email profile',
+        callback: async (resp) => {
+          if (resp.error) { showToast('Google sign-in failed: ' + resp.error, 'error'); return; }
+          await _handleSocialToken('google', { access_token: resp.access_token });
+        },
+      });
     }
+
+    // Facebook SDK init — called automatically by the FB async loader
+    window.fbAsyncInit = function () {
+      if (!FACEBOOK_APP_ID) return;
+      FB.init({ appId: FACEBOOK_APP_ID, cookie: true, xfbml: false, version: 'v19.0' });
+    };
 
     async function socialLogin(provider) {
-      const sb = getSB();
-      if (!sb) {
-        showToast('Social login is not yet configured.', 'error');
-        return;
+      if (provider === 'google') {
+        if (!GOOGLE_CLIENT_ID) { showToast('Google sign-in is not configured yet.', 'error'); return; }
+        if (!_googleClient) _initGoogleClient();
+        if (!_googleClient) { showToast('Google SDK not ready — please refresh and try again.', 'error'); return; }
+        _googleClient.requestAccessToken({ prompt: '' });
+
+      } else if (provider === 'facebook') {
+        if (!FACEBOOK_APP_ID) { showToast('Facebook sign-in is not configured yet.', 'error'); return; }
+        if (!window.FB)        { showToast('Facebook SDK not loaded — please refresh and try again.', 'error'); return; }
+        FB.login(async (resp) => {
+          if (!resp.authResponse) return;
+          await _handleSocialToken('facebook', { access_token: resp.authResponse.accessToken });
+        }, { scope: 'email,public_profile' });
+
+      } else if (provider === 'apple') {
+        if (!APPLE_SERVICE_ID) { showToast('Apple sign-in is not configured yet.', 'error'); return; }
+        if (!window.AppleID)   { showToast('Apple SDK not loaded — please refresh and try again.', 'error'); return; }
+        AppleID.auth.init({
+          clientId: APPLE_SERVICE_ID,
+          scope: 'name email',
+          redirectURI: window.location.origin + '/login.html',
+          usePopup: true,
+        });
+        try {
+          const data = await AppleID.auth.signIn();
+          const name = data.user
+            ? `${data.user.name?.firstName || ''} ${data.user.name?.lastName || ''}`.trim()
+            : '';
+          await _handleSocialToken('apple', { id_token: data.authorization.id_token, name });
+        } catch (err) {
+          if (err.error && err.error !== 'popup_closed_by_user') {
+            showToast(err.error || 'Apple sign-in failed.', 'error');
+          }
+        }
       }
-      const { error } = await sb.auth.signInWithOAuth({
-        provider,
-        // Redirect back to login.html so we can show the onboarding modal
-        options: { redirectTo: window.location.origin + '/login.html' }
-      });
-      if (error) showToast(error.message, 'error');
     }
+
+    // Verify social token on the backend then log in or show onboarding
+    async function _handleSocialToken(provider, params) {
+      try {
+        const res = await fetch(`${API_BASE}/auth/social-verify`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ provider, ...params }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Verification failed');
+
+        if (!data.is_new) {
+          localStorage.setItem('ilf_token',  data.token);
+          localStorage.setItem('ilf_trader', JSON.stringify(data.trader));
+          postAuthRedirect();
+        } else {
+          _pendingToken = data.pending_token;
+          showOnboarding(data.email, data.name || '');
+        }
+      } catch (err) {
+        showToast(err.message || 'Sign-in failed. Please try again.', 'error');
+      }
+    }
+
+    window.addEventListener('load', _initGoogleClient);
 
     // ── Free trial param & password reset detection ───────────────────────────
     const _isTrial    = new URLSearchParams(window.location.search).get('trial') === '1';
@@ -596,20 +669,6 @@
       document.getElementById('onboarding-overlay').style.display = 'flex';
     }
 
-    async function checkOAuthReturn() {
-      if (!window.location.hash.includes('access_token')) return;
-      const sb = getSB();
-      if (!sb) return;
-      try {
-        const { data: { session } } = await sb.auth.getSession();
-        if (!session) return;
-        if (localStorage.getItem('ilf_token') && !_resetToken) { postAuthRedirect(); return; }
-        const meta = session.user.user_metadata ?? {};
-        showOnboarding(session.user.email, meta.full_name || meta.name || '');
-        window.history.replaceState(null, '', window.location.pathname + window.location.search);
-      } catch {}
-    }
-
     async function submitOnboarding(e) {
       e.preventDefault();
       const first   = document.getElementById('ob-first').value.trim();
@@ -631,7 +690,7 @@
         const res = await fetch(`${API_BASE}/auth/social-complete`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: _oauthEmail, full_name: `${first} ${last}`, phone, country }),
+          body: JSON.stringify({ email: _oauthEmail, full_name: `${first} ${last}`, phone, country, pending_token: _pendingToken }),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Registration failed');
@@ -644,8 +703,6 @@
       }
     }
 
-    // Detect OAuth return on page load
-    checkOAuthReturn().catch(() => {});
   </script>
 
 </body>

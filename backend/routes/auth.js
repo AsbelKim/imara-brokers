@@ -176,16 +176,90 @@ router.patch('/me', requireAuth, (req, res) => {
   res.json(data);
 });
 
-// POST /api/auth/social-complete  — create or update account after OAuth
+// POST /api/auth/social-verify — verify a social provider token server-side
+router.post('/social-verify', async (req, res) => {
+  const { provider, access_token, id_token, name: nameHint } = req.body;
+  if (!provider) return res.status(400).json({ error: 'provider is required' });
+
+  let email, name;
+
+  try {
+    if (provider === 'google') {
+      if (!access_token) return res.status(400).json({ error: 'access_token required for Google' });
+      const r = await fetch('https://www.googleapis.com/oauth2/v2/userinfo', {
+        headers: { Authorization: `Bearer ${access_token}` },
+      });
+      const info = await r.json();
+      if (!r.ok || info.error) return res.status(401).json({ error: 'Invalid Google token' });
+      if (!info.email) return res.status(401).json({ error: 'Google did not return an email address' });
+      email = info.email;
+      name  = info.name || '';
+
+    } else if (provider === 'facebook') {
+      if (!access_token) return res.status(400).json({ error: 'access_token required for Facebook' });
+      const r = await fetch(`https://graph.facebook.com/me?fields=email,name&access_token=${encodeURIComponent(access_token)}`);
+      const info = await r.json();
+      if (!r.ok || info.error) return res.status(401).json({ error: info.error?.message || 'Invalid Facebook token' });
+      if (!info.email) return res.status(400).json({ error: 'Your Facebook account has no email address. Please sign up with email instead.' });
+      email = info.email;
+      name  = info.name || '';
+
+    } else if (provider === 'apple') {
+      if (!id_token) return res.status(400).json({ error: 'id_token required for Apple' });
+      // Decode Apple JWT payload (base64url → base64 → JSON)
+      const b64 = id_token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+      const payload = JSON.parse(Buffer.from(b64, 'base64').toString('utf8'));
+      if (!payload.email) return res.status(400).json({ error: 'Apple token did not include an email address' });
+      email = payload.email;
+      name  = nameHint || '';
+
+    } else {
+      return res.status(400).json({ error: `Unknown provider: ${provider}` });
+    }
+  } catch (err) {
+    console.error(`social-verify error (${provider}):`, err.message);
+    return res.status(401).json({ error: 'Social verification failed. Please try again.' });
+  }
+
+  const normalizedEmail = email.toLowerCase().trim();
+  const existing = db.prepare('SELECT * FROM traders WHERE email = ?').get(normalizedEmail);
+
+  if (existing) {
+    const trader = db.prepare(`SELECT ${PUBLIC_FIELDS} FROM traders WHERE id = ?`).get(existing.id);
+    return res.json({ is_new: false, token: signToken(trader), trader });
+  }
+
+  // New user — issue a 15-minute pending token so social-complete can trust the verified email
+  const pendingToken = jwt.sign(
+    { email: normalizedEmail, type: 'social_pending' },
+    process.env.JWT_SECRET,
+    { expiresIn: '15m' }
+  );
+  res.json({ is_new: true, email: normalizedEmail, name, pending_token: pendingToken });
+});
+
+// POST /api/auth/social-complete  — create or update account after OAuth onboarding
 router.post('/social-complete', async (req, res) => {
-  const { email, full_name, phone, country } = req.body;
+  const { email, full_name, phone, country, pending_token } = req.body;
 
   if (!email || !full_name) {
     return res.status(400).json({ error: 'email and full_name are required' });
   }
 
   const normalizedEmail = email.toLowerCase().trim();
+
+  // For new social accounts a valid pending_token is required to prevent
+  // arbitrary account creation with any email address
   const existing = db.prepare('SELECT * FROM traders WHERE email = ?').get(normalizedEmail);
+  if (!existing) {
+    if (!pending_token) return res.status(401).json({ error: 'Social session token is required for new accounts' });
+    let payload;
+    try { payload = jwt.verify(pending_token, process.env.JWT_SECRET); }
+    catch { return res.status(401).json({ error: 'Social session expired. Please sign in again.' }); }
+    if (payload.type !== 'social_pending' || payload.email !== normalizedEmail) {
+      return res.status(401).json({ error: 'Social session mismatch. Please sign in again.' });
+    }
+  }
 
   if (existing) {
     db.prepare('UPDATE traders SET full_name = ?, phone = ?, country = ?, updated_at = ? WHERE id = ?')
